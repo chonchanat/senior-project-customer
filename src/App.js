@@ -1,25 +1,58 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import {
+    createBrowserRouter,
+    Navigate
+} from "react-router-dom";
+
+import { CustomerLogin } from './pages/Login';
+
+import CustomerHome from './pages/CustomerHome';
+import CustomerActivity from './pages/CustomerActivity';
+import CustomerBookQueue from './pages/CustomerBookQueue';
+import CustomerMap from './pages/CustomerMap';
+import CustomerMyActivity from './pages/CustomerMyActivity';
+import CustomerScan from './pages/CustomerScan';
+
+// import Test from './pages/Test';
+
+const App = createBrowserRouter([
+    {
+        path: "/customer-login",
+        element: <CustomerLogin />,
+    },
+    {
+        path: "/customer-home",
+        element: <CustomerHome />,
+    },
+    {
+        path: "/customer-activity",
+        element: <CustomerActivity />,
+    },
+    {
+        path: "/customer-bookqueue",
+        element: <CustomerBookQueue />,
+    },
+    {
+        path: "/customer-map",
+        element: <CustomerMap />,
+    },
+    {
+        path: "/customer-myactivity",
+        element: <CustomerMyActivity />,
+    },
+    {
+        path: "/customer-scan",
+        element: <CustomerScan />,
+    },
+    {
+        path: "/*",
+        element: <Navigate to="/customer-login" />,
+    },
+  //   {
+  //     path: "/test",
+  //     element: <Test />,
+  // },
+]);
 
 export default App;
