@@ -13,9 +13,7 @@ function Card({ title, bgColor, link, icon }) {
     return (
         <div className="w-[48%] h-[120px] rounded-xl mb-4 pb-1 py-3 shadow-lg flex flex-col items-center justify-between" style={{ backgroundColor: bgColor }}
             onClick={goToLink}>
-            <div className={`bg-white w-fit rounded-xl text-[${bgColor}]`}>
-                {icon}
-            </div>
+            {icon}
             <p className="text-white font-bold">{title}</p>
         </div>
     );

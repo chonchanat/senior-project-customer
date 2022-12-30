@@ -21,7 +21,10 @@ function CustomerHome() {
                                 <img src={fakeData[0].image} alt="img of activity" />
                             </div>
                             <div className="flex flex-col justify-between">
-                                <p className="text-xl font-bold">{fakeData[0].nameOfAct}</p>
+                                <div>
+                                    <p className="text-xl font-bold">{fakeData[0].nameOfAct}</p>
+                                    <p className="text-xs">จำนวนผู้เข้าร่วม 4 คน</p>
+                                </div>
                                 <div className="flex justify-between">
                                     <div>
                                         <p className="text-xs">เวลารอคิว</p>
@@ -37,10 +40,10 @@ function CustomerHome() {
                     </CardWithHead>
                 }
                 <div className="flex flex-wrap justify-between">
-                    <Card title="จองคิว" bgColor="#DFD1C6" link="/customer-scan" icon={<TbQrcode size="72px" />} />
-                    <Card title="รายการคิว" bgColor="#BBF38F" link="/customer-myactivity" icon={<GoListUnordered size="72px" />} />
-                    <Card title="แผนที่" bgColor="#E38181" link="/customer-map" icon={<BiMapPin size="72px" />} />
-                    <Card title="กิจกรรมทั้งหมด" bgColor="#F7EB84" link="/customer-activity" icon={<BiBookContent size="72px" />} />
+                    <Card title="จองคิว" bgColor="#DFD1C6" link="/customer-scan" icon={<TbQrcode size="72px" className="text-[#DFD1C6] bg-white rounded-xl" />} />
+                    <Card title="รายการคิว" bgColor="#BBF38F" link="/customer-myactivity" icon={<GoListUnordered size="72px" className="text-[#BBF38F] bg-white rounded-xl" />} />
+                    <Card title="แผนที่" bgColor="#E38181" link="/customer-map" icon={<BiMapPin size="72px" className="text-[#E38181] bg-white rounded-xl" />} />
+                    <Card title="กิจกรรมทั้งหมด" bgColor="#F7EB84" link="/customer-activity" icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} />
                 </div>
                 {/* <input type="file" accept="image/*" capture="environment"></input> */}
             </BlockMobile>
