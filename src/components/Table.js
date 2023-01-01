@@ -20,18 +20,18 @@ function MobileList({ MyActivity, index }) {
                 <img src={MyActivity.image} alt="iamge of activity" />
             </div>
             <div className="w-[70%] pl-4">
-                <p className="font-bold">{MyActivity.nameOfAct}</p>
+                <p className="font-bold">{MyActivity.name}</p>
                 <div className="flex">
                     <StarRating rating={MyActivity.rating} />
                 </div>
                 <div className="flex justify-between mt-4">
                     <div>
                         <p className="text-xs">เวลาโดยประมาณ</p>
-                        <p className="text-sm">{MyActivity.predTime} นาที</p>
+                        <p className="text-sm">{MyActivity.duration} นาที</p>
                     </div>
                     <div>
                         <p className="text-xs">จำนวนคิว</p>
-                        <p className="text-sm text-right">{MyActivity.prevQueue} คิว</p>
+                        <p className="text-sm text-right">{MyActivity.waitingTime} คิว</p>
                     </div>
                 </div>
             </div>

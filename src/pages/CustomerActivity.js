@@ -4,8 +4,9 @@ import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
 import { MobileList } from '../components/Table';
 import { SearchWithIcon } from '../components/Search';
+import BackToTop from '../components/BackToTop';
 
-import fakeData from '../fakeData/fakeData';
+import ActivityData from '../fakeData/ActivityData';
 
 function CustomerActivity() {
 
@@ -17,7 +18,7 @@ function CustomerActivity() {
             <BlockMobile>
                 <SearchWithIcon setSearch={setSearch} />
                 <div className="overflow-hidden overflow-y-auto">
-                    {fakeData
+                    {ActivityData
                         .filter((data) => {
                             return search.toLowerCase() === ""
                                 ? data
@@ -30,6 +31,7 @@ function CustomerActivity() {
                         })}
                 </div>
             </BlockMobile>
+            <BackToTop />
         </div>
     );
 }
