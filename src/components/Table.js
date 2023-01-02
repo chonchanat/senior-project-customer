@@ -13,9 +13,12 @@ function StarRating({ rating }) {
     );
 }
 
-function MobileList({ MyActivity, index }) {
+function MobileList({ MyActivity, click = () => { return 0 } }) {
+
+    const estimateTime = Math.ceil(MyActivity.queue / MyActivity.size) * MyActivity.duration;
+
     return (
-        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={index} onClick={() => console.log(MyActivity)}>
+        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={MyActivity.id} onClick={() => click(MyActivity)}>
             <div className="h-auto w-[30%] overflow-hidden flex items-center">
                 <img src={MyActivity.image} alt="iamge of activity" />
             </div>
@@ -27,11 +30,11 @@ function MobileList({ MyActivity, index }) {
                 <div className="flex justify-between mt-4">
                     <div>
                         <p className="text-xs">เวลาโดยประมาณ</p>
-                        <p className="text-sm">{MyActivity.duration} นาที</p>
+                        <p className="text-sm">{estimateTime} นาที</p>
                     </div>
                     <div>
                         <p className="text-xs">จำนวนคิว</p>
-                        <p className="text-sm text-right">{MyActivity.waitingTime} คิว</p>
+                        <p className="text-sm text-right">{MyActivity.queue} คิว</p>
                     </div>
                 </div>
             </div>

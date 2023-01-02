@@ -1,10 +1,22 @@
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setQueue } from '../actions/queueActions'
+
 import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block';
 import { MobileList } from '../components/Table';
 
-import fakeData from '../fakeData/fakeData';
+import MyActivityData from '../fakeData/MyActivityData';
 
 function CustomerMyActivity() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    function handlerClick(activityData) {
+        dispatch(setQueue(activityData))
+        navigate(`/customer-myactivity/${activityData.id}`)
+    }
+
     return (
         <div>
             <Navbar />
@@ -14,9 +26,9 @@ function CustomerMyActivity() {
                 <p className="text-sm">กิจกรรมที่จอง 4/5</p>
                 </div>
                 <div className="overflow-hidden overflow-y-auto">
-                    {fakeData.map((data, index) => {
+                    {MyActivityData.map((data) => {
                         return (
-                            <MobileList MyActivity={data} index={index} />
+                            <MobileList MyActivity={data} click={handlerClick}/>
                         );
                     })}
                 </div>

@@ -29,10 +29,10 @@ const App = createBrowserRouter([
         path: "/customer-activity",
         element: <CustomerActivity />,
     },
-    {
-        path: "/customer-bookqueue",
-        element: <CustomerBookQueue />,
-    },
+    // {
+    //     path: "/customer-bookqueue",
+    //     element: <CustomerBookQueue />,
+    // },
     {
         path: "/customer-map",
         element: <CustomerMap />,
@@ -40,6 +40,10 @@ const App = createBrowserRouter([
     {
         path: "/customer-myactivity",
         element: <CustomerMyActivity />,
+    },
+    {
+        path: "/customer-myactivity/:id",
+        element: <CustomerBookQueue />,
     },
     {
         path: "/customer-scan",

@@ -5,7 +5,7 @@ import { QRCodeSVG } from 'qrcode.react';
 
 import { CardWithHead } from './Card';
 
-function QRcode() {
+function QRcode({ data }) {
     const bookData = {
         name: StaffData[0].name,
         id: StaffData[0].id,
@@ -28,8 +28,8 @@ function QRcode() {
                     includeMargin={true}
                 />
                 <div className="mt-4">
-                    <p className="">จำนวนผู้เข้าร่วม : <label className="text-accept">{bookData.numberOfBook}</label> คน</p>
-                    <p className="mt-2">สถานะ : <label className={`${bookData.status ? "text-accept" : "text-decline"}`}>{bookData.status? "ถึงคิวของคุณแล้ว" : "ไม่ยังถึงคิวของคุณ"}</label></p>
+                    <p className="">จำนวนผู้เข้าร่วม : <label className="text-accept">{data.member}</label> คน</p>
+                    <p className="mt-2">สถานะ : <label className={`${bookData.status ? "text-accept" : "text-decline"}`}>{bookData.status ? "ถึงคิวของคุณแล้ว" : "ไม่ยังถึงคิวของคุณ"}</label></p>
                     <p className="text-sm mt-6 text-decline">*กรุณายื่น QR-code ให้พนักงานแสกนก่อนเข้าร่วมกิจกรรม*</p>
                 </div>
             </CardWithHead>

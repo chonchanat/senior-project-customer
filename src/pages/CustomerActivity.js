@@ -22,11 +22,11 @@ function CustomerActivity() {
                         .filter((data) => {
                             return search.toLowerCase() === ""
                                 ? data
-                                : data.nameOfAct.toLowerCase().includes(search);
+                                : data.name.toLowerCase().includes(search);
                         })
-                        .map((data, index) => {
+                        .map((data) => {
                             return (
-                                <MobileList MyActivity={data} index={index} />
+                                <MobileList MyActivity={data} />
                             );
                         })}
                 </div>
