@@ -1,5 +1,18 @@
 const MyActivityData = [
     {
+        id: "f56s4rt1fd",
+        code: "CPE002",
+        status: "open",
+        name: "ชิงช้าสวรรค์",
+        image: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Riesenradoktoberfest.jpg",
+        size: 50,
+        duration: 10,
+        star: 8,
+        rating: 4,
+        queue: 28,
+        member: 6,
+    },
+    {
         id: "s65rs4ma23",
         code: "CPE001",
         status: "open",
@@ -13,19 +26,6 @@ const MyActivityData = [
         queue: 32,
         member: 4,
     },
-    {
-        id: "f56s4rt1fd",
-        code: "CPE002",
-        status: "open",
-        name: "ชิงช้าสวรรค์",
-        image: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Riesenradoktoberfest.jpg",
-        size: 50,
-        duration: 10,
-        star: 8,
-        rating: 4,
-        queue: 28,
-        member: 6,
-    }
 ]
 
 export default MyActivityData;

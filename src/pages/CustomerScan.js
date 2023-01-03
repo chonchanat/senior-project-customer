@@ -15,7 +15,6 @@ function CustomerScan() {
 
     const navigate = useNavigate();
     const authReducer = useSelector(state => state.authReducer);
-    console.log(authReducer)
 
     const [member, setMember] = useState(1);
 

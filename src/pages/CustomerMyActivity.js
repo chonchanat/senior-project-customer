@@ -4,7 +4,7 @@ import { setQueue } from '../actions/queueActions'
 
 import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block';
-import { MobileList } from '../components/Table';
+import { MobileList } from '../components/List';
 
 import MyActivityData from '../fakeData/MyActivityData';
 
@@ -28,7 +28,7 @@ function CustomerMyActivity() {
                 <div className="overflow-hidden overflow-y-auto">
                     {MyActivityData.map((data) => {
                         return (
-                            <MobileList MyActivity={data} click={handlerClick}/>
+                            <MobileList activity={data} click={handlerClick} queue={true}/>
                         );
                     })}
                 </div>

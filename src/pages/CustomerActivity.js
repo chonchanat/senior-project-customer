@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
-import { MobileList } from '../components/Table';
+import { MobileList } from '../components/List';
 import { SearchWithIcon } from '../components/Search';
 import BackToTop from '../components/BackToTop';
 
@@ -25,7 +25,7 @@ function CustomerActivity() {
                     })
                     .map((data) => {
                         return (
-                            <MobileList MyActivity={data} />
+                            <MobileList activity={data} />
                         );
                     })}
             </BlockMobile>

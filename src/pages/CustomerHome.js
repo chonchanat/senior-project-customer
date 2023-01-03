@@ -1,4 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setQueue } from '../actions/queueActions';
 
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
@@ -11,10 +13,16 @@ import { GoListUnordered } from 'react-icons/go';
 import { BiBookContent, BiMapPin } from 'react-icons/bi';
 
 function CustomerHome() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const authReducer = useSelector(state => state.authReducer)
-    console.log(authReducer)
+    function handlerClick(activityData) {
+        dispatch(setQueue(activityData))
+        navigate(`/customer-myactivity/${activityData.id}`)
+    }
+
     const estimateTime = Math.ceil(MyActivityData[0].queue / MyActivityData[0].size) * MyActivityData[0].duration;
+    const ready = Math.ceil(MyActivityData[0].queue / MyActivityData[0].size);
 
     return (
         <div>
@@ -23,14 +31,15 @@ function CustomerHome() {
                 {
                     MyActivityData.length &&
                     <CardWithHead title={"คิวที่กำลังจะถึง"}>
-                        <div className="grid grid-cols-2 gap-4 px-2">
+                        <div className="grid grid-cols-2 gap-4 px-2" onClick={() => handlerClick(MyActivityData[0])}>
                             <div>
                                 <img src={MyActivityData[0].image} alt="img of activity" />
                             </div>
                             <div className="flex flex-col justify-between">
                                 <div>
                                     <p className="text-xl font-bold">{MyActivityData[0].name}</p>
-                                    <p className="text-xs">จำนวนผู้เข้าร่วม {MyActivityData[0].member} คน</p>
+                                    <p className="text-xs">{MyActivityData[0].member} คน</p>
+                                    {ready && <p className="text-accept">รอบต่อไป</p>}
                                 </div>
                                 <div className="flex justify-between">
                                     <div>
@@ -38,8 +47,8 @@ function CustomerHome() {
                                         <p className="text-sm">{estimateTime} นาที</p>
                                     </div>
                                     <div>
-                                        <p className="text-xs">จำนวนคิว</p>
-                                        <p className="text-sm text-right">{MyActivityData[0].queue} คิว</p>
+                                        <p className="text-xs text-right">จำนวนคิว</p>
+                                        <p className="text-sm text-right">{MyActivityData[0].queue}/{MyActivityData[0].size} คิว</p>
                                     </div>
                                 </div>
                             </div>
