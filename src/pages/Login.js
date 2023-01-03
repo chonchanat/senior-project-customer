@@ -1,19 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { fetchAuthAsync } from '../actions/authActions.js';
 
-import { Button } from '../components/Button.js';
+import { Button } from '../components/Button';
+import Spinner from '../components/Spinner';
 
 function CustomerLogin() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const authReducer = useSelector(state => state.authReducer);
+    const statusReducer = useSelector(state => state.statusReducer);
+
+    useEffect(() => {
+        function signinWithAuth() {
+            if (authReducer) {
+                navigate("/customer-home");
+            }
+        };
+        signinWithAuth();
+    }, [authReducer, navigate])
 
     const [user, setUser] = useState({
-        username: "",
+        phone: "",
         password: "",
     });
+    const [noti, setNoti] = useState(null);
 
-    function handlerSigin() {
-        navigate("/customer-home");
+    function handlerSignin() {
+        if (user.phone && user.password) {
+            setNoti(null);
+            dispatch(fetchAuthAsync(user.phone, user.password));
+        } else {
+            setNoti("Please enter your email and password");
+        }
     }
 
     return (
@@ -25,19 +46,26 @@ function CustomerLogin() {
                 </div>
                 <div>
                     <div className="pb-6">
-                        <p className="text-white pb-2">Username</p>
+                        <p className="text-white pb-2">Phone number</p>
                         <input className="w-full py-2 px-4 rounded-md"
-                            placeholder="username"
-                            onChange={(e) => setUser({ ...user, username: e.target.value })} />
+                            placeholder="phone number"
+                            onChange={(e) => setUser({ ...user, phone: e.target.value })} />
                     </div>
                     <div className="pb-6">
                         <p className="text-white pb-2">Password</p>
                         <input className="w-full py-2 px-4 rounded-md"
                             placeholder="password"
                             onChange={(e) => setUser({ ...user, password: e.target.value })} />
+                        <p className="h-[28px] text-right text-sm text-decline pt-2">{noti ? noti : statusReducer.error}</p>
                     </div>
 
-                    <Button bgColor="bg-accept" font="font-bold" click={handlerSigin}>Login</Button>
+                    <Button bgColor="bg-accept" font="font-bold" click={handlerSignin}>
+                            {statusReducer.loading ?
+                                <Spinner color="white" />
+                                :
+                                "Login"
+                            }
+                        </Button>
                     <p className="text-right text-sm text-white pt-2 hover:underline">Forget Password?</p>
                 </div>
             </div>

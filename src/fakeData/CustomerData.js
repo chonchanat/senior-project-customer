@@ -2,6 +2,7 @@ const CustomerData = [
     {
         id: "areh546gs8wd84",
         phone: "0887828326",
+        password: "123",
         member: 5,
         star: 80,
         data: "10-11-2022",
