@@ -23,7 +23,7 @@ function CustomerMyActivity() {
             <BlockMobile>
                 <div className="flex justify-between items-end my-2">
                 <p className="">รายการคิวทั้งหมดของคุณ</p>
-                <p className="text-sm">กิจกรรมที่จอง 4/5</p>
+                <p className="text-sm">กิจกรรมที่จอง <label>{MyActivityData.length}</label>/5</p>
                 </div>
                 <div className="overflow-hidden overflow-y-auto">
                     {MyActivityData.map((data) => {

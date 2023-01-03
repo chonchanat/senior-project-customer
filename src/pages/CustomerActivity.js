@@ -17,19 +17,17 @@ function CustomerActivity() {
             <Navbar />
             <BlockMobile>
                 <SearchWithIcon setSearch={setSearch} />
-                <div className="overflow-hidden overflow-y-auto">
-                    {ActivityData
-                        .filter((data) => {
-                            return search.toLowerCase() === ""
-                                ? data
-                                : data.name.toLowerCase().includes(search);
-                        })
-                        .map((data) => {
-                            return (
-                                <MobileList MyActivity={data} />
-                            );
-                        })}
-                </div>
+                {ActivityData
+                    .filter((data) => {
+                        return search.toLowerCase() === ""
+                            ? data
+                            : data.name.toLowerCase().includes(search);
+                    })
+                    .map((data) => {
+                        return (
+                            <MobileList MyActivity={data} />
+                        );
+                    })}
             </BlockMobile>
             <BackToTop />
         </div>

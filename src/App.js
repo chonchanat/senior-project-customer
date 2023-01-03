@@ -13,6 +13,8 @@ import CustomerBookQueue from './pages/CustomerBookQueue';
 import CustomerMap from './pages/CustomerMap';
 import CustomerMyActivity from './pages/CustomerMyActivity';
 import CustomerScan from './pages/CustomerScan';
+import PrivateRoute from './privateRoute';
+
 
 // import Test from './pages/Test';
 
@@ -23,11 +25,11 @@ const App = createBrowserRouter([
     },
     {
         path: "/customer-home",
-        element: <CustomerHome />,
+        element: <PrivateRoute><CustomerHome /></PrivateRoute>,
     },
     {
         path: "/customer-activity",
-        element: <CustomerActivity />,
+        element: <PrivateRoute><CustomerActivity /></PrivateRoute>,
     },
     // {
     //     path: "/customer-bookqueue",
@@ -35,28 +37,28 @@ const App = createBrowserRouter([
     // },
     {
         path: "/customer-map",
-        element: <CustomerMap />,
+        element: <PrivateRoute><CustomerMap /></PrivateRoute>,
     },
     {
         path: "/customer-myactivity",
-        element: <CustomerMyActivity />,
+        element: <PrivateRoute><CustomerMyActivity /></PrivateRoute>,
     },
     {
         path: "/customer-myactivity/:id",
-        element: <CustomerBookQueue />,
+        element: <PrivateRoute><CustomerBookQueue /></PrivateRoute>,
     },
     {
         path: "/customer-scan",
-        element: <CustomerScan />,
+        element: <PrivateRoute><CustomerScan /></PrivateRoute>,
     },
     {
         path: "/*",
         element: <Navigate to="/customer-login" />,
     },
-  //   {
-  //     path: "/test",
-  //     element: <Test />,
-  // },
+    //   {
+    //     path: "/test",
+    //     element: <Test />,
+    // },
 ]);
 
 export default App;

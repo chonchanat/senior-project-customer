@@ -1,38 +1,45 @@
+import { useSelector } from 'react-redux';
+
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
 import { Card, CardWithHead } from '../components/Card';
 
-import fakeData from '../fakeData/fakeData';
+import MyActivityData from '../fakeData/MyActivityData';
 
 import { TbQrcode } from 'react-icons/tb';
 import { GoListUnordered } from 'react-icons/go';
 import { BiBookContent, BiMapPin } from 'react-icons/bi';
 
 function CustomerHome() {
+
+    const authReducer = useSelector(state => state.authReducer)
+    console.log(authReducer)
+    const estimateTime = Math.ceil(MyActivityData[0].queue / MyActivityData[0].size) * MyActivityData[0].duration;
+
     return (
         <div>
             <Navbar />
             <BlockMobile>
                 {
-                    fakeData.length &&
+                    MyActivityData.length &&
                     <CardWithHead title={"คิวที่กำลังจะถึง"}>
                         <div className="grid grid-cols-2 gap-4 px-2">
                             <div>
-                                <img src={fakeData[0].image} alt="img of activity" />
+                                <img src={MyActivityData[0].image} alt="img of activity" />
                             </div>
                             <div className="flex flex-col justify-between">
                                 <div>
-                                    <p className="text-xl font-bold">{fakeData[0].nameOfAct}</p>
-                                    <p className="text-xs">จำนวนผู้เข้าร่วม 4 คน</p>
+                                    <p className="text-xl font-bold">{MyActivityData[0].name}</p>
+                                    <p className="text-xs">จำนวนผู้เข้าร่วม {MyActivityData[0].member} คน</p>
                                 </div>
                                 <div className="flex justify-between">
                                     <div>
                                         <p className="text-xs">เวลารอคิว</p>
-                                        <p className="text-sm">{fakeData[0].predTime} นาที</p>
+                                        <p className="text-sm">{estimateTime} นาที</p>
                                     </div>
                                     <div>
                                         <p className="text-xs">จำนวนคิว</p>
-                                        <p className="text-sm text-right">{fakeData[0].prevQueue} คิว</p>
+                                        <p className="text-sm text-right">{MyActivityData[0].queue} คิว</p>
                                     </div>
                                 </div>
                             </div>

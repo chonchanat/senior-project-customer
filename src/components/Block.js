@@ -1,6 +1,6 @@
 function BlockMobile({ children }) {
     return (
-        <div className="mt-[44px] min-h-screen px-3 py-2 bg-bg-mobile">
+        <div className="pt-[60px] min-h-screen px-3 py-2 bg-bg-mobile">
             <div className="max-w-sm mx-auto">
                 {children}
             </div>
