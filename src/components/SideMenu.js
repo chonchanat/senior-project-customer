@@ -1,35 +1,46 @@
-// import { IoClose } from 'react-icons/io5';
-
-const List = ["หน้าแรก", "รายการคิว", "กิจกรรมทั้งหมด", "แผนที่"]
-
-function MenuList({ text, click }) {
-    return (
-        <div className="py-4 pl-4 border-b-[1px] border-light-blue font-bold text-sm"
-        key={text}
-        onClick={click}>
-            {text}
-        </div>
-    );
-}
+import { useNavigate } from 'react-router-dom';
+import { HiHome } from 'react-icons/hi';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { RiFileListFill, RiBook2Fill } from 'react-icons/ri';
+import { IoLogOut } from 'react-icons/io5';
+import { AiFillStar } from 'react-icons/ai';
 
 function SideMenu({ toggle, setToggle }) {
+
+    const navigate = useNavigate();
+
     return (
-        <div className={` h-screen bg-fha-desktop fixed top-0 w-[220px] z-50 transition duration-300
-            ${toggle ? "right-[0]" : "right-[-200px] invisible"}`}
-            style={{ "transition": "0.3s ease-out" }}>
-            <div className="bg-fha h-fit relative py-4 pl-4">
-                {/* <IoClose size="28px" className="text-white absolute right-2 top-2"
-                onClick={() => setToggle(false)} /> */}
-                <p className="pb-2">ยินดีต้อนรับ</p>
+        <div className={` h-screen bg-fha-desktop fixed top-0 w-[240px] z-50 flex flex-col px-4
+            ${toggle ? "right-[0]" : "right-[-240px] invisible"}`}
+            style={{ "transition": "0.1s ease-out" }}>
+
+            <div className="relative py-4 border-b-2 border-b-fha">
+                <p className="pb-2 text-white font-bold">ยินดีต้อนรับ</p>
                 <p className="font-bold">คุณ 0887828326</p>
-                <p>ดาวที่เหลือ : 121 ดวง</p>
+                <p className="flex items-center">ดาวที่เหลือ : 121 <AiFillStar className="text-yellow ml-1"/></p>
             </div>
+
             <div className="pt-4">
-                {List.map((text) => (<MenuList text={text} />)
-                )}
+                <div className="flex items-center py-2 text-white font-bold"
+                    onClick={() => navigate("/customer-home")}>
+                    <HiHome size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>หน้าแรก</p>
+                </div>
+                <div className="flex items-center py-2 text-white font-bold"
+                onClick={() => navigate("/customer-myactivity")}>
+                    <RiFileListFill size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>รายการคิว</p>
+                </div>
+                <div className="flex items-center py-2 text-white font-bold"
+                onClick={() => navigate("/customer-activity")}>
+                    <RiBook2Fill size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>กิจกรรมทั้งหมด</p>
+                </div>
+                <div className="flex items-center py-2 text-white font-bold"
+                onClick={() => navigate("/customer-map")}>
+                    <FaMapMarkerAlt size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>แผนที่</p>
+                </div>
             </div>
-            <div className="mt-[60%] border-t-[1px] border-light-blue py-4 pl-4 font-bold text-sm" onClick={() => setToggle(false)}>
-                ออกจากระบบ
+
+            <div className="flex items-center pt-6 mt-40 text-white font-bold border-t-2 border-t-fha" onClick={() => setToggle(false)}>
+                <IoLogOut size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>ออกจากระบบ</p>
             </div>
         </div>
     );

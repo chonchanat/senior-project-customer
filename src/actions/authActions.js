@@ -2,6 +2,8 @@ import { startFetch, endFetch, errorFetch } from './statusActions';
 
 import { signin } from '../api/fakeAPI';
 
+import Cookies from 'js-cookie';
+
 const setAuth = (data) => {
     return {
         type: 'SET_AUTH',
