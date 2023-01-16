@@ -1,13 +1,25 @@
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuth } from '../actions/authActions';
+
 import { HiHome } from 'react-icons/hi';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { RiFileListFill, RiBook2Fill } from 'react-icons/ri';
 import { IoLogOut } from 'react-icons/io5';
 import { AiFillStar } from 'react-icons/ai';
 
-function SideMenu({ toggle, setToggle }) {
+function SideMenu({ toggle }) {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const authReducer = useSelector(state => state.authReducer);
+
+    function handlerLogout() {
+        Cookies.remove("accesstoken");
+        Cookies.remove("userCookie");
+        dispatch(setAuth(null));
+    }
 
     return (
         <div className={` h-screen bg-fha-desktop fixed top-0 w-[240px] z-50 flex flex-col px-4
@@ -17,7 +29,7 @@ function SideMenu({ toggle, setToggle }) {
             <div className="relative py-4 border-b-2 border-b-fha">
                 <p className="pb-2 text-white font-bold">ยินดีต้อนรับ</p>
                 <p className="font-bold">คุณ 0887828326</p>
-                <p className="flex items-center">ดาวที่เหลือ : 121 <AiFillStar className="text-yellow ml-1"/></p>
+                <p className="flex items-center">ดาวที่เหลือ : {authReducer.star} <AiFillStar className="text-yellow ml-1"/></p>
             </div>
 
             <div className="pt-4">
@@ -39,7 +51,7 @@ function SideMenu({ toggle, setToggle }) {
                 </div>
             </div>
 
-            <div className="flex items-center pt-6 mt-40 text-white font-bold border-t-2 border-t-fha" onClick={() => setToggle(false)}>
+            <div className="flex items-center pt-6 mt-40 text-white font-bold border-t-2 border-t-fha" onClick={handlerLogout}>
                 <IoLogOut size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>ออกจากระบบ</p>
             </div>
         </div>

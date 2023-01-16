@@ -6,7 +6,7 @@ import { fetchAuthAsync } from '../actions/authActions.js';
 import { Button } from '../components/Button';
 import Spinner from '../components/Spinner';
 
-function CustomerLogin() {
+function Signin() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -33,7 +33,7 @@ function CustomerLogin() {
             setNoti(null);
             dispatch(fetchAuthAsync(user.phone, user.password));
         } else {
-            setNoti("Please enter your email and password");
+            setNoti("Please enter your phone and password");
         }
     }
 
@@ -73,4 +73,4 @@ function CustomerLogin() {
     );
 }
 
-export { CustomerLogin };
+export default Signin;

@@ -6,7 +6,7 @@ function PrivateRoute({ children }) {
     const reducers = useSelector(state => state);
     // console.log(reducers);
 
-    return reducers.authReducer ? children : <Navigate to="/signin"/>;
+    return reducers.authReducer ? children : <Navigate to="/customer-signin"/>;
 }
 
 export default PrivateRoute;

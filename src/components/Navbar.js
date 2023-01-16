@@ -20,7 +20,7 @@ function Navbar() {
             </div>
             <Wrapper state={toggle} bgColor="bg-black/50"
                 click={() => setToggle(false)} />
-            <SideMenu toggle={toggle} setToggle={setToggle}/>
+            <SideMenu toggle={toggle}/>
         </>
     );
 }

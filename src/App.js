@@ -5,7 +5,7 @@ import {
     Navigate
 } from "react-router-dom";
 
-import { CustomerLogin } from './pages/Login';
+import Signin from './pages/Signin';
 
 import CustomerHome from './pages/CustomerHome';
 import CustomerActivity from './pages/CustomerActivity';
@@ -20,8 +20,8 @@ import PrivateRoute from './privateRoute';
 
 const App = createBrowserRouter([
     {
-        path: "/customer-login",
-        element: <CustomerLogin />,
+        path: "/customer-signin",
+        element: <Signin />,
     },
     {
         path: "/customer-home",
@@ -53,7 +53,7 @@ const App = createBrowserRouter([
     },
     {
         path: "/*",
-        element: <Navigate to="/customer-login" />,
+        element: <Navigate to="/customer-signin" />,
     },
     //   {
     //     path: "/test",
