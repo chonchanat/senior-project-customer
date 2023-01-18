@@ -25,7 +25,8 @@ function CustomerHome() {
         navigate(`/customer-myactivity/${activityData.id}`)
     }
     function handlerScan() {
-        scanRef.current.click();
+        navigate(`/customer-scan/A0002`)
+        // scanRef.current.click();
     }
     function handlerCard(link) {
         navigate(link);

@@ -47,8 +47,12 @@ const App = createBrowserRouter([
         path: "/customer-myactivity/:id",
         element: <PrivateRoute><CustomerBookQueue /></PrivateRoute>,
     },
+    // {
+    //     path: "/customer-scan",
+    //     element: <PrivateRoute><CustomerScan /></PrivateRoute>,
+    // },
     {
-        path: "/customer-scan",
+        path: "/customer-scan/:code",
         element: <PrivateRoute><CustomerScan /></PrivateRoute>,
     },
     {
