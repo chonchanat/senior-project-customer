@@ -1,18 +1,7 @@
-import { useNavigate } from 'react-router-dom'
-
-function Card({ title, bgColor, link, icon }) {
-
-    const navigate = useNavigate();
-
-    function goToLink() {
-        if (link) {
-            navigate(link);
-        }
-    }
-
+function Card({ title, bgColor, icon, click }) {
     return (
         <div className="w-[48%] h-[120px] rounded-xl mb-4 pb-1 py-3 shadow-lg flex flex-col items-center justify-between" style={{ backgroundColor: bgColor }}
-            onClick={goToLink}>
+            onClick={click}>
             {icon}
             <p className="text-white font-bold">{title}</p>
         </div>

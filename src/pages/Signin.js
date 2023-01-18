@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchAuthAsync } from '../actions/authActions.js';
+import { fetchAuthAsync, setAuth } from '../actions/authActions.js';
 
 import { Button } from '../components/Button';
 import Spinner from '../components/Spinner';
+
+import Cookies from 'js-cookie';
 
 function Signin() {
 
@@ -15,12 +17,16 @@ function Signin() {
 
     useEffect(() => {
         function signinWithAuth() {
+            const userCookie = Cookies.get("userCookie");
             if (authReducer) {
                 navigate("/customer-home");
             }
+            if (userCookie) {
+                dispatch(setAuth(JSON.parse(userCookie)));
+            }
         };
         signinWithAuth();
-    }, [authReducer, navigate])
+    }, [authReducer, navigate, dispatch])
 
     const [user, setUser] = useState({
         phone: "",
@@ -60,12 +66,12 @@ function Signin() {
                     </div>
 
                     <Button bgColor="bg-accept" font="font-bold" click={handlerSignin}>
-                            {statusReducer.loading ?
-                                <Spinner color="white" />
-                                :
-                                "Login"
-                            }
-                        </Button>
+                        {statusReducer.loading ?
+                            <Spinner color="white" />
+                            :
+                            "Login"
+                        }
+                    </Button>
                     <p className="text-right text-sm text-white pt-2 hover:underline">Forget Password?</p>
                 </div>
             </div>

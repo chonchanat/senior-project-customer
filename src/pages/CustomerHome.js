@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setQueue } from '../actions/queueActions';
@@ -12,13 +13,22 @@ import { TbQrcode } from 'react-icons/tb';
 import { GoListUnordered } from 'react-icons/go';
 import { BiBookContent, BiMapPin } from 'react-icons/bi';
 
+
 function CustomerHome() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const scanRef = useRef();
+
     function handlerClick(activityData) {
         dispatch(setQueue(activityData))
         navigate(`/customer-myactivity/${activityData.id}`)
+    }
+    function handlerScan() {
+        scanRef.current.click();
+    }
+    function handlerCard(link) {
+        navigate(link);
     }
 
     const estimateTime = Math.ceil(MyActivityData[0].queue / MyActivityData[0].size) * MyActivityData[0].duration;
@@ -56,12 +66,12 @@ function CustomerHome() {
                     </CardWithHead>
                 }
                 <div className="flex flex-wrap justify-between">
-                    <Card title="จองคิว" bgColor="#DFD1C6" link="/customer-scan" icon={<TbQrcode size="72px" className="text-[#DFD1C6] bg-white rounded-xl" />} />
-                    <Card title="รายการคิว" bgColor="#BBF38F" link="/customer-myactivity" icon={<GoListUnordered size="72px" className="text-[#BBF38F] bg-white rounded-xl" />} />
-                    <Card title="แผนที่" bgColor="#E38181" link="/customer-map" icon={<BiMapPin size="72px" className="text-[#E38181] bg-white rounded-xl" />} />
-                    <Card title="กิจกรรมทั้งหมด" bgColor="#F7EB84" link="/customer-activity" icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} />
+                    <Card title="จองคิว" bgColor="#DFD1C6" icon={<TbQrcode size="72px" className="text-[#DFD1C6] bg-white rounded-xl" />} click={handlerScan} />
+                    <Card title="รายการคิว" bgColor="#BBF38F" icon={<GoListUnordered size="72px" className="text-[#BBF38F] bg-white rounded-xl" />} click={() => handlerCard("/customer-myactivity")} />
+                    <Card title="แผนที่" bgColor="#E38181" icon={<BiMapPin size="72px" className="text-[#E38181] bg-white rounded-xl" />} click={() => handlerCard("/customer-map")} />
+                    <Card title="กิจกรรมทั้งหมด" bgColor="#F7EB84" icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} click={() => handlerCard("/customer-activity")} />
                 </div>
-                {/* <input type="file" accept="image/*" capture="environment"></input> */}
+                <input type="file" accept="image/*" capture="environment" ref={scanRef} className="hidden"/>
             </BlockMobile>
         </div>
     );

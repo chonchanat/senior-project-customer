@@ -24,7 +24,6 @@ function CustomerScan() {
         }
     }
     function handlerSub() {
-        console.log(member, authReducer.member)
         if (member > 1) {
             setMember(member - 1);
         }
