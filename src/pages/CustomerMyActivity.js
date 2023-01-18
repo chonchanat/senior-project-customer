@@ -28,7 +28,7 @@ function CustomerMyActivity() {
                 <div className="overflow-hidden overflow-y-auto">
                     {MyActivityData.map((data) => {
                         return (
-                            <MobileList activity={data} click={handlerClick} queue={true}/>
+                            <MobileList data={data} click={handlerClick} queue={true}/>
                         );
                     })}
                 </div>

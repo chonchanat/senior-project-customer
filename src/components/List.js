@@ -19,7 +19,7 @@ function MobileList({ data, click = () => { return 0 }, queue = false }) {
     const ready = Math.ceil(data.queue / data.size) <= 1;
 
     return (
-        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data.id} onClick={() => click(data)}>
+        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data.ID} onClick={() => click(data)}>
             <div className="h-auto w-[30%] overflow-hidden flex items-center">
                 <img src={data.image} alt="iamge of activity" />
             </div>
