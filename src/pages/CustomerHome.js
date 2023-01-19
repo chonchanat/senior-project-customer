@@ -5,13 +5,13 @@ import { setQueue } from '../actions/queueActions';
 
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
-import { Card, CardWithHead } from '../components/Card';
+import { Card, CardWithHead, CardComment } from '../components/Card';
 
 import MyActivityData from '../fakeData/MyActivityData';
 
 import { TbQrcode } from 'react-icons/tb';
 import { GoListUnordered } from 'react-icons/go';
-import { BiBookContent, BiMapPin } from 'react-icons/bi';
+import { BiBookContent, BiMapPin, BiCommentDetail } from 'react-icons/bi';
 
 
 function CustomerHome() {
@@ -72,7 +72,12 @@ function CustomerHome() {
                     <Card title="แผนที่" bgColor="#E38181" icon={<BiMapPin size="72px" className="text-[#E38181] bg-white rounded-xl" />} click={() => handlerCard("/customer-map")} />
                     <Card title="กิจกรรมทั้งหมด" bgColor="#F7EB84" icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} click={() => handlerCard("/customer-activity")} />
                 </div>
-                <input type="file" accept="image/*" capture="environment" ref={scanRef} className="hidden"/>
+                <CardComment icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} click={() => handlerCard("/customer-comment")}>
+                    <BiCommentDetail className="text-white text-xl"/>
+                    <p className="text-white font-bold ml-2">รีวิวกิจกรรม</p>
+                </CardComment>
+
+                <input type="file" accept="image/*" capture="environment" ref={scanRef} className="hidden" />
             </BlockMobile>
         </div>
     );

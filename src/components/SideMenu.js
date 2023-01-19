@@ -8,6 +8,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 import { RiFileListFill, RiBook2Fill } from 'react-icons/ri';
 import { IoLogOut } from 'react-icons/io5';
 import { AiFillStar } from 'react-icons/ai';
+import { MdComment }from 'react-icons/md';
 
 function SideMenu({ toggle }) {
 
@@ -48,6 +49,10 @@ function SideMenu({ toggle }) {
                 <div className="flex items-center py-2 text-white font-bold"
                 onClick={() => navigate("/customer-map")}>
                     <FaMapMarkerAlt size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>แผนที่</p>
+                </div>
+                <div className="flex items-center py-2 text-white font-bold"
+                onClick={() => navigate("/customer-comment")}>
+                    <MdComment size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>รีวิวกิจกรรม</p>
                 </div>
             </div>
 

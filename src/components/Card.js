@@ -19,4 +19,12 @@ function CardWithHead({ title, bgColor = "white", children }) {
     );
 }
 
-export { Card, CardWithHead };
+function CardComment({children, click}) {
+    return (
+        <div className="w-full rounded-xl shadow-lg flex items-center justify-center bg-fha-desktop p-3" onClick={click}>
+                {children}
+        </div>
+    );
+}
+
+export { Card, CardWithHead, CardComment };

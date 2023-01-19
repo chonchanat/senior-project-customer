@@ -14,6 +14,7 @@ import CustomerMap from './pages/CustomerMap';
 import CustomerMyActivity from './pages/CustomerMyActivity';
 import CustomerScan from './pages/CustomerScan';
 import PrivateRoute from './privateRoute';
+import CustomerComment from './pages/CustomerComment';
 
 
 // import Test from './pages/Test';
@@ -55,6 +56,11 @@ const App = createBrowserRouter([
         path: "/customer-scan/:code",
         element: <PrivateRoute><CustomerScan /></PrivateRoute>,
     },
+    {
+        path: "customer-comment/",
+        element: <PrivateRoute><CustomerComment /></PrivateRoute>,
+    },
+
     {
         path: "/*",
         element: <Navigate to="/customer-signin" />,
