@@ -58,8 +58,7 @@ const App = createBrowserRouter([
 
     {
         path: "/staff-scan/:code",
-        // element: <PrivateRoute><StaffScan /></PrivateRoute>,
-        element: <StaffScan />,
+        element: <PrivateRoute><StaffScan /></PrivateRoute>,
     },
 
     {
