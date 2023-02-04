@@ -1,6 +1,6 @@
-function Button({ children, bgColor, textColor = "text-white", width = "w-full", font, click }) {
+function Button({ children, bgColor, textColor = "text-white", width = "w-fit", font, click }) {
     return (
-        <div className={`${bgColor} ${width} ${font} ${textColor} flex justify-center items-center p-2 rounded-md text-sm drop-shadow-md`}
+        <div className={`${bgColor} ${width} ${font} ${textColor} flex justify-center items-center py-2 px-4 rounded-md text-sm shadow-md hover:cursor-pointer`}
             onClick={click}>
             {children}
         </div>

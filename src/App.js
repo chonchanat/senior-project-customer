@@ -16,6 +16,7 @@ import CustomerScan from './pages/CustomerScan';
 import PrivateRoute from './privateRoute';
 import CustomerComment from './pages/CustomerComment';
 
+import StaffScan from './pages/StaffScan';
 
 // import Test from './pages/Test';
 
@@ -32,14 +33,11 @@ const App = createBrowserRouter([
         path: "/customer-activity",
         element: <PrivateRoute><CustomerActivity /></PrivateRoute>,
     },
-    // {
-    //     path: "/customer-bookqueue",
-    //     element: <CustomerBookQueue />,
-    // },
     {
         path: "/customer-map",
         element: <PrivateRoute><CustomerMap /></PrivateRoute>,
     },
+
     {
         path: "/customer-myactivity",
         element: <PrivateRoute><CustomerMyActivity /></PrivateRoute>,
@@ -48,17 +46,20 @@ const App = createBrowserRouter([
         path: "/customer-myactivity/:id",
         element: <PrivateRoute><CustomerBookQueue /></PrivateRoute>,
     },
-    // {
-    //     path: "/customer-scan",
-    //     element: <PrivateRoute><CustomerScan /></PrivateRoute>,
-    // },
+
     {
         path: "/customer-scan/:code",
         element: <PrivateRoute><CustomerScan /></PrivateRoute>,
     },
     {
-        path: "customer-comment/",
+        path: "/customer-comment",
         element: <PrivateRoute><CustomerComment /></PrivateRoute>,
+    },
+
+    {
+        path: "/staff-scan/:code",
+        // element: <PrivateRoute><StaffScan /></PrivateRoute>,
+        element: <StaffScan />,
     },
 
     {

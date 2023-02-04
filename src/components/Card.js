@@ -27,4 +27,14 @@ function CardComment({children, click}) {
     );
 }
 
-export { Card, CardWithHead, CardComment };
+function CardActivity({ data }) {
+    return (
+        <div className="w-[full] h-[140px] overflow-hidden relative flex flex-col justify-center items-center rounded-lg">
+            <img src={data.image} alt="activity"/>
+            <p className="bg-fha p-2 rounded-lg font-bold text-white text-sm absolute top-2 shadow-md">กิจกรรม</p>
+            <p className="bg-fha p-2 rounded-lg font-bold text-white text-sm absolute bottom-2  shadow-md">{data.name[0]}</p>
+        </div>
+    );
+}
+
+export { Card, CardWithHead, CardComment, CardActivity };
