@@ -20,6 +20,7 @@ function SideMenu({ toggle }) {
         Cookies.remove("accesstoken");
         Cookies.remove("userCookie");
         dispatch(setAuth(null));
+        navigate('/customer-signin');
     }
 
     return (
