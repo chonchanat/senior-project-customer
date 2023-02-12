@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setQueue } from '../actions/queueActions';
@@ -12,24 +12,25 @@ import MyActivityData from '../fakeData/MyActivityData';
 import { TbQrcode } from 'react-icons/tb';
 import { GoListUnordered } from 'react-icons/go';
 import { BiBookContent, BiMapPin, BiCommentDetail } from 'react-icons/bi';
-
+import Scanner from '../components/qrCode/Scanner';
 
 function CustomerHome() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const scanRef = useRef();
+    const [open, setOpen] = useState(false);
 
     function handlerClick(activityData) {
         dispatch(setQueue(activityData))
         navigate(`/customer-myactivity/${activityData.id}`)
     }
-    function handlerScan() {
-        navigate(`/customer-scan/A0002`)
-        // scanRef.current.click();
-    }
     function handlerCard(link) {
         navigate(link);
+    }
+    function handlerScanner(data) {
+        const code = data.split("/").pop();
+        navigate(`/customer-scan/${code}`);
     }
 
     const estimateTime = Math.ceil(MyActivityData[0].queue / MyActivityData[0].size) * MyActivityData[0].duration;
@@ -38,6 +39,7 @@ function CustomerHome() {
     return (
         <div>
             <Navbar />
+            <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner}/>
             <BlockMobile>
                 {
                     MyActivityData.length &&
@@ -67,7 +69,7 @@ function CustomerHome() {
                     </CardWithHead>
                 }
                 <div className="flex flex-wrap justify-between">
-                    <Card title="จองคิว" bgColor="#DFD1C6" icon={<TbQrcode size="72px" className="text-[#DFD1C6] bg-white rounded-xl" />} click={handlerScan} />
+                    <Card title="จองคิว" bgColor="#DFD1C6" icon={<TbQrcode size="72px" className="text-[#DFD1C6] bg-white rounded-xl" />} click={() => setOpen(true)} />
                     <Card title="รายการคิว" bgColor="#BBF38F" icon={<GoListUnordered size="72px" className="text-[#BBF38F] bg-white rounded-xl" />} click={() => handlerCard("/customer-myactivity")} />
                     <Card title="แผนที่" bgColor="#E38181" icon={<BiMapPin size="72px" className="text-[#E38181] bg-white rounded-xl" />} click={() => handlerCard("/customer-map")} />
                     <Card title="กิจกรรมทั้งหมด" bgColor="#F7EB84" icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} click={() => handlerCard("/customer-activity")} />

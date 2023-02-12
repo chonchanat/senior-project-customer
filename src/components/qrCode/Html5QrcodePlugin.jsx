@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-function Html5QrcodePlugin() {
+function Html5QrcodePlugin({handlerScanner}) {
 
     const [loading, setLoading] = useState(true);
     const [scanResult, setScanResult] = useState("");
@@ -10,6 +10,7 @@ function Html5QrcodePlugin() {
 
     const qrCodeSuccessCallback = (decodedText, decodedResult) => {
         setScanResult(decodedText);
+        handlerScanner(decodedText);
         clearScanner();
         setTimeout(() => {
             startScanner();
@@ -56,9 +57,8 @@ function Html5QrcodePlugin() {
 
     return (
         <div>
-            <div className="w-[300px] h-[300px]" id="scanner-1" />
+            <div className="" id="scanner-1" />
             <p>{scanResult}</p>
-            <p onClick={startScanner}>open camera</p>
         </div>
     );
 };
