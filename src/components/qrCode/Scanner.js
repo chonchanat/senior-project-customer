@@ -1,7 +1,7 @@
 import Wrapper from "../Wrapper";
 import Html5QrcodePlugin from "./Html5QrcodePlugin";
 
-function Scanner({ open, setOpen, handlerScanner }) {
+function Scanner({ open, setOpen, handlerScanner = () => {return 0;} }) {
     return (
         <>
             <Wrapper state={open} bgColor="bg-black/50"
@@ -13,7 +13,7 @@ function Scanner({ open, setOpen, handlerScanner }) {
 
                 <div className="bg-white p-4 rounded-lg">
                     <p onClick={() => setOpen(false)}>close</p>
-                    <Html5QrcodePlugin handlerScanner={handlerScanner} />
+                    <Html5QrcodePlugin handlerScanner={handlerScanner} open={open}/>
                 </div>
                 
             </div>

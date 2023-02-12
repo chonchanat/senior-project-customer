@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 
 import { BlockMobile } from "../components/Block";
 import { Navbar } from "../components/Navbar";
-
 import { CardActivity } from "../components/Card";
 import { Button } from "../components/Button";
+import Scanner from "../components/qrCode/Scanner";
 
 import { AiFillCamera } from 'react-icons/ai';
 
@@ -18,6 +18,8 @@ function StaffScan() {
 
     const [data, setData] = useState(null);
     const [bookData, setBookData] = useState([]);
+    const [open, setOpen] = useState(false);
+
     useEffect(() => {
         // async function getActivity() {
         //     const response = await getOneActivity(code);
@@ -44,15 +46,20 @@ function StaffScan() {
         ])
     }, [code])
 
+    function handlerScanner(data) {
+        console.log(data)
+    }
+
     return (
         <div>
             <Navbar />
+            <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner} />
             <BlockMobile>
                 {data ?
                     <div>
                         <CardActivity data={data} />
 
-                        <Button width="w-full h-12 mt-4 font-bold" bgColor="bg-[#DFD1C6]">แสกน qr-code<AiFillCamera size="20px" className="ml-2"/></Button>
+                        <Button width="w-full h-12 mt-4 font-bold" bgColor="bg-[#DFD1C6]" click={() => setOpen(true)}>แสกน qr-code<AiFillCamera size="20px" className="ml-2" /></Button>
                         <div className="flex my-4">
                             <Button width="w-full h-12" bgColor="bg-accept">เริ่มกิจกรรม</Button>
                             <div className="w-8" />

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-function Html5QrcodePlugin({handlerScanner}) {
+function Html5QrcodePlugin({handlerScanner, open}) {
 
     const [loading, setLoading] = useState(true);
     const [scanResult, setScanResult] = useState("");
@@ -50,10 +50,13 @@ function Html5QrcodePlugin({handlerScanner}) {
     }, []);
 
     useEffect(() => {
-        if (!loading) {
+        if (!loading && open) {
             startScanner();
         }
-    }, [loading]);
+        if (!open) {
+            clearScanner();
+        }
+    }, [loading, open]);
 
     return (
         <div>
