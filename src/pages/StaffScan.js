@@ -18,6 +18,7 @@ function StaffScan() {
 
     const [data, setData] = useState(null);
     const [bookData, setBookData] = useState([]);
+    const [userIdList, setUserIdList] = useState([]);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -30,24 +31,15 @@ function StaffScan() {
             name: ["รถไฟเหาะ", "Roller"],
             image: "https://www.changtrixget.com/wp-content/uploads/2018/09/superman-krypton-coaster.jpg",
         })
-        setBookData([
-            {
-                userId: "ajhv1",
-                members: 4,
-            },
-            {
-                userId: "ajhv2",
-                members: 2,
-            },
-            {
-                userId: "ajhv3",
-                members: 62,
-            },
-        ])
     }, [code])
 
     function handlerScanner(data) {
-        console.log(data)
+        const obj = JSON.parse(data);
+        if (!userIdList.includes(obj.userId)) {
+            setBookData([ ...bookData, obj]);
+            setUserIdList([ ...userIdList, obj.userId]);
+        }
+        setOpen(false);
     }
 
     return (

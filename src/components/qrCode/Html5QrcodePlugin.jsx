@@ -4,17 +4,15 @@ import { Html5Qrcode } from "html5-qrcode";
 function Html5QrcodePlugin({handlerScanner, open}) {
 
     const [loading, setLoading] = useState(true);
-    const [scanResult, setScanResult] = useState("");
 
     const html5Qrcode = useRef();
 
     const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-        setScanResult(decodedText);
         handlerScanner(decodedText);
         clearScanner();
-        setTimeout(() => {
-            startScanner();
-        }, 1000)
+        // setTimeout(() => {
+        //     startScanner();
+        // }, 1000)
     };
 
     const qrCodeErrorCallback = () => { };
@@ -61,7 +59,6 @@ function Html5QrcodePlugin({handlerScanner, open}) {
     return (
         <div>
             <div className="" id="scanner-1" />
-            <p>{scanResult}</p>
         </div>
     );
 };
