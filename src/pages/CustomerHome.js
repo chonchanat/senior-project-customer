@@ -74,9 +74,9 @@ function CustomerHome() {
                     <Card title="แผนที่" bgColor="#E38181" icon={<BiMapPin size="72px" className="text-[#E38181] bg-white rounded-xl" />} click={() => handlerCard("/customer-map")} />
                     <Card title="กิจกรรมทั้งหมด" bgColor="#F7EB84" icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} click={() => handlerCard("/customer-activity")} />
                 </div>
-                <CardComment icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} click={() => handlerCard("/customer-comment")}>
-                    <BiCommentDetail className="text-white text-xl"/>
-                    <p className="text-white font-bold ml-2">รีวิวกิจกรรม</p>
+                <CardComment click={() => handlerCard("/customer-comment")}>
+                    <BiCommentDetail className="text-white text-lg"/>
+                    <p className="text-white text-sm font-bold ml-2">รีวิวกิจกรรม</p>
                 </CardComment>
 
                 <input type="file" accept="image/*" capture="environment" ref={scanRef} className="hidden" />

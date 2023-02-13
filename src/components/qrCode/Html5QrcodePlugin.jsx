@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-function Html5QrcodePlugin({handlerScanner, open}) {
+function Html5QrcodePlugin({ handlerScanner, open }) {
 
     const [loading, setLoading] = useState(true);
 
@@ -57,9 +57,7 @@ function Html5QrcodePlugin({handlerScanner, open}) {
     }, [loading, open]);
 
     return (
-        <div>
-            <div className="" id="scanner-1" />
-        </div>
+        <div id="scanner-1" />
     );
 };
 export default Html5QrcodePlugin;

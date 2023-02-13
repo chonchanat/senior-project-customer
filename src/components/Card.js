@@ -11,7 +11,7 @@ function Card({ title, bgColor, icon, click }) {
 function CardWithHead({ title, bgColor = "white", children }) {
     return (
         <div className="w-full rounded-xl mb-4 overflow-hidden shadow-lg" style={{ backgroundColor: bgColor }}>
-            <p className="text-center bg-fha-desktop py-1 text-white text-sm">{title}</p>
+            <p className="text-center bg-fha-desktop py-1 text-white font-bold text-sm">{title}</p>
             <div className="h-auto py-4 px-2 flex flex-col items-center">
                 {children}
             </div>
@@ -21,7 +21,7 @@ function CardWithHead({ title, bgColor = "white", children }) {
 
 function CardComment({children, click}) {
     return (
-        <div className="w-full rounded-xl shadow-lg flex items-center justify-center bg-fha-desktop p-3" onClick={click}>
+        <div className="w-full rounded-xl shadow-lg flex items-center justify-center bg-fha-desktop p-2" onClick={click}>
                 {children}
         </div>
     );
