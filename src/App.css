@@ -25,3 +25,10 @@ p {
   border-radius: 20px;
   border: 3px solid transparent;
 }
+
+.icon-map img{
+  width: 40px;
+  height: 40px;
+  border-radius: 10%;
+  border: 2px solid #C7C7C7;
+}

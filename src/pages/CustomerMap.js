@@ -10,6 +10,11 @@ import {
 } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
+
+import L from 'leaflet';
+
+import '../App.css';
+
 function CustomerMap() {
 
     const camelPosition = [12.8235, 99.9388];
@@ -42,19 +47,26 @@ function CustomerMap() {
             <Navbar />
             <BlockMobile>
                 <CardWithHead title="แผนที่" bgColor="#F8F8F8">
-                    <div className="w-full bg-red-300">
+                    <div className="w-full bg-red-300 z-30">
                         <MapContainer center={camelPosition} zoom={17} scrollWheelZoom={true} style={{ height: "500px" }}>
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
-                            {activityPosition.map((actPos) =>
-                                <Marker position={actPos.pos}>
-                                    <Popup>
-                                    <p className="text-center font-bold">{actPos.name}</p>
-                                    <p>{actPos.text}</p>
-                                    </Popup>
-                                </Marker>
+                            {activityPosition.map((actPos) => {
+                                let myIconDiv = L.divIcon({
+                                    className: "icon-map",
+                                    html: `<img src="https://www.online-station.net/wp-content/uploads/2021/03/MainThomasCGI.jpg" />`,
+                                })
+                                return (
+                                    <Marker position={actPos.pos} icon={myIconDiv}>
+                                        <Popup offset={[16,0]}>
+                                            <p className="text-center font-bold">{actPos.name}</p>
+                                            <p>{actPos.text}</p>
+                                        </Popup>
+                                    </Marker>
+                                );
+                            }
                             )}
                         </MapContainer>
                     </div>
