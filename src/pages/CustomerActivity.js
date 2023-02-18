@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
@@ -9,7 +10,11 @@ import BackToTop from '../components/BackToTop';
 // import ActivityData from '../fakeData/ActivityData';
 import { getAllActivity } from '../api/activityAPI';
 
+import Cookies from 'js-cookie';
+
 function CustomerActivity() {
+
+    const authReducer = useSelector(state => state.authReducer);
 
     useEffect(() => {
         async function getActivity() {
@@ -21,6 +26,12 @@ function CustomerActivity() {
 
     const [activityData, setActivityData] = useState([]);
     const [search, setSearch] = useState("");
+    const [main, setMain] = useState(Cookies.get('mainActivityCookie'));
+
+    function handlerClick(activityData) {
+        setMain(activityData.code);
+        Cookies.set('mainActivityCookie', activityData.code)
+    }
 
     return (
         <div>
@@ -35,7 +46,7 @@ function CustomerActivity() {
                     })
                     .map((data) => {
                         return (
-                            <MobileList data={data} />
+                            <MobileList data={data} main={main} role={authReducer.role} click={handlerClick}/>
                         );
                     })}
             </BlockMobile>

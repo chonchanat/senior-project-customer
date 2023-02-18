@@ -1,4 +1,5 @@
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 
 function StarRating({ rating }) {
     return (
@@ -15,7 +16,7 @@ function StarRating({ rating }) {
     );
 }
 
-function MobileList({ data, click = () => { return 0 }, queue = false }) {
+function MobileList({ data, click = () => { return 0 }, queue = false, main, role }) {
 
     const estimateTime = Math.ceil(data.queue / data.size) * data.duration;
     const ready = Math.ceil(data.queue / data.size) <= 1;
@@ -35,16 +36,25 @@ function MobileList({ data, click = () => { return 0 }, queue = false }) {
                         <StarRating rating={data.rating} />
                     </div>
                 }
-                <div className="flex justify-between mt-4">
-                    <div>
-                        <p className="text-xs">เวลาโดยประมาณ</p>
-                        <p className="text-sm">{estimateTime} นาที</p>
-                    </div>
-                    <div>
-                        <p className="text-xs text-right">จำนวนคิว</p>
-                        <p className="text-sm text-right">{data.queue}/{data.size} คิว</p>
-                    </div>
-                </div>
+                {
+                    role === "customer" ?
+                        <div className="flex justify-between mt-4">
+                            <div>
+                                <p className="text-xs">เวลาโดยประมาณ</p>
+                                <p className="text-sm">{estimateTime} นาที</p>
+                            </div>
+                            <div>
+                                <p className="text-xs text-right">จำนวนคิว</p>
+                                <p className="text-sm text-right">{data.queue}/{data.size} คิว</p>
+                            </div>
+                        </div>
+                        :
+                        main === data.code ?
+                            <MdFavorite className="ml-auto text-3xl text-decline" />
+                            :
+                            <MdFavoriteBorder className="ml-auto text-3xl text-decline"  />
+
+                }
             </div>
         </div>
     );
