@@ -55,7 +55,7 @@ function StaffScan() {
                         <div className="flex my-4">
                             <Button width="w-full h-12" bgColor="bg-accept">เริ่มกิจกรรม</Button>
                             <div className="w-8" />
-                            <Button width="w-full h-12" bgColor="bg-decline">???</Button>
+                            <Button width="w-full h-12" bgColor="bg-decline">ล้างคิวทั้งหมด</Button>
                         </div>
 
                         <p>ตารางแสดงผู้เล่นรอบนี้</p>
