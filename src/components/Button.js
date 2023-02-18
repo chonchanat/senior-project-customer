@@ -7,9 +7,11 @@ function Button({ children, bgColor, textColor = "text-white", width = "w-fit", 
     );
 }
 
-function ButtonSubmit({ bgColor, textColor = "text-white", width = "w-full", font, link }) {
+function ButtonSubmit({ bgColor, textColor = "text-white", width = "w-fit", font, title }) {
     return (
-        <input type="submit" className={`${bgColor} ${width} ${font} ${textColor} py-2 px-4 rounded-md text-sm drop-shadow-md`}>
+        <input className={`${bgColor} ${width} ${font} ${textColor} flex justify-center py-2 px-4 rounded-md text-sm shadow-md hover:cursor-pointer`}
+            type="submit"
+            value={title}>
         </input>
     );
 }
