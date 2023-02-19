@@ -44,10 +44,12 @@ function SideMenu({ toggle }) {
                     onClick={() => navigate("/customer-home")}>
                     <HiHome size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>หน้าแรก</p>
                 </div>
-                <div className="flex items-center py-2 text-white font-bold"
-                    onClick={() => navigate("/customer-myactivity")}>
-                    <RiFileListFill size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>รายการคิว</p>
-                </div>
+                {authReducer.role === "customer" &&
+                    <div className="flex items-center py-2 text-white font-bold"
+                        onClick={() => navigate("/customer-myactivity")}>
+                        <RiFileListFill size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>รายการคิว</p>
+                    </div>
+                }
                 <div className="flex items-center py-2 text-white font-bold"
                     onClick={() => navigate("/customer-activity")}>
                     <RiBook2Fill size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>กิจกรรมทั้งหมด</p>
@@ -56,10 +58,12 @@ function SideMenu({ toggle }) {
                     onClick={() => navigate("/customer-map")}>
                     <FaMapMarkerAlt size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>แผนที่</p>
                 </div>
-                <div className="flex items-center py-2 text-white font-bold"
-                    onClick={() => navigate("/customer-comment")}>
-                    <MdComment size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>รีวิวกิจกรรม</p>
-                </div>
+                {authReducer.role === "customer" &&
+                    <div className="flex items-center py-2 text-white font-bold"
+                        onClick={() => navigate("/customer-comment")}>
+                        <MdComment size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>รีวิวกิจกรรม</p>
+                    </div>
+                }
             </div>
 
             <div className="flex items-center pt-6 mt-40 text-white font-bold border-t-2 border-t-fha" onClick={handlerLogout}>
