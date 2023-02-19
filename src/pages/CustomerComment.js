@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { BlockMobile } from "../components/Block";
 import { Navbar } from "../components/Navbar";
@@ -9,7 +11,14 @@ import MyActivityData from '../fakeData/MyActivityData';
 
 function CustomerComment() {
 
+    const navigate = useNavigate();
+    const authReducer = useSelector(state => state.authReducer);
+
     const [selectData, setSelectData] = useState(null);
+
+    useEffect(() => {
+        if (authReducer.role !== "customer") navigate('/customer-home');
+    }, [authReducer, navigate])
 
     return (
         <div>

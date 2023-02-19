@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { BlockMobile } from "../components/Block";
 import { Navbar } from "../components/Navbar";
@@ -14,12 +15,18 @@ import { AiFillCamera } from 'react-icons/ai';
 
 function StaffScan() {
 
+    const navigate = useNavigate();
+    const authReducer = useSelector(state => state.authReducer);
     const { code } = useParams();
 
     const [data, setData] = useState(null);
     const [bookData, setBookData] = useState([]);
     const [userIdList, setUserIdList] = useState([]);
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        if (authReducer.role === "customer") navigate('/customer-home');
+    }, [authReducer, navigate])
 
     useEffect(() => {
         // async function getActivity() {

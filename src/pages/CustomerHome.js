@@ -30,7 +30,6 @@ function CustomerHome() {
             if (mainActivityCookie === undefined) return;
             const response = await getOneActivity(mainActivityCookie);
             setMainAcitivty(response);
-            console.log(response)
         }
         getActivity();
     }, [])
@@ -58,10 +57,12 @@ function CustomerHome() {
                     <Card title="กิจกรรมทั้งหมด" bgColor="#F7EB84" icon={<BiBookContent size="72px" className="text-[#F7EB84] bg-white rounded-xl" />} click={() => handlerCard("/customer-activity")} />
                 </div>
 
-                <CardComment click={() => handlerCard("/customer-comment")}>
-                    <BiCommentDetail className="text-white text-lg" />
-                    <p className="text-white text-sm font-bold ml-2">รีวิวกิจกรรม</p>
-                </CardComment>
+                {authReducer.role === "customer" &&
+                    <CardComment click={() => handlerCard("/customer-comment")}>
+                        <BiCommentDetail className="text-white text-lg" />
+                        <p className="text-white text-sm font-bold ml-2">รีวิวกิจกรรม</p>
+                    </CardComment>
+                }
 
                 <input type="file" accept="image/*" capture="environment" ref={scanRef} className="hidden" />
             </BlockMobile>
