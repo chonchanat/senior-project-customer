@@ -30,7 +30,7 @@ function Comment({ data, setSelectData }) {
 
     return (
         <div>
-            <p className="font-bold mb-4">ให้คะแนนและความคิดเห็น : <labe>{data.name[0]}</labe></p>
+            <p className="font-bold mb-4">ให้คะแนนและความคิดเห็น : <label>{data.name[0]}</label></p>
             <p className="text-sm text-slate-500 my-2">ให้คะแนน</p>
             <RatingStar form={form} setForm={setForm} />
             <p className="text-sm text-slate-500 my-2">ความคิดเห็น</p>
