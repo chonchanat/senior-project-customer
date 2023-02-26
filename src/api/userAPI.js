@@ -5,9 +5,9 @@ async function signin(username, password) {
         username: username,
         password: password,
     })
-    if (user.data.user.role === "customer") {
-        throw new Error("Not found user");
-    }
+    // if (user.data.user.role === "customer") {
+    //     throw new Error("Not found user");
+    // }
     return user;
 }
 
