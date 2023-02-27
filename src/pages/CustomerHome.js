@@ -130,7 +130,7 @@ function CardHead({ activityData }) {
                         :
                         <div className="w-[full] h-[140px] overflow-hidden relative flex flex-col justify-center items-center rounded-lg"
                             onClick={() => navigate(`/staff-scan/${activityData.code}`)}>
-                            <img src="https://www.changtrixget.com/wp-content/uploads/2018/09/superman-krypton-coaster.jpg" alt="acitivty" />
+                            <img src={activityData.picture} alt="acitivty" />
                             <p className="bg-white py-2 px-4 rounded-lg font-bold text-fha text-sm absolute bottom-2 shadow-md">{activityData.name[0]}</p>
                         </div>
                 }

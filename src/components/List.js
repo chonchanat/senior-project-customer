@@ -17,13 +17,12 @@ function StarRating({ rating }) {
 }
 
 function MobileList({ data, click = () => { return 0 }, queue = false, main, role }) {
-
     const estimateTime = Math.ceil(data.queue / data.size) * data.duration;
     const ready = Math.ceil(data.queue / data.size) <= 1;
     return (
-        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data.id} onClick={() => click(data)}>
+        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data._id} onClick={() => click(data)}>
             <div className="h-auto w-[30%] overflow-hidden flex items-center">
-                <img src={data.image} alt="iamge of activity" />
+                <img src={data.picture} className="h-[80px] w-[120px]" alt="iamge of activity" />
             </div>
             <div className="w-[70%] pl-4">
                 <div className="flex justify-between">
@@ -64,7 +63,7 @@ function ListComment({ data, setSelectData }) {
     return (
         <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data.id} onClick={() => setSelectData(data)}>
             <div className="h-auto w-[30%] overflow-hidden flex items-center">
-                <img src={data.image} alt="iamge of activity" />
+                <img src={data.picture} alt="iamge of activity" />
             </div>
             <div className="flex flex-col w-[70%] pl-4">
                 <p className="font-bold">{data.name[0]}</p>
