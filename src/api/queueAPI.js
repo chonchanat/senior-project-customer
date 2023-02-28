@@ -15,4 +15,18 @@ async function createQueue(data) {
     }
 }
 
-export { createQueue }
+async function getOneQueue(data) {
+    try {
+        const response = await axios.get(`/queue/id/${data}`, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.data.queue;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { createQueue, getOneQueue }
