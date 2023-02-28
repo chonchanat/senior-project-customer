@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block';
-import { MobileList } from '../components/List';
+import { MobileList, ListQueue } from '../components/List';
 
 import { getAllQueue } from '../api/queueAPI';
 
@@ -31,13 +31,14 @@ function CustomerMyActivity() {
             <Navbar />
             <BlockMobile>
                 <div className="flex justify-between items-end my-2">
-                <p className="">รายการคิวทั้งหมดของคุณ</p>
-                <p className="text-sm">กิจกรรมที่จอง <label>{queueData.length}</label>/5</p>
+                    <p className="">รายการคิวทั้งหมดของคุณ</p>
+                    <p className="text-sm">กิจกรรมที่จอง <label>{queueData.length}</label>/5</p>
                 </div>
                 <div className="overflow-hidden overflow-y-auto">
                     {queueData.map((data) => {
                         return (
-                            <MobileList data={data} click={handlerClick} queue={true}/>
+                            <ListQueue data={data} click={handlerClick} />
+                            // <MobileList data={data} click={handlerClick} queue={true}/>
                         );
                     })}
                 </div>
