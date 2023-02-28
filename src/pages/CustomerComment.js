@@ -7,18 +7,10 @@ import { Navbar } from "../components/Navbar";
 import { ListComment } from "../components/List";
 import Comment from '../components/Comment';
 
-import MyActivityData from '../fakeData/MyActivityData';
-
 function CustomerComment() {
 
-    const navigate = useNavigate();
     const authReducer = useSelector(state => state.authReducer);
-
     const [selectData, setSelectData] = useState(null);
-
-    useEffect(() => {
-        if (authReducer.role !== "customer") navigate('/customer-home');
-    }, [authReducer, navigate])
 
     return (
         <div>
@@ -28,7 +20,7 @@ function CustomerComment() {
                 {selectData === null ?
                     <div className="overflow-hidden overflow-y-auto">
                         <p className="my-2">กิจกรรมที่เข้าร่วมแล้ว</p>
-                        {MyActivityData.map((data) => {
+                        {authReducer.activity.map((data) => {
                             return (
                                 <ListComment data={data} setSelectData={setSelectData} />
                             );

@@ -64,7 +64,7 @@ function ListComment({ data, setSelectData }) {
     return (
         <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data.id} onClick={() => setSelectData(data)}>
             <div className="h-auto w-[30%] overflow-hidden flex items-center">
-                <img src={data.picture} alt="iamge of activity" />
+                <img src={data.image} alt="iamge of activity" />
             </div>
             <div className="flex flex-col w-[70%] pl-4">
                 <p className="font-bold">{data.name[0]}</p>

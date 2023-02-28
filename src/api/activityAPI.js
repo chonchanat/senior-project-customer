@@ -70,4 +70,18 @@ function putActivity(data) {
         })
 }
 
-export { getAllActivity, getOneActivity, postActivity, deleteActivity, putActivity };
+async function reviewActivity(data) {
+    console.log(data)
+    try {
+        await axios.post(`/activity/comment`, data, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'application/json',
+            }
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { getAllActivity, getOneActivity, postActivity, deleteActivity, putActivity, reviewActivity };

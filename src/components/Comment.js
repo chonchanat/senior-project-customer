@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { Button, ButtonTransparent } from './Button';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
+import { reviewActivity } from '../api/activityAPI';
+
 function RatingStar({ form, setForm }) {
     return (
         <div className="flex justify-center">
@@ -27,17 +29,22 @@ function Comment({ data, setSelectData }) {
         rating: 0,
         text: "",
     });
-
+    function handlerSubmit() {
+        reviewActivity({
+            code: data.code,
+            comment: form,
+        });
+    }
     return (
         <div>
             <p className="font-bold mb-4">ให้คะแนนและความคิดเห็น : <label>{data.name[0]}</label></p>
             <p className="text-sm text-slate-500 my-2">ให้คะแนน</p>
             <RatingStar form={form} setForm={setForm} />
             <p className="text-sm text-slate-500 my-2">ความคิดเห็น</p>
-            <textarea className="rounded-lg border border-inputBorder bg-light-blue w-full h-32 p-4" />
+            <textarea className="rounded-lg border border-inputBorder bg-light-blue w-full h-32 p-4" onChange={(e) => setForm({...form, text: e.target.value})}/>
             <div className="flex justify-between mt-6">
                 <ButtonTransparent width="w-20" font="font-bold" click={() => setSelectData(null)}>Cancel</ButtonTransparent>
-                <Button bgColor="bg-accept" width="w-20" font="font-bold">Post</Button>
+                <Button bgColor="bg-accept" width="w-20" font="font-bold" click={handlerSubmit}>Post</Button>
             </div>
         </div>
     );
