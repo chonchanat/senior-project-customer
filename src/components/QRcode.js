@@ -1,6 +1,3 @@
-import StaffData from '../fakeData/StaffData';
-import ActivityData from '../fakeData/ActivityData';
-
 import { QRCodeSVG } from 'qrcode.react';
 
 import { CardWithHead } from './Card';

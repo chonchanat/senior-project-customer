@@ -1,20 +1,29 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setQueue } from '../actions/queueActions'
+import { useSelector } from 'react-redux';
 
 import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block';
 import { MobileList } from '../components/List';
 
-import MyActivityData from '../fakeData/MyActivityData';
+import { getAllQueue } from '../api/queueAPI';
 
 function CustomerMyActivity() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const authReducer = useSelector(state => state.authReducer);
 
-    function handlerClick(activityData) {
-        dispatch(setQueue(activityData))
-        navigate(`/customer-myactivity/${activityData.id}`)
+    useEffect(() => {
+        async function getQueue() {
+            const response = await getAllQueue(authReducer.username);
+            setQueueData(response);
+        }
+        getQueue();
+    }, [authReducer])
+
+    const [queueData, setQueueData] = useState([]);
+
+    function handlerClick(data) {
+        navigate(`/customer-myactivity/${data._id}`)
     }
 
     return (
@@ -23,10 +32,10 @@ function CustomerMyActivity() {
             <BlockMobile>
                 <div className="flex justify-between items-end my-2">
                 <p className="">รายการคิวทั้งหมดของคุณ</p>
-                <p className="text-sm">กิจกรรมที่จอง <label>{MyActivityData.length}</label>/5</p>
+                <p className="text-sm">กิจกรรมที่จอง <label>{queueData.length}</label>/5</p>
                 </div>
                 <div className="overflow-hidden overflow-y-auto">
-                    {MyActivityData.map((data) => {
+                    {queueData.map((data) => {
                         return (
                             <MobileList data={data} click={handlerClick} queue={true}/>
                         );
