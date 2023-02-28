@@ -11,7 +11,8 @@ import Scanner from "../components/qrCode/Scanner";
 
 import { AiFillCamera } from 'react-icons/ai';
 
-// import { getOneActivity } from "../api/activityAPI";
+import { getOneActivity } from "../api/activityAPI";
+import { startQueue } from "../api/queueAPI";
 
 function StaffScan() {
 
@@ -21,7 +22,7 @@ function StaffScan() {
 
     const [data, setData] = useState(null);
     const [bookData, setBookData] = useState([]);
-    const [userIdList, setUserIdList] = useState([]);
+    // const [userIdList, setUserIdList] = useState([]);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -29,24 +30,31 @@ function StaffScan() {
     }, [authReducer, navigate])
 
     useEffect(() => {
-        // async function getActivity() {
-        //     const response = await getOneActivity(code);
-        //     setData(response);
-        // }
-        // getActivity();
-        setData({
-            name: ["รถไฟเหาะ", "Roller"],
-            image: "https://www.changtrixget.com/wp-content/uploads/2018/09/superman-krypton-coaster.jpg",
-        })
+        async function getActivity() {
+            const response = await getOneActivity(code);
+            setData(response);
+        }
+        getActivity();
     }, [code])
 
     function handlerScanner(data) {
         const obj = JSON.parse(data);
-        if (!userIdList.includes(obj.userId)) {
-            setBookData([ ...bookData, obj]);
-            setUserIdList([ ...userIdList, obj.userId]);
-        }
+        console.log(obj)
+        // if (!bookData.includes(obj)) {
+        //     setBookData([ ...bookData, obj]);
+        // }
+        setBookData([...bookData, obj])
         setOpen(false);
+    }
+
+    function handlerStart() {
+        startQueue({
+            activityCode: data.code,
+            queueId: bookData,
+        });
+    }
+    function handlerRemove() {
+        setBookData([]);
     }
 
     return (
@@ -60,9 +68,9 @@ function StaffScan() {
 
                         <Button width="w-full h-12 mt-4 font-bold" bgColor="bg-[#DFD1C6]" click={() => setOpen(true)}>แสกน qr-code<AiFillCamera size="20px" className="ml-2" /></Button>
                         <div className="flex my-4">
-                            <Button width="w-full h-12" bgColor="bg-accept">เริ่มกิจกรรม</Button>
+                            <Button width="w-full h-12" bgColor="bg-accept" click={handlerStart}>เริ่มกิจกรรม</Button>
                             <div className="w-8" />
-                            <Button width="w-full h-12" bgColor="bg-decline">ล้างคิวทั้งหมด</Button>
+                            <Button width="w-full h-12" bgColor="bg-decline" click={handlerRemove}>ล้างคิวทั้งหมด</Button>
                         </div>
 
                         <p>ตารางแสดงผู้เล่นรอบนี้</p>
@@ -70,8 +78,8 @@ function StaffScan() {
                             {bookData.map((item, index) =>
                                 <div className="flex" key={index}>
                                     <p className="w-16">{index + 1}</p>
-                                    <p className="w-full">{item.userId}</p>
-                                    <p className="w-16 text-end">{item.members} คน</p>
+                                    <p className="w-full">{item}</p>
+                                    <p className="w-16 text-end">คน</p>
                                 </div>
                             )}
                             {bookData.length === 0 && <p className="text-sm">ขณะนี้ยังไม่มีรายการเข้าเล่น</p>}

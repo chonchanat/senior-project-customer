@@ -44,4 +44,19 @@ async function getAllQueue(data) {
     }
 }
 
-export { createQueue, getOneQueue, getAllQueue }
+async function startQueue(data) {
+    console.log(data)
+    try {
+        await axios.post(`/queue/start`, data,
+        {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'application/json',
+            }
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { createQueue, getOneQueue, getAllQueue, startQueue }
