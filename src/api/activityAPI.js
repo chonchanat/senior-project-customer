@@ -71,7 +71,6 @@ function putActivity(data) {
 }
 
 async function reviewActivity(data) {
-    console.log(data)
     try {
         await axios.post(`/activity/comment`, data, {
             headers: {

@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
-import { MobileList } from '../components/List';
+import { ListAllAcitivty } from '../components/List';
 import { SearchWithIcon } from '../components/Search';
 import BackToTop from '../components/BackToTop';
 
-// import ActivityData from '../fakeData/ActivityData';
 import { getAllActivity } from '../api/activityAPI';
 
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 function CustomerActivity() {
 
-    const authReducer = useSelector(state => state.authReducer);
+    // const authReducer = useSelector(state => state.authReducer);
 
     useEffect(() => {
         async function getActivity() {
             const response = await getAllActivity();
+            console.log(response)
             setActivityData(response);
         }
         getActivity();
@@ -26,12 +26,12 @@ function CustomerActivity() {
 
     const [activityData, setActivityData] = useState([]);
     const [search, setSearch] = useState("");
-    const [main, setMain] = useState(Cookies.get('mainActivityCookie'));
+    // const [main, setMain] = useState(Cookies.get('mainActivityCookie'));
 
-    function handlerClick(activityData) {
-        setMain(activityData.code);
-        Cookies.set('mainActivityCookie', activityData.code)
-    }
+    // function handlerClick(activityData) {
+    //     setMain(activityData.code);
+    //     Cookies.set('mainActivityCookie', activityData.code)
+    // }
 
     return (
         <div>
@@ -46,7 +46,8 @@ function CustomerActivity() {
                     })
                     .map((data) => {
                         return (
-                            <MobileList data={data} main={main} role={authReducer.role} click={handlerClick}/>
+                            <ListAllAcitivty data={data}/>
+                            // <MobileList data={data} main={main} role={authReducer.role} click={handlerClick}/>
                         );
                     })}
             </BlockMobile>

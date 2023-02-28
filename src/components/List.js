@@ -52,9 +52,35 @@ function MobileList({ data, click = () => { return 0 }, queue = false, main, rol
                         main === data.code ?
                             <MdFavorite className="ml-auto text-3xl text-decline" />
                             :
-                            <MdFavoriteBorder className="ml-auto text-3xl text-decline"  />
+                            <MdFavoriteBorder className="ml-auto text-3xl text-decline" />
 
                 }
+            </div>
+        </div>
+    );
+}
+
+function ListAllAcitivty({ data }) {
+    return (
+        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data._id}>
+            <div className="h-auto w-[30%] overflow-hidden flex items-center">
+                <img src={data.picture} className="h-[80px] w-[120px]" alt="iamge of activity" />
+            </div>
+            <div className="w-[70%] pl-4">
+                <div className="flex justify-between">
+                    <p className="font-bold">{data.name[0]}</p>
+                </div>
+                <StarRating rating={data.rating} />
+                <div className="flex justify-between mt-4">
+                    <div>
+                        <p className="text-xs">เวลาโดยประมาณ</p>
+                        <p className="text-sm">{data.round * data.duration} นาที</p>
+                    </div>
+                    <div>
+                        <p className="text-xs text-right">จำนวนคิว</p>
+                        <p className="text-sm text-right">{data.queueNo} คิว</p>
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -75,4 +101,4 @@ function ListComment({ data, setSelectData }) {
     );
 }
 
-export { MobileList, ListComment };
+export { MobileList, ListComment, ListAllAcitivty };
