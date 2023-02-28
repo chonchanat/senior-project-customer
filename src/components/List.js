@@ -16,6 +16,7 @@ function StarRating({ rating }) {
     );
 }
 
+// ปัญหาแสดงผลระหว่างหน้า กิจกรรมทั้งหมดและกิจกรรมที่เราจองไว้
 function MobileList({ data, click = () => { return 0 }, queue = false, main, role }) {
     // const estimateTime = Math.ceil(data.queue / data.size) * data.duration;
     // const ready = Math.ceil(data.queue / data.size) <= 1;
