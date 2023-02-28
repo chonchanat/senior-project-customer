@@ -20,7 +20,6 @@ function CustomerMap() {
     useEffect(() => {
         async function getActivity() {
             const response = await getAllActivity();
-            console.log(response)
             setActivityData(response);
         }
         getActivity();
@@ -48,13 +47,12 @@ function CustomerMap() {
                                 })
                                 return (
                                     <Marker position={data.position} icon={myIconDiv}>
-                                        <Popup offset={[16,0]}>
+                                        <Popup offset={[16, 0]}>
                                             <p className="text-center font-bold">{data.name[0]}</p>
                                         </Popup>
                                     </Marker>
                                 );
-                            }
-                            )}
+                            })}
                         </MapContainer>
                     </div>
                 </CardWithHead>
