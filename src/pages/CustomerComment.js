@@ -20,14 +20,14 @@ function CustomerComment() {
                     <div className="overflow-hidden overflow-y-auto">
                         <p className="my-2">ประวัติการเข้าร่วมกิจกรรม</p>
                         {
-                            authReducer.activity ?
+                            authReducer.activity.length !== 0 ?
                                 authReducer.activity.map((data) => {
                                     return (
                                         <ListComment data={data} setSelectData={setSelectData} />
                                     );
                                 })
                                 :
-                                <p className="my-8 text-slate-400 text-center">คุณยังไม่มีรายกายเข้าร่วมในขณะนี้</p>
+                                <p className="my-8 text-slate-400 text-center">คุณยังไม่มีประวัติการเข้าร่วมในขณะนี้</p>
                         }
                     </div>
                     :

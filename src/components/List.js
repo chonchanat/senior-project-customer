@@ -16,10 +16,20 @@ function StarRating({ rating }) {
 }
 
 function ListAllAcitivty({ data, click=()=>{return 0}, control, role }) {
+
+    const diffRound = data.round - data.roundNow;
+
+    function handlerStatus() {
+        if ( data.status === "open") return "bg-accept";
+        else if (data.status === "temporary closed") return "bg-yellow";
+        else if (data.status === "close") return "bg-red-400";
+    }
+
     return (
         <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data._id} onClick={() => click(data)}>
-            <div className="h-auto w-[30%] overflow-hidden flex items-center">
-                <img src={data.picture} className="h-[80px] w-[120px]" alt="iamge of activity" />
+            <div className="h-auto w-[30%] flex items-center relative">
+                <img src={data.picture} className="h-[80px] w-[120px] rounded-md" alt="iamge of activity" />
+                <div className={`${handlerStatus()} w-4 h-4 absolute rounded-full right-[-8px] top-0`}/>
             </div>
             <div className="w-[70%] pl-4">
                 <div className="flex justify-between items-center">
@@ -30,11 +40,15 @@ function ListAllAcitivty({ data, click=()=>{return 0}, control, role }) {
                 <div className="flex justify-between mt-4">
                     <div>
                         <p className="text-xs">เวลาโดยประมาณ</p>
-                        <p className="text-sm">{data.round * data.duration} นาที</p>
+                        <p className="text-sm">{diffRound * data.duration} นาที</p>
                     </div>
                     <div>
-                        <p className="text-xs text-right">จำนวนคิว</p>
-                        <p className="text-sm text-right">{data.queueNo} คิว</p>
+                        <p className="text-xs text-right">รอบก่อนหน้า</p>
+                        {diffRound ?
+                            <p className="text-sm text-right">{diffRound} รอบ</p>
+                            :
+                            <p className="text-sm text-accept">พร้อมในรอบต่อไป</p>
+                        }
                     </div>
                 </div>
             </div>
@@ -53,12 +67,12 @@ function ListQueue({ data, click }) {
                 <p className="text-sm">ผู้เข้าร่วมกิจกรรม : {data.size} คน</p>
                 <div className="flex justify-between mt-4">
                     <div>
-                        <p className="text-xs">เวลาโดยประมาณ</p>
-                        <p className="text-sm">{data.round * data.duration} นาที</p>
+                        <p className="text-xs">เวลารอโดยประมาณ</p>
+                        <p className="text-sm">{data.diffRound * data.duration} นาที</p>
                     </div>
                     <div>
-                        <p className="text-xs text-right">จำนวนคิว</p>
-                        <p className="text-sm text-right">{data.queueNo} คิว</p>
+                        <p className="text-xs text-right">รอบก่อนหน้า</p>
+                        <p className="text-sm text-right">{data.diffRound} รอบ</p>
                     </div>
                 </div>
             </div>
