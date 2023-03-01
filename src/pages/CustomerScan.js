@@ -6,6 +6,7 @@ import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block'
 import { CardWithHead } from '../components/Card';
 import { Button } from '../components/Button';
+import { Modal } from '../components/Modal';
 
 import { getOneActivity } from '../api/activityAPI';
 import { createQueue } from '../api/queueAPI';
@@ -29,10 +30,13 @@ function CustomerScan() {
     useEffect(() => {
         async function getActivity() {
             const response = await getOneActivity(code);
-            setData(response);
+            if (!response) navigate('/customer-home');
+            else setData(response);
         }
         getActivity();
-    }, [code])
+    }, [code, navigate])
+
+    const [state, setState] = useState(false);
 
     function handlerAdd() {
         if (form.size < authReducer.members) {
@@ -54,6 +58,7 @@ function CustomerScan() {
         <div>
             <Navbar />
             <BlockMobile>
+                <Modal state={state} setState={setState} click={handlerSubmit} form={form} data={data}/>
                 <CardWithHead title={"จองคิวกิจกรรม"} bgColor={"#F8F8F8"}>
                     <div className="flex flex-col items-center">
                         <p className="text-xl font-bold">{data.name[0]}</p>
@@ -75,8 +80,8 @@ function CustomerScan() {
                         </div>
                         <p className="mt-4 text-sm">ใช้ดาวทั้งหมด {data.star * form.size} ดวง</p>
                         <div className="flex w-[220px] justify-between mt-8 mb-4">
-                            <Button bgColor="bg-accept" width="w-[100px]" click={handlerSubmit}>ตกลง</Button>
                             <Button bgColor="bg-decline" width="w-[100px]" click={() => navigate('/customer-home')}>ยกเลิก</Button>
+                            <Button bgColor="bg-accept" width="w-[100px]" click={() => setState(true)}>ตกลง</Button>
                         </div>
                     </div>
                 </CardWithHead>
