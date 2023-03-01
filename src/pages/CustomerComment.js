@@ -19,14 +19,19 @@ function CustomerComment() {
                 {selectData === null ?
                     <div className="overflow-hidden overflow-y-auto">
                         <p className="my-2">ประวัติการเข้าร่วมกิจกรรม</p>
-                        {authReducer.activity.map((data) => {
-                            return (
-                                <ListComment data={data} setSelectData={setSelectData} />
-                            );
-                        })}
+                        {
+                            authReducer.activity ?
+                                authReducer.activity.map((data) => {
+                                    return (
+                                        <ListComment data={data} setSelectData={setSelectData} />
+                                    );
+                                })
+                                :
+                                <p className="my-8 text-slate-400 text-center">คุณยังไม่มีรายกายเข้าร่วมในขณะนี้</p>
+                        }
                     </div>
                     :
-                    <Comment data={selectData} setSelectData={setSelectData}/>
+                    <Comment data={selectData} setSelectData={setSelectData} />
                 }
 
             </BlockMobile>

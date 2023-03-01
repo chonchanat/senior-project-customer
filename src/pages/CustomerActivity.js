@@ -25,14 +25,12 @@ function CustomerActivity() {
 
     const [activityData, setActivityData] = useState([]);
     const [search, setSearch] = useState("");
-    // const [main, setMain] = useState(Cookies.get('mainActivityCookie'));
     const [control, setControl] = useState(Cookies.get("controlActivityCookie"));
 
     function handlerClick(activityData) {
         if (authReducer.role !== "customer") {
-            console.log("lick")
             setControl(activityData.code);
-            Cookies.set('controlActivityCookie', activityData.code)
+            Cookies.set('controlActivityCookie', activityData.code, { expires: 30 })
         }
     }
 
@@ -41,17 +39,22 @@ function CustomerActivity() {
             <Navbar />
             <BlockMobile>
                 <SearchWithIcon setSearch={setSearch} />
-                {activityData
-                    .filter((data) => {
-                        return search.toLowerCase() === ""
-                            ? data
-                            : data.name[0].toLowerCase().includes(search);
-                    })
-                    .map((data) => {
-                        return (
-                            <ListAllAcitivty data={data} click={handlerClick} control={control} role={authReducer.role}/>
-                        );
-                    })}
+                {activityData ?
+                    activityData
+                        .filter((data) => {
+                            return search.toLowerCase() === ""
+                                ? data
+                                : data.name[0].toLowerCase().includes(search);
+                        })
+                        .map((data) => {
+                            return (
+                                <ListAllAcitivty data={data} click={handlerClick} control={control} role={authReducer.role} />
+                            );
+                        })
+                    :
+                    <p className="my-8 text-slate-400 text-center">ยังไม่มีรายกายกิจกรรมในขณะนี้</p>
+
+                }
             </BlockMobile>
             <BackToTop />
         </div>

@@ -21,8 +21,8 @@ function fetchAuthAsync(phone, password) {
             const user = await signin(phone, password);
             if (user) {
                 dispatch(setAuth(user.data.user));
-                Cookies.set('accesstoken', user.data.accesstoken);
-                Cookies.set('userCookie', JSON.stringify(user.data.user));
+                Cookies.set('accesstoken', user.data.accesstoken, { expires: 1 });
+                Cookies.set('userCookie', JSON.stringify(user.data.user), { expires: 1 });
                 dispatch(errorFetch(''));
                 dispatch(endFetch());
             }
