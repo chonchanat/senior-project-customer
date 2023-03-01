@@ -29,6 +29,20 @@ async function getOneQueue(data) {
     }
 }
 
+async function getIncomingQueue(data) {
+    try {
+        const response = await axios.get(`/queue/firstqueue/${data}`, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.data.queue;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function getAllQueue(data) {
     try {
         const response = await axios.get(`/queue/active/${data}`, {
@@ -59,4 +73,4 @@ async function startQueue(data) {
     }
 }
 
-export { createQueue, getOneQueue, getAllQueue, startQueue }
+export { createQueue, getOneQueue, getIncomingQueue, getAllQueue, startQueue }

@@ -6,13 +6,15 @@ import { useSelector } from 'react-redux';
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
 import { Card, CardWithHead, CardComment } from '../components/Card';
+import { ListQueue } from '../components/List';
+import Scanner from '../components/qrCode/Scanner';
 
 import { TbQrcode } from 'react-icons/tb';
 import { GoListUnordered } from 'react-icons/go';
 import { BiBookContent, BiMapPin, BiCommentDetail } from 'react-icons/bi';
-import Scanner from '../components/qrCode/Scanner';
 
 import { getOneActivity } from "../api/activityAPI";
+import { getIncomingQueue } from '../api/queueAPI';
 
 import Cookies from 'js-cookie';
 function CustomerHome() {
@@ -32,10 +34,13 @@ function CustomerHome() {
             const response = await getOneActivity(controlActivityCookie);
             setControlActivity(response);
         }
+        async function getIncomingQueueData() {
+            const response = await getIncomingQueue(authReducer.username);
+            setIncomingQueue(response)
+        }
 
-        if( authReducer.role === "customer"){
-            console.log('รอ API ดึงคิวที่กำลังจะถึงจาก CustomerHeadCard');
-            setIncomingQueue(null);
+        if (authReducer.role === "customer") {
+            getIncomingQueueData();
         }
         else getControlActivity();
 
@@ -58,7 +63,7 @@ function CustomerHome() {
                 {authReducer.role !== "customer" ?
                     <StaffCardHead data={controlActivity} />
                     :
-                    <CustomerCardHead data={incomingQueue}/>
+                    <CustomerCardHead data={incomingQueue} />
                 }
 
                 <div className="flex flex-wrap justify-between">
@@ -82,31 +87,11 @@ function CustomerHome() {
 }
 
 function CustomerCardHead({ data }) {
+    console.log(data)
     return (
         <CardWithHead title="คิวที่กำลังจะถึง">
             {data ?
-                <div className="grid grid-cols-2 gap-4 px-2">
-                    <div>
-                        {/* <img src={data.image} alt="img of activity" /> */}
-                    </div>
-                    <div className="flex flex-col justify-between">
-                        <div>
-                            {/* <p className="text-xl font-bold">{data.name}</p> */}
-                            {/* <p className="text-xs">{data.member} คน</p> */}
-                            {/* {ready && <p className="text-accept">รอบต่อไป</p>} */}
-                        </div>
-                        <div className="flex justify-between">
-                            <div>
-                                <p className="text-xs">เวลารอคิว</p>
-                                {/* <p className="text-sm">{estimateTime} นาที</p> */}
-                            </div>
-                            <div>
-                                <p className="text-xs text-right">จำนวนคิว</p>
-                                {/* <p className="text-sm text-right">{data[0].queue}/{data[0].size} คิว</p> */}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ListQueue data={data} />
                 :
                 <div className="h-16 flex items-center">
                     <p className="text-sm">ขณะนี้ คุณยังไม่ได้จองกิจกรรมที่ต้องการเล่น</p>
