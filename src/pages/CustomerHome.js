@@ -22,17 +22,24 @@ function CustomerHome() {
 
     const scanRef = useRef();
     const [open, setOpen] = useState(false);
-    const [mainAcitivty, setMainAcitivty] = useState(null);
+    const [controlActivity, setControlActivity] = useState(null);
+    const [incomingQueue, setIncomingQueue] = useState(null);
 
     useEffect(() => {
-        async function getActivity() {
-            const mainActivityCookie = Cookies.get('mainActivityCookie')
-            if (mainActivityCookie === undefined) return;
-            const response = await getOneActivity(mainActivityCookie);
-            setMainAcitivty(response);
+        async function getControlActivity() {
+            const controlActivityCookie = Cookies.get('controlActivityCookie')
+            if (controlActivityCookie === undefined) return;
+            const response = await getOneActivity(controlActivityCookie);
+            setControlActivity(response);
         }
-        getActivity();
-    }, [])
+
+        if( authReducer.role === "customer"){
+            console.log('รอ API ดึงคิวที่กำลังจะถึงจาก CustomerHeadCard');
+            setIncomingQueue(null);
+        }
+        else getControlActivity();
+
+    }, [authReducer])
 
     function handlerCard(link) {
         navigate(link);
@@ -48,7 +55,11 @@ function CustomerHome() {
             <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner} />
             <BlockMobile>
 
-                <CardHead activityData={mainAcitivty} />
+                {authReducer.role !== "customer" ?
+                    <StaffCardHead data={controlActivity} />
+                    :
+                    <CustomerCardHead data={incomingQueue}/>
+                }
 
                 <div className="flex flex-wrap justify-between">
                     {authReducer.role === "customer" && (<Card title="จองคิว" bgColor="#DFD1C6" icon={<TbQrcode size="72px" className="text-[#DFD1C6] bg-white rounded-xl" />} click={() => setOpen(true)} />)}
@@ -60,7 +71,7 @@ function CustomerHome() {
                 {authReducer.role === "customer" &&
                     <CardComment click={() => handlerCard("/customer-comment")}>
                         <BiCommentDetail className="text-white text-lg" />
-                        <p className="text-white text-sm font-bold ml-2">ประวัติการเข้าร่วม</p>
+                        <p className="text-white text-sm font-bold ml-2">ประวัติกิจกรรม</p>
                     </CardComment>
                 }
 
@@ -70,72 +81,60 @@ function CustomerHome() {
     );
 }
 
-function CardHead({ activityData }) {
+function CustomerCardHead({ data }) {
+    return (
+        <CardWithHead title="คิวที่กำลังจะถึง">
+            {data ?
+                <div className="grid grid-cols-2 gap-4 px-2">
+                    <div>
+                        {/* <img src={data.image} alt="img of activity" /> */}
+                    </div>
+                    <div className="flex flex-col justify-between">
+                        <div>
+                            {/* <p className="text-xl font-bold">{data.name}</p> */}
+                            {/* <p className="text-xs">{data.member} คน</p> */}
+                            {/* {ready && <p className="text-accept">รอบต่อไป</p>} */}
+                        </div>
+                        <div className="flex justify-between">
+                            <div>
+                                <p className="text-xs">เวลารอคิว</p>
+                                {/* <p className="text-sm">{estimateTime} นาที</p> */}
+                            </div>
+                            <div>
+                                <p className="text-xs text-right">จำนวนคิว</p>
+                                {/* <p className="text-sm text-right">{data[0].queue}/{data[0].size} คิว</p> */}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                :
+                <div className="h-16 flex items-center">
+                    <p className="text-sm">ขณะนี้ คุณยังไม่ได้จองกิจกรรมที่ต้องการเล่น</p>
+                </div>
+            }
+        </CardWithHead>
+    );
+}
+
+function StaffCardHead({ data }) {
 
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
-    const authReducer = useSelector(state => state.authReducer);
-
-    // const estimateTime = Math.ceil(activityData[0].queue / activityData[0].size) * activityData[0].duration;
-    // const ready = Math.ceil(activityData[0].queue / activityData[0].size);
-
-    // function handlerClick(activityData) {
-    //     dispatch(setQueue(activityData))
-    //     navigate(`/customer-myactivity/${activityData.id}`)
-    // }
 
     return (
-        authReducer.role === "customer" ?
-            // activityData.length &&
-            // <CardWithHead title="คิวที่กำลังจะถึง">
-            //     {
-            //     activityData.length === 0 ?
-            //         <div className="h-16 flex items-center">
-            //             <p className="text-sm">ขณะนี้ คุณยังไม่ได้จองกิจกรรมที่ต้องการเล่น</p>
-            //         </div>
-            //         :
-            //         <div className="grid grid-cols-2 gap-4 px-2" onClick={() => handlerClick(activityData)}>
-            //             <div>
-            //                 <img src={activityData.image} alt="img of activity" />
-            //             </div>
-            //             <div className="flex flex-col justify-between">
-            //                 <div>
-            //                     <p className="text-xl font-bold">{activityData.name}</p>
-            //                     <p className="text-xs">{activityData.member} คน</p>
-            //                     {/* {ready && <p className="text-accept">รอบต่อไป</p>} */}
-            //                 </div>
-            //                 <div className="flex justify-between">
-            //                     <div>
-            //                         <p className="text-xs">เวลารอคิว</p>
-            //                         {/* <p className="text-sm">{estimateTime} นาที</p> */}
-            //                     </div>
-            //                     <div>
-            //                         <p className="text-xs text-right">จำนวนคิว</p>
-            //                         {/* <p className="text-sm text-right">{activityData[0].queue}/{activityData[0].size} คิว</p> */}
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     }
-            // </CardWithHead>
-            <CardWithHead title="คิวที่กำลังจะถึง">
-            </CardWithHead>
-            :
-            <CardWithHead title="กิจกรรมหลัก">
-                {
-                    activityData === null ?
-                        <div className="h-16 flex items-center">
-                            <p className="text-sm">กรุณาเลือกกิจกรรมหลักที่ต้องการดูแล</p>
-                        </div>
-                        :
-                        <div className="w-[full] h-[140px] overflow-hidden relative flex flex-col justify-center items-center rounded-lg"
-                            onClick={() => navigate(`/staff-scan/${activityData.code}`)}>
-                            <img src={activityData.picture} alt="acitivty" />
-                            <p className="bg-white py-2 px-4 rounded-lg font-bold text-fha text-sm absolute bottom-2 shadow-md">{activityData.name[0]}</p>
-                        </div>
-                }
-            </CardWithHead>
-
+        <CardWithHead title="กิจกรรมหลัก">
+            {
+                data === null ?
+                    <div className="h-16 flex items-center">
+                        <p className="text-sm">กรุณาเลือกกิจกรรมหลักที่ต้องการดูแล</p>
+                    </div>
+                    :
+                    <div className="w-[full] h-[140px] overflow-hidden relative flex flex-col justify-center items-center rounded-lg"
+                        onClick={() => navigate(`/staff-scan/${data.code}`)}>
+                        <img src={data.picture} alt="acitivty" />
+                        <p className="bg-white py-2 px-4 rounded-lg font-bold text-fha text-sm absolute bottom-2 shadow-md">{data.name[0]}</p>
+                    </div>
+            }
+        </CardWithHead>
     );
 }
 

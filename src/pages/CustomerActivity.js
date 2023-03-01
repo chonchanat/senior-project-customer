@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';
@@ -9,16 +9,15 @@ import BackToTop from '../components/BackToTop';
 
 import { getAllActivity } from '../api/activityAPI';
 
-// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 function CustomerActivity() {
 
-    // const authReducer = useSelector(state => state.authReducer);
+    const authReducer = useSelector(state => state.authReducer);
 
     useEffect(() => {
         async function getActivity() {
             const response = await getAllActivity();
-            console.log(response)
             setActivityData(response);
         }
         getActivity();
@@ -27,11 +26,15 @@ function CustomerActivity() {
     const [activityData, setActivityData] = useState([]);
     const [search, setSearch] = useState("");
     // const [main, setMain] = useState(Cookies.get('mainActivityCookie'));
+    const [control, setControl] = useState(Cookies.get("controlActivityCookie"));
 
-    // function handlerClick(activityData) {
-    //     setMain(activityData.code);
-    //     Cookies.set('mainActivityCookie', activityData.code)
-    // }
+    function handlerClick(activityData) {
+        if (authReducer.role !== "customer") {
+            console.log("lick")
+            setControl(activityData.code);
+            Cookies.set('controlActivityCookie', activityData.code)
+        }
+    }
 
     return (
         <div>
@@ -46,8 +49,7 @@ function CustomerActivity() {
                     })
                     .map((data) => {
                         return (
-                            <ListAllAcitivty data={data}/>
-                            // <MobileList data={data} main={main} role={authReducer.role} click={handlerClick}/>
+                            <ListAllAcitivty data={data} click={handlerClick} control={control} role={authReducer.role}/>
                         );
                     })}
             </BlockMobile>

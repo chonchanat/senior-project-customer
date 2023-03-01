@@ -61,7 +61,7 @@ function SideMenu({ toggle }) {
                 {authReducer.role === "customer" &&
                     <div className="flex items-center py-2 text-white font-bold"
                         onClick={() => navigate("/customer-comment")}>
-                        <MdComment size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>รีวิวกิจกรรม</p>
+                        <MdComment size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>ประวัติกิจกรรม</p>
                     </div>
                 }
             </div>

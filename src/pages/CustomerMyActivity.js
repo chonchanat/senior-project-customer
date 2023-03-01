@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block';
-import { MobileList, ListQueue } from '../components/List';
+import { ListQueue } from '../components/List';
 
 import { getAllQueue } from '../api/queueAPI';
 
@@ -35,12 +35,15 @@ function CustomerMyActivity() {
                     <p className="text-sm">กิจกรรมที่จอง <label>{queueData.length}</label>/5</p>
                 </div>
                 <div className="overflow-hidden overflow-y-auto">
-                    {queueData.map((data) => {
-                        return (
-                            <ListQueue data={data} click={handlerClick} />
-                            // <MobileList data={data} click={handlerClick} queue={true}/>
-                        );
-                    })}
+                    {queueData.length ?
+                        queueData.map((data) => {
+                            return (
+                                <ListQueue data={data} click={handlerClick} />
+                            );
+                        })
+                        :
+                        <p className="my-8 text-slate-400 text-center">คุณยังไม่มีรายการจองในขณะนี้</p>
+                    }
                 </div>
             </BlockMobile>
         </div>
