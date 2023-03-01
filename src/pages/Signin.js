@@ -47,14 +47,14 @@ function Signin() {
                 <form onSubmit={handlerSignin}>
                     <div className="pb-6">
                         <p className="text-white pb-2">Phone number</p>
-                        <input className="w-full py-2 px-4 rounded-md"
+                        <input type="text" className="w-full py-2 px-4 rounded-md"
                             required
                             placeholder="phone number"
                             onChange={(e) => setUser({ ...user, phone: e.target.value })} />
                     </div>
                     <div className="pb-6">
                         <p className="text-white pb-2">Password</p>
-                        <input className="w-full py-2 px-4 rounded-md"
+                        <input type="password" className="w-full py-2 px-4 rounded-md"
                             required
                             placeholder="password"
                             onChange={(e) => setUser({ ...user, password: e.target.value })} />

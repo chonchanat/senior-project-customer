@@ -118,7 +118,7 @@ function ListComment({ data, setSelectData }) {
             </div>
             <div className="flex flex-col w-[70%] pl-4">
                 <p className="font-bold">{data.name[0]}</p>
-                <StarRating rating={data.rating} />
+                <p className="text-sm flex items-center">ผู้เข้าร่วมกิจกรรม : 4 คน ( 48 <AiFillStar className="text-yellow text-sm" />)</p>
                 <p className="text-xs flex-1 flex justify-end items-end">กดเพื่อให้คะแนน</p>
             </div>
         </div>
