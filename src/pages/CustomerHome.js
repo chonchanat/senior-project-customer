@@ -46,6 +46,9 @@ function CustomerHome() {
 
     }, [authReducer])
 
+    function handlerQueue(data) {
+        navigate(`/customer-myactivity/${data._id}`)
+    }
     function handlerCard(link) {
         navigate(link);
     }
@@ -63,7 +66,7 @@ function CustomerHome() {
                 {authReducer.role !== "customer" ?
                     <StaffCardHead data={controlActivity} />
                     :
-                    <CustomerCardHead data={incomingQueue} />
+                    <CustomerCardHead data={incomingQueue} click={handlerQueue} />
                 }
 
                 <div className="flex flex-wrap justify-between">
@@ -86,12 +89,11 @@ function CustomerHome() {
     );
 }
 
-function CustomerCardHead({ data }) {
-    console.log(data)
+function CustomerCardHead({ data, click }) {
     return (
         <CardWithHead title="คิวที่กำลังจะถึง">
             {data ?
-                <ListQueue data={data} />
+                <ListQueue data={data} click={click}/>
                 :
                 <div className="h-16 flex items-center">
                     <p className="text-sm">ขณะนี้ คุณยังไม่ได้จองกิจกรรมที่ต้องการเล่น</p>
