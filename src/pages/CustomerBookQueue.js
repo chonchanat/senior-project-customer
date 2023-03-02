@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block'
 import { CardWithHead } from '../components/Card';
-
+import { ModalUnBookQueue } from '../components/Modal';
 import QRcode from '../components/QRcode';
 
 import { getOneQueue } from '../api/queueAPI';
@@ -22,10 +22,16 @@ function CustomerBookQueue() {
     }, [id])
 
     const [data, setData] = useState(null);
+    const [modal, setModal] = useState(false);
+
+    function handlerUnBook() {
+        console.log('ยกเลิกการจอง')
+    }
 
     return (
         <div>
             <Navbar />
+            <ModalUnBookQueue state={modal} setState={setModal} click={handlerUnBook} />
             <BlockMobile>
                 {data &&
                     <CardWithHead title="กิจกรรม">
@@ -39,7 +45,7 @@ function CustomerBookQueue() {
                                 <p className="text-sm mt-6 text-decline">*กรุณายื่น QR-code ให้พนักงานแสกนก่อนเข้าร่วมกิจกรรม*</p>
                             </div>
 
-                            <p className="p-1 text-xs text-decline rounded-md absolute top-0 right-2 border border-decline">ยกเลิกการจอง</p>
+                            <p className="p-1 text-xs text-decline rounded-md absolute top-0 right-2 border border-decline" onClick={() => setModal(true)}>ยกเลิกการจอง</p>
 
                         </div>
                     </CardWithHead>
