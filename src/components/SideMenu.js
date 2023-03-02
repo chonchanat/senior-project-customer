@@ -9,6 +9,7 @@ import { RiFileListFill, RiBook2Fill } from 'react-icons/ri';
 import { IoLogOut } from 'react-icons/io5';
 import { AiFillStar } from 'react-icons/ai';
 import { MdComment } from 'react-icons/md';
+import Divider from './Divider';
 
 function SideMenu({ toggle }) {
 
@@ -28,7 +29,7 @@ function SideMenu({ toggle }) {
             ${toggle ? "right-[0]" : "right-[-240px] invisible"}`}
             style={{ "transition": "0.1s ease-out" }}>
 
-            <div className="relative text-white py-4 border-b-2 border-b-fha">
+            <div className="relative text-white py-4">
                 <p className="pb-2 font-bold">ยินดีต้อนรับ</p>
                 <p className="font-bold">คุณ {authReducer.username}</p>
                 {
@@ -39,7 +40,9 @@ function SideMenu({ toggle }) {
                 }
             </div>
 
-            <div className="pt-4">
+            <Divider color="fha"/>
+
+            <div className="pt-4 mb-40">
                 <div className="flex items-center py-2 text-white font-bold"
                     onClick={() => navigate("/customer-home")}>
                     <HiHome size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>หน้าแรก</p>
@@ -66,7 +69,9 @@ function SideMenu({ toggle }) {
                 }
             </div>
 
-            <div className="flex items-center pt-6 mt-40 text-white font-bold border-t-2 border-t-fha" onClick={handlerLogout}>
+            <Divider color="fha"/>
+
+            <div className="flex items-center pt-6 text-white font-bold" onClick={handlerLogout}>
                 <IoLogOut size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>ออกจากระบบ</p>
             </div>
         </div>

@@ -12,7 +12,7 @@ function CardWithHead({ title, bgColor = "white", children }) {
     return (
         <div className="w-full rounded-xl mb-4 overflow-hidden shadow-lg" style={{ backgroundColor: bgColor }}>
             <p className="text-center bg-fha-desktop py-1 text-white font-bold text-sm">{title}</p>
-            <div className="h-auto py-4 px-2">
+            <div className="h-auto p-2">
                 {children}
             </div>
         </div>

@@ -26,7 +26,7 @@ function ListAllAcitivty({ data, click=()=>{return 0}, control, role }) {
     }
 
     return (
-        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data._id} onClick={() => click(data)}>
+        <div className="py-2 flex h-fit hover:bg-hover" key={data._id} onClick={() => click(data)}>
             <div className="h-auto w-[30%] flex items-center relative">
                 <img src={data.picture} className="h-[80px] w-[120px] rounded-md" alt="iamge of activity" />
                 <div className={`${handlerStatus()} w-4 h-4 absolute rounded-full right-[-8px] top-0`}/>
@@ -58,7 +58,7 @@ function ListAllAcitivty({ data, click=()=>{return 0}, control, role }) {
 
 function ListQueue({ data, click=()=>{return 0} }) {
     return (
-        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data._id} onClick={() => click(data)}>
+        <div className="py-2 flex h-fit hover:bg-hover" key={data._id} onClick={() => click(data)}>
             <div className="h-auto w-[30%] overflow-hidden flex items-center">
                 <img src={data.activityPicture} className="h-[80px] w-[120px] rounded-md" alt="iamge of activity" />
             </div>
@@ -82,7 +82,7 @@ function ListQueue({ data, click=()=>{return 0} }) {
 
 function ListComment({ data, setSelectData }) {
     return (
-        <div className="py-2 flex h-fit border-b-2 border-[#E0E0E0] hover:bg-hover" key={data.id} onClick={() => setSelectData(data)}>
+        <div className="py-2 flex h-fit hover:bg-hover" key={data.id} onClick={() => setSelectData(data)}>
             <div className="h-auto w-[30%] overflow-hidden flex items-center">
                 <img src={data.image} alt="iamge of activity" />
             </div>

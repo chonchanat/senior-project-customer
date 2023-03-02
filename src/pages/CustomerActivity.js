@@ -6,6 +6,7 @@ import { BlockMobile } from '../components/Block';
 import { ListAllAcitivty } from '../components/List';
 import { SearchWithIcon } from '../components/Search';
 import BackToTop from '../components/BackToTop';
+import Divider from '../components/Divider';
 
 import { getAllActivity } from '../api/activityAPI';
 
@@ -48,7 +49,10 @@ function CustomerActivity() {
                         })
                         .map((data) => {
                             return (
-                                <ListAllAcitivty data={data} click={handlerClick} control={control} role={authReducer.role} />
+                                <div>
+                                    <ListAllAcitivty data={data} click={handlerClick} control={control} role={authReducer.role} />
+                                    <Divider />
+                                </div>
                             );
                         })
                     :

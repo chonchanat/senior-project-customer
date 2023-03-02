@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block';
 import { ListQueue } from '../components/List';
+import Divider from '../components/Divider';
 
 import { getAllQueue } from '../api/queueAPI';
 
@@ -38,7 +39,10 @@ function CustomerMyActivity() {
                     {queueData.length ?
                         queueData.map((data) => {
                             return (
-                                <ListQueue data={data} click={handlerClick} />
+                                <div>
+                                    <ListQueue data={data} click={handlerClick} />
+                                    <Divider />
+                                </div>
                             );
                         })
                         :
