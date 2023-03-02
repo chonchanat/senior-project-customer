@@ -8,6 +8,7 @@ import { Navbar } from "../components/Navbar";
 import { CardActivity } from "../components/Card";
 import { Button } from "../components/Button";
 import Scanner from "../components/qrCode/Scanner";
+import { ModalStartQueue, ModalRemoveQueue } from "../components/Modal";
 
 import { AiFillCamera } from 'react-icons/ai';
 
@@ -37,12 +38,11 @@ function StaffScan() {
         getActivity();
     }, [code])
 
+    const [modalStart, setModalStart] = useState(false);
+    const [modalRemove, setModalRemove] = useState(false);
+
     function handlerScanner(data) {
         const obj = JSON.parse(data);
-        console.log(obj)
-        // if (!bookData.includes(obj)) {
-        //     setBookData([ ...bookData, obj]);
-        // }
         setBookData([...bookData, obj])
         setOpen(false);
     }
@@ -60,6 +60,8 @@ function StaffScan() {
     return (
         <div>
             <Navbar />
+            <ModalStartQueue state={modalStart} setState={setModalStart} data={data}/>
+            <ModalRemoveQueue state={modalRemove} setState={setModalRemove} />
             <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner} />
             <BlockMobile>
                 {data ?
@@ -68,9 +70,9 @@ function StaffScan() {
 
                         <Button width="w-full h-12 mt-4 font-bold" bgColor="bg-[#DFD1C6]" click={() => setOpen(true)}>แสกน qr-code<AiFillCamera size="20px" className="ml-2" /></Button>
                         <div className="flex my-4">
-                            <Button width="w-full h-12" bgColor="bg-accept" click={handlerStart}>เริ่มกิจกรรม</Button>
+                            <Button width="w-full h-12" bgColor="bg-accept" click={() => setModalStart("start")}>เริ่มกิจกรรม</Button>
                             <div className="w-8" />
-                            <Button width="w-full h-12" bgColor="bg-decline" click={handlerRemove}>ล้างคิวทั้งหมด</Button>
+                            <Button width="w-full h-12" bgColor="bg-decline" click={() => setModalRemove("remove")}>ล้างคิวทั้งหมด</Button>
                         </div>
 
                         <p>ตารางแสดงผู้เล่นรอบนี้</p>
