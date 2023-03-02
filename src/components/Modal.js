@@ -50,7 +50,7 @@ function ModalOptions({ state, setState, click, options }) {
                 <p className="text-base mb-2">ตัวเลือกการค้นหา</p>
                 <input type="checkbox" checked={options.status === "open"} value="open" onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label >เปิดให้บริการ</label><br />
-                <input type="checkbox" checked={options.status === "temporary closed"} value="temporary closed" onChange={(e) => click({ ...options, status: e.target.value })} />
+                <input type="checkbox" checked={options.status === "temporarily closed"} value="temporarily closed" onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label>ปิดให้บริการชั่วคราว</label><br />
                 <input type="checkbox" checked={options.status === "closed"} value="closed" onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label>ปิดให้บริการ</label><br />

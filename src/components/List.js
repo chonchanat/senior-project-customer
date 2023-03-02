@@ -21,7 +21,7 @@ function ListAllAcitivty({ data, click=()=>{return 0}, control, role }) {
 
     function handlerStatus() {
         if ( data.status === "open") return "bg-accept";
-        else if (data.status === "temporary closed") return "bg-yellow";
+        else if (data.status === "temporarily closed") return "bg-yellow";
         else if (data.status === "close") return "bg-red-400";
     }
 
