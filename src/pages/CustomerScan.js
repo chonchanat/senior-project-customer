@@ -6,7 +6,7 @@ import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block'
 import { CardWithHead } from '../components/Card';
 import { Button } from '../components/Button';
-import { Modal } from '../components/Modal';
+import { ModalBookQueue } from '../components/Modal';
 
 import { getOneActivity } from '../api/activityAPI';
 import { createQueue } from '../api/queueAPI';
@@ -30,22 +30,33 @@ function CustomerScan() {
     useEffect(() => {
         async function getActivity() {
             const response = await getOneActivity(code);
-            if (!response) navigate('/customer-home');
-            else setData(response);
+            if (!response) {
+                navigate('/customer-home');
+            }
+            else {
+                setData(response);
+                setForm({ ...form, star: response.star });
+            }
         }
         getActivity();
     }, [code, navigate])
 
     const [state, setState] = useState(false);
+    const [errMessage, setErrMessage] = useState("");
 
     function handlerAdd() {
         if (form.size < authReducer.members) {
-            setForm({ ...form, size: form.size + 1 });
+            if (100 < data.star * (form.size + 1)) {
+                setErrMessage("จำนวนดาวไม่เพียงพอ");
+                return;
+            }
+            setForm({ ...form, size: form.size + 1, star: data.star * (form.size + 1) });
         }
     }
     function handlerSub() {
         if (form.size > 1) {
-            setForm({ ...form, size: form.size - 1 });
+            setErrMessage("");
+            setForm({ ...form, size: form.size - 1, star: data.star * (form.size - 1) });
         }
     }
 
@@ -58,16 +69,15 @@ function CustomerScan() {
         <div>
             <Navbar />
             <BlockMobile>
-                <Modal state={state} setState={setState} click={handlerSubmit} form={form} data={data}/>
+                <ModalBookQueue state={state} setState={setState} click={handlerSubmit} form={form} data={data} />
                 <CardWithHead title={"จองคิวกิจกรรม"} bgColor={"#F8F8F8"}>
                     <div className="flex flex-col items-center">
                         <p className="text-xl font-bold">{data.name[0]}</p>
                         <p className="flex items-center text-sm">{data.star} <AiFillStar className="text-yellow mx-1" /> / คน</p>
-                        <div className="pt-4 h-[150px] w-[180px] overflow-hidden">
-                            <img src={data.picture} alt="img of activity" />
-                        </div>
+
+                        <img src={data.picture} className="mt-4 h-[120px] w-[180px] rounded-md" alt="img of activity" />
                         <p className="mt-6 text-sm">จำนวนผู้เข้าร่วม (สูงสุด {authReducer.members} คน)</p>
-                        <div className="flex mt-4 bg-gray-200 rounded-lg h-[40px] items-center">
+                        <div className="flex my-2 bg-gray-200 rounded-lg h-[40px] items-center">
                             <div className="mx-[16px] w-[28px] h-[28px] text-center border-[1px] border-gray-300 rounded-full" onClick={handlerSub}>
                                 -
                             </div>
@@ -78,11 +88,12 @@ function CustomerScan() {
                                 +
                             </div>
                         </div>
-                        <p className="mt-4 text-sm">ใช้ดาวทั้งหมด {data.star * form.size} ดวง</p>
+                        <p className="text-sm">ใช้ดาวทั้งหมด {data.star * form.size} ดวง</p>
                         <div className="flex w-[220px] justify-between mt-8 mb-4">
                             <Button bgColor="bg-decline" width="w-[100px]" click={() => navigate('/customer-home')}>ยกเลิก</Button>
                             <Button bgColor="bg-accept" width="w-[100px]" click={() => setState(true)}>ตกลง</Button>
                         </div>
+                        <p className="text-sm text-decline">{errMessage}</p>
                     </div>
                 </CardWithHead>
             </BlockMobile>
