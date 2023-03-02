@@ -95,8 +95,8 @@ function CustomerCardHead({ data, click }) {
             {data ?
                 <ListQueue data={data} click={click}/>
                 :
-                <div className="h-16">
-                    <p className="text-sm text-center">ขณะนี้ คุณยังไม่ได้จองกิจกรรมที่ต้องการเล่น</p>
+                <div className="h-16 flex items-center justify-center">
+                    <p className="text-sm">ขณะนี้ คุณยังไม่ได้จองกิจกรรมที่ต้องการเล่น</p>
                 </div>
             }
         </CardWithHead>
@@ -111,7 +111,7 @@ function StaffCardHead({ data }) {
         <CardWithHead title="กิจกรรมหลัก">
             {
                 data === null ?
-                    <div className="h-16 flex items-center">
+                    <div className="h-16 flex items-center justify-center">
                         <p className="text-sm">กรุณาเลือกกิจกรรมหลักที่ต้องการดูแล</p>
                     </div>
                     :

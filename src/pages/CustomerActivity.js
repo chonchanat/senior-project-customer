@@ -11,6 +11,7 @@ import Divider from '../components/Divider';
 import { getAllActivity } from '../api/activityAPI';
 
 import Cookies from 'js-cookie';
+import { ModalOptions } from '../components/Modal';
 
 function CustomerActivity() {
 
@@ -26,6 +27,13 @@ function CustomerActivity() {
 
     const [activityData, setActivityData] = useState([]);
     const [search, setSearch] = useState("");
+
+    const [modal, setModal] = useState(false);
+    const [options, setOptions] = useState({
+        status: "open",
+        sortMin: true,
+    });
+
     const [control, setControl] = useState(Cookies.get("controlActivityCookie"));
 
     function handlerClick(activityData) {
@@ -34,12 +42,24 @@ function CustomerActivity() {
             Cookies.set('controlActivityCookie', activityData.code, { expires: 30 })
         }
     }
+    function compare(a, b) {
+        const timeA = (a.round-a.roundNow) * a.duration;
+        const timeB = (b.round-b.roundNow) * b.duration;
+        if (timeA < timeB) {
+            return -1;
+        }
+        if (timeA > timeB) {
+            return 1;
+        }
+        return 0;
+    }
 
     return (
         <div>
             <Navbar />
             <BlockMobile>
-                <SearchWithIcon setSearch={setSearch} />
+                <ModalOptions state={modal} setState={setModal} click={setOptions} options={options} />
+                <SearchWithIcon setSearch={setSearch} setModal={setModal} />
                 {activityData ?
                     activityData
                         .filter((data) => {
@@ -47,6 +67,10 @@ function CustomerActivity() {
                                 ? data
                                 : data.name[0].toLowerCase().includes(search);
                         })
+                        .filter((data) => {
+                            return data.status === options.status;
+                        })
+                        .sort(compare)
                         .map((data) => {
                             return (
                                 <div>
