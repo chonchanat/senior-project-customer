@@ -6,12 +6,13 @@ import { Navbar } from '../components/Navbar';
 import { BlockMobile } from '../components/Block'
 import { CardWithHead } from '../components/Card';
 import { Button } from '../components/Button';
-import { ModalBookQueue } from '../components/Modal';
+import { ModalBookQueue, ModalInfoQueue } from '../components/Modal';
 
 import { getOneActivity } from '../api/activityAPI';
 import { createQueue } from '../api/queueAPI';
 
 import { AiFillStar } from 'react-icons/ai';
+import { GrCircleInformation } from 'react-icons/gr';
 
 function CustomerScan() {
 
@@ -39,9 +40,10 @@ function CustomerScan() {
             }
         }
         getActivity();
-    }, [code, navigate, form])
+    }, [code, navigate])
 
-    const [state, setState] = useState(false);
+    const [modalBook, setModalBook] = useState(false);
+    const [modalInfo, setModalInfo] = useState(false);
     const [errMessage, setErrMessage] = useState("");
 
     function handlerAdd() {
@@ -69,9 +71,11 @@ function CustomerScan() {
         <div>
             <Navbar />
             <BlockMobile>
-                <ModalBookQueue state={state} setState={setState} click={handlerSubmit} form={form} data={data} />
+                <ModalBookQueue state={modalBook} setState={setModalBook} click={handlerSubmit} form={form} data={data} />
+                <ModalInfoQueue state={modalInfo} setState={setModalInfo} />
+
                 <CardWithHead title={"จองคิวกิจกรรม"} bgColor={"#F8F8F8"}>
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center relative">
                         <p className="text-xl font-bold">{data.name[0]}</p>
                         <p className="flex items-center text-sm">{data.star} <AiFillStar className="text-yellow mx-1" /> / คน</p>
 
@@ -91,9 +95,11 @@ function CustomerScan() {
                         <p className="text-sm">ใช้ดาวทั้งหมด {data.star * form.size} ดวง</p>
                         <div className="flex w-[220px] justify-between mt-8 mb-4">
                             <Button bgColor="bg-decline" width="w-[100px]" click={() => navigate('/customer-home')}>ยกเลิก</Button>
-                            <Button bgColor="bg-accept" width="w-[100px]" click={() => setState(true)}>ตกลง</Button>
+                            <Button bgColor="bg-accept" width="w-[100px]" click={() => setModalBook(true)}>ตกลง</Button>
                         </div>
                         <p className="text-sm text-decline">{errMessage}</p>
+
+                        <GrCircleInformation className="absolute top-1 right-2 text-2xl" onClick={() => setModalInfo(true)}/>
                     </div>
                 </CardWithHead>
             </BlockMobile>
