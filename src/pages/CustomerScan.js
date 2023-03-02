@@ -39,7 +39,7 @@ function CustomerScan() {
             }
         }
         getActivity();
-    }, [code, navigate])
+    }, [code, navigate, form])
 
     const [state, setState] = useState(false);
     const [errMessage, setErrMessage] = useState("");

@@ -1,6 +1,3 @@
-
-
-import { useState } from 'react';
 import { IoOptions } from 'react-icons/io5'
 
 function SearchWithIcon({ setSearch, setModal }) {

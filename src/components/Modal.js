@@ -2,7 +2,7 @@ import Wrapper from './Wrapper';
 import { Button } from './Button';
 import Divider from './Divider';
 
-import { RiBook2Line,RiDeleteBin7Line } from 'react-icons/ri';
+import { RiBook2Line, RiDeleteBin7Line } from 'react-icons/ri';
 import { IoMdClose } from 'react-icons/io';
 import { BsPlay } from 'react-icons/bs';
 
@@ -48,14 +48,24 @@ function ModalOptions({ state, setState, click, options }) {
                 ${state ? "top-[140px]" : "top-[120px] invisible"}`}
                 style={{ transition: "all 0.1s ease-out" }}>
                 <p className="text-base mb-2">ตัวเลือกการค้นหา</p>
-                <input type="checkbox" checked={options.status === "open"} value="open" onChange={(e) => click({ ...options, status: e.target.value })} />
+                <input className="h-4 w-4 mr-4"
+                    type="checkbox" checked={options.status === "open"} value="open"
+                    onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label >เปิดให้บริการ</label><br />
-                <input type="checkbox" checked={options.status === "temporarily closed"} value="temporarily closed" onChange={(e) => click({ ...options, status: e.target.value })} />
+
+                <input className="h-4 w-4 mr-4"
+                    type="checkbox" checked={options.status === "temporarily closed"} value="temporarily closed"
+                    onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label>ปิดให้บริการชั่วคราว</label><br />
-                <input type="checkbox" checked={options.status === "closed"} value="closed" onChange={(e) => click({ ...options, status: e.target.value })} />
+
+                <input className="h-4 w-4 mr-4 mb-4"
+                    type="checkbox" checked={options.status === "closed"} value="closed"
+                    onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label>ปิดให้บริการ</label><br />
                 <Divider />
-                <input type="checkbox" checked={options.sortMin} onChange={(e) => click({ ...options, sortMin: !options.sortMin })} />
+                <input className="h-4 w-4 mr-4 mt-2"
+                type="checkbox" checked={options.sortMin} 
+                onChange={(e) => click({ ...options, sortMin: !options.sortMin })} />
                 <label>เรียงจากเวลารอน้อยที่สุด</label>
             </div>
         </div>

@@ -60,8 +60,8 @@ function StaffScan() {
     return (
         <div>
             <Navbar />
-            <ModalStartQueue state={modalStart} setState={setModalStart} data={data}/>
-            <ModalRemoveQueue state={modalRemove} setState={setModalRemove} />
+            <ModalStartQueue state={modalStart} setState={setModalStart} click={handlerStart} />
+            <ModalRemoveQueue state={modalRemove} setState={setModalRemove} click={handlerRemove} />
             <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner} />
             <BlockMobile>
                 {data ?
