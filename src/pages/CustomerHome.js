@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-// import { setQueue } from '../actions/queueActions';
 
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block';

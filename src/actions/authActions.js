@@ -1,6 +1,5 @@
 import { startFetch, endFetch, errorFetch } from './statusActions';
 
-// import { signin } from '../api/fakeAPI';
 import { signin } from '../api/userAPI';
 
 import Cookies from 'js-cookie';
