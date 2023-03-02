@@ -8,7 +8,6 @@ async function createQueue(data) {
                 'Content-Type': 'application/json',
             }
         })
-        console.log(response.data.queue)
         return response.data.queue._id;
     } catch (error) {
         console.log(error);

@@ -72,7 +72,11 @@ function ListQueue({ data, click=()=>{return 0} }) {
                     </div>
                     <div>
                         <p className="text-xs text-right">รอบก่อนหน้า</p>
-                        <p className="text-sm text-right">{data.diffRound} รอบ</p>
+                        {data.diffRound ?
+                            <p className="text-sm text-right">{data.diffRound} รอบ</p>
+                            :
+                            <p className="text-sm text-accept">พร้อมในรอบต่อไป</p>
+                        }
                     </div>
                 </div>
             </div>

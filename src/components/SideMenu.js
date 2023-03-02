@@ -40,7 +40,7 @@ function SideMenu({ toggle }) {
                 }
             </div>
 
-            <Divider color="fha"/>
+            <Divider />
 
             <div className="pt-4 mb-40">
                 <div className="flex items-center py-2 text-white font-bold"
@@ -69,7 +69,7 @@ function SideMenu({ toggle }) {
                 }
             </div>
 
-            <Divider color="fha"/>
+            <Divider />
 
             <div className="flex items-center pt-6 text-white font-bold" onClick={handlerLogout}>
                 <IoLogOut size="28px" className="bg-white p-1 rounded-full mr-2 text-fha" /><p>ออกจากระบบ</p>

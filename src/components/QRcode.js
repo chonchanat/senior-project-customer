@@ -3,6 +3,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { CardWithHead } from './Card';
 
 function QRcode({ data }) {
+    console.log(data)
     return (
         <div>
             {data &&

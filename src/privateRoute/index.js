@@ -9,7 +9,6 @@ function PrivateRoute({ children }) {
 
     const dispatch = useDispatch();
     const reducers = useSelector(state => state);
-    // console.log(reducers);
     const userCookie = Cookies.get("userCookie");
 
     useEffect(() => {
