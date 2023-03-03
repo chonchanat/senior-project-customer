@@ -1,9 +1,14 @@
 import { QRCodeSVG } from 'qrcode.react';
 
 function QRcode({ data }) {
+    const qrDataObj = {
+        queueId: data._id,
+        size: data.size,
+        diffRound: data.diffRound,
+    }
     return (
         <QRCodeSVG
-            value={JSON.stringify(data._id)}
+            value={JSON.stringify(qrDataObj)}
             size={224}
             bgColor={"#FFFFFF"}
             fgColor={"#000000"}

@@ -43,7 +43,7 @@ function StaffScan() {
 
     function handlerScanner(data) {
         const obj = JSON.parse(data);
-        setBookData([...bookData, obj])
+        if (!bookData.includes(obj)) setBookData([...bookData, obj]);
         setOpen(false);
     }
 
