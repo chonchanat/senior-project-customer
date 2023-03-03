@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Navbar } from '../components/Navbar'
 import { BlockMobile } from '../components/Block'
@@ -7,11 +7,12 @@ import { CardWithHead } from '../components/Card';
 import { ModalUnBookQueue } from '../components/Modal';
 import QRcode from '../components/QRcode';
 
-import { getOneQueue } from '../api/queueAPI';
+import { getOneQueue, unBookQueue } from '../api/queueAPI';
 
 function CustomerBookQueue() {
 
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function getQueue() {
@@ -26,6 +27,7 @@ function CustomerBookQueue() {
 
     function handlerUnBook() {
         console.log('ยกเลิกการจอง')
+        unBookQueue({ queueId: id, }).then(() => navigate("/customer-myactivity"));
     }
 
     return (

@@ -14,6 +14,21 @@ async function createQueue(data) {
     }
 }
 
+async function unBookQueue(data) {
+    console.log(data)
+    try {
+        await axios.post(`/queue/cancel`, data,
+            {
+                headers: {
+                    'Authorization': `Bearer ${getToken()}`,
+                    'Content-Type': 'application/json',
+                }
+            })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function getOneQueue(data) {
     try {
         const response = await axios.get(`/queue/id/${data}`, {
@@ -58,18 +73,17 @@ async function getAllQueue(data) {
 }
 
 async function startQueue(data) {
-    console.log(data)
     try {
         await axios.post(`/queue/start`, data,
-        {
-            headers: {
-                'Authorization': `Bearer ${getToken()}`,
-                'Content-Type': 'application/json',
-            }
-        })
+            {
+                headers: {
+                    'Authorization': `Bearer ${getToken()}`,
+                    'Content-Type': 'application/json',
+                }
+            })
     } catch (error) {
         console.log(error);
     }
 }
 
-export { createQueue, getOneQueue, getIncomingQueue, getAllQueue, startQueue }
+export { createQueue, unBookQueue, getOneQueue, getIncomingQueue, getAllQueue, startQueue }
