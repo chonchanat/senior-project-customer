@@ -5,6 +5,7 @@ function QRcode({ data }) {
         queueId: data._id,
         size: data.size,
         diffRound: data.diffRound,
+        disable: data.disable,
     }
     return (
         <QRCodeSVG

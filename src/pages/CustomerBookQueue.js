@@ -43,7 +43,7 @@ function CustomerBookQueue() {
                             <QRcode data={data} />
                             <div className="mt-2">
                                 <p className="">จำนวนผู้เข้าร่วม : <label className="text-accept">{data.size}</label> คน</p>
-                                <p>สถานะ : <label className={`${!data.diffRound ? "text-accept" : "text-decline"}`}>{!data.diffRound !== "wait" ? "ถึงคิวของคุณแล้ว" : "ไม่ยังถึงคิวของคุณ"}</label></p>
+                                <p>สถานะ : <label className={`${!data.diffRound ? "text-accept" : "text-decline"}`}>{!data.diffRound ? "ถึงคิวของคุณแล้ว" : "ไม่ยังถึงคิวของคุณ"}</label></p>
                                 <p className="text-sm mt-6 text-decline">*กรุณายื่น QR-code ให้พนักงานแสกนก่อนเข้าร่วมกิจกรรม*</p>
                             </div>
 

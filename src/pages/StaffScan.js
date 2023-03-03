@@ -23,7 +23,8 @@ function StaffScan() {
 
     const [data, setData] = useState(null);
     const [bookData, setBookData] = useState([]);
-    // const [userIdList, setUserIdList] = useState([]);
+    const [members, setMembers] = useState(0);
+
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -43,17 +44,27 @@ function StaffScan() {
 
     function handlerScanner(data) {
         const obj = JSON.parse(data);
-        if (!bookData.includes(obj)) setBookData([...bookData, obj]);
         setOpen(false);
+
+        if (obj.disable) {
+            console.log('QR code อันนี้หมดอายุแล้ว')
+            return;
+        };
+        if (!bookData.includes(obj.queueId)) {
+            setBookData([...bookData, obj.queueId]);
+            setMembers(members + obj.size);
+        }
     }
 
     function handlerStart() {
+        setModalStart(false);
         startQueue({
             activityCode: data.code,
             queueId: bookData,
         });
     }
     function handlerRemove() {
+        setModalRemove(false);
         setBookData([]);
     }
 
@@ -75,7 +86,8 @@ function StaffScan() {
                             <Button width="w-full h-12" bgColor="bg-decline" click={() => setModalRemove("remove")}>ล้างคิวทั้งหมด</Button>
                         </div>
 
-                        <p>ตารางแสดงผู้เล่นรอบนี้</p>
+                        <p>ขนาดความจุผู้เข้าร่วม : {members} / {data.size}</p>
+                        <p>ตารางแสดงผู้เข้าร่วมรอบนี้</p>
                         <div className="bg-light-gray p-4 rounded-md mt-4">
                             {bookData.map((item, index) =>
                                 <div className="flex" key={index}>

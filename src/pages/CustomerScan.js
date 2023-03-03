@@ -78,6 +78,7 @@ function CustomerScan() {
                     <div className="flex flex-col items-center relative">
                         <p className="text-xl font-bold">{data.name[0]}</p>
                         <p className="flex items-center text-sm">{data.star} <AiFillStar className="text-yellow mx-1" /> / คน</p>
+                        <p className="text-sm">ความจุกิจกรรม {data.size} คน</p>
 
                         <img src={data.picture} className="mt-4 h-[120px] w-[180px] rounded-md" alt="img of activity" />
                         <p className="mt-6 text-sm">จำนวนผู้เข้าร่วม (สูงสุด {authReducer.members} คน)</p>

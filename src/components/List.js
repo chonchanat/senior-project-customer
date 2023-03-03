@@ -95,7 +95,7 @@ function ListComment({ data, setSelectData }) {
             </div>
             <div className="flex flex-col w-[70%] pl-4">
                 <p className="font-bold">{data.name[0]}</p>
-                <p className="text-sm flex items-center">ผู้เข้าร่วมกิจกรรม : 4 คน ( 48 <AiFillStar className="text-yellow text-sm" />)</p>
+                <p className="text-sm flex items-center">ผู้เข้าร่วมกิจกรรม : {data.queueSize} คน ( -{data.star} <AiFillStar className="text-yellow text-sm" />)</p>
                 <p className="text-sm flex items-center">สถานะ :
                     <span className={`${data.status === "done" ? "text-accept" : "text-decline"} ml-1`}>
                         {data.status === "done" ? "เข้าร่วมแล้ว" : "ยกเลิกการจอง"}
