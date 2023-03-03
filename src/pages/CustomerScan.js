@@ -72,7 +72,7 @@ function CustomerScan() {
             <Navbar />
             <BlockMobile>
                 <ModalBookQueue state={modalBook} setState={setModalBook} click={handlerSubmit} form={form} data={data} />
-                <ModalInfoQueue state={modalInfo} setState={setModalInfo} />
+                <ModalInfoQueue state={modalInfo} setState={setModalInfo} data={data.allRounds}/>
 
                 <CardWithHead title={"จองคิวกิจกรรม"} bgColor={"#F8F8F8"}>
                     <div className="flex flex-col items-center relative">

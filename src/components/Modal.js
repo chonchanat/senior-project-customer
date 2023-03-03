@@ -146,7 +146,7 @@ function ModalRemoveQueue({ state, setState, click }) {
     );
 }
 
-function ModalInfoQueue({ state, setState, click }) {
+function ModalInfoQueue({ state, setState, click, data }) {
     return (
         <div>
             <Wrapper state={state} bgColor="bg-black/50"
@@ -158,6 +158,13 @@ function ModalInfoQueue({ state, setState, click }) {
 
                 <IoMdClose className="ml-auto text-xl" onClick={() => setState(false)} />
                 <p className="">รายการที่ว่างของแต่ละรอบ ในขณะนี้</p>
+                <p className="flex justify-between">รอบ<span>ที่ว่าง</span></p>
+
+                {
+                    data.map((data, index) =>
+                        <p className="flex justify-between">{index + 1}<span>{data.space}</span></p>
+                    )
+                }
 
             </div>
         </div>
