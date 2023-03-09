@@ -39,7 +39,7 @@ function CustomerActivity() {
     function handlerClick(activityData) {
         if (authReducer.role !== "customer") {
             setControl(activityData.code);
-            Cookies.set('controlActivityCookie', activityData.code, { expires: 30 })
+            Cookies.set('controlActivityCookie', activityData.code)
         }
     }
     function compare(a, b) {

@@ -36,7 +36,7 @@ function CustomerHome() {
         async function getIncomingQueueData() {
             const response = await getIncomingQueue(authReducer.username);
             setIncomingQueue(response)
-        }
+        }        
 
         if (authReducer.role === "customer") {
             getIncomingQueueData();

@@ -26,7 +26,6 @@ function CustomerBookQueue() {
     const [modal, setModal] = useState(false);
 
     function handlerUnBook() {
-        console.log('ยกเลิกการจอง')
         unBookQueue({ queueId: id, }).then(() => navigate("/customer-myactivity"));
     }
 
