@@ -2,7 +2,7 @@ import axios, { getToken } from "./index";
 
 async function getAllActivity() {
     try {
-        const response = await axios.get(`/activity/all`, {
+        const response = await axios.get(`/activity/waitround`, {
             headers: {
                 'Authorization': `Bearer ${getToken()}`,
                 'Content-Type': 'application/json',

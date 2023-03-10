@@ -15,13 +15,12 @@ function StarRating({ rating }) {
     );
 }
 
-function ListAllAcitivty({ data, click = () => { return 0 }, control, role }) {
-    const diffRound = data.round - data.roundNow;
+function ListAllAcitivty({ data, waitRound,click = () => { return 0 }, control, role }) {
 
     function handlerStatus() {
         if (data.status === "open") return "bg-accept";
         else if (data.status === "temporarily closed") return "bg-yellow";
-        else if (data.status === "close") return "bg-red-400";
+        else if (data.status === "closed") return "bg-red-400";
     }
 
     return (
@@ -39,12 +38,12 @@ function ListAllAcitivty({ data, click = () => { return 0 }, control, role }) {
                 <div className="flex justify-between mt-4">
                     <div>
                         <p className="text-xs">เวลาโดยประมาณ</p>
-                        <p className="text-sm">{diffRound * data.duration} นาที</p>
+                        <p className="text-sm">{waitRound * data.duration} นาที</p>
                     </div>
                     <div>
                         <p className="text-xs text-right">รอบก่อนหน้า</p>
-                        {diffRound ?
-                            <p className="text-sm text-right">{diffRound} รอบ</p>
+                        {waitRound ?
+                            <p className="text-sm text-right">{waitRound} รอบ</p>
                             :
                             <p className="text-sm text-accept">พร้อมในรอบต่อไป</p>
                         }

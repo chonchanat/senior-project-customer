@@ -43,8 +43,8 @@ function CustomerActivity() {
         }
     }
     function compare(a, b) {
-        const timeA = (a.round-a.roundNow) * a.duration;
-        const timeB = (b.round-b.roundNow) * b.duration;
+        const timeA = a.waitRound * a.activity.duration;
+        const timeB = b.waitRound * b.activity.duration;
         if (timeA < timeB) {
             return -1;
         }
@@ -64,17 +64,17 @@ function CustomerActivity() {
                     activityData
                         .filter((data) => {
                             return search.toLowerCase() === ""
-                                ? data
-                                : data.name[0].toLowerCase().includes(search);
+                                ? data.activity
+                                : data.activity.name[0].toLowerCase().includes(search);
                         })
                         .filter((data) => {
-                            return data.status === options.status;
+                            return data.activity.status === options.status;
                         })
                         .sort(compare)
                         .map((data) => {
                             return (
                                 <div>
-                                    <ListAllAcitivty data={data} click={handlerClick} control={control} role={authReducer.role} />
+                                    <ListAllAcitivty data={data.activity} waitRound={data.waitRound} click={handlerClick} control={control} role={authReducer.role} />
                                     <Divider />
                                 </div>
                             );
