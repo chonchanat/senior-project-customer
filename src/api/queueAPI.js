@@ -14,6 +14,20 @@ async function createQueue(data) {
     }
 }
 
+async function createManualQueue(data) {
+    try {
+        const response = await axios.post(`/queue/specific-round`, data, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.data.queue._id;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function unBookQueue(data) {
     try {
         await axios.post(`/queue/cancel`, data,
@@ -86,4 +100,4 @@ async function startQueue(data) {
     }
 }
 
-export { createQueue, unBookQueue, getOneQueue, getIncomingQueue, getAllQueue, startQueue }
+export { createQueue, createManualQueue, unBookQueue, getOneQueue, getIncomingQueue, getAllQueue, startQueue }

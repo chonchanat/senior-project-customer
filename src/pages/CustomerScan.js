@@ -9,7 +9,7 @@ import { Button } from '../components/Button';
 import { ModalBookQueue, ModalInfoQueue } from '../components/Modal';
 
 import { getOneActivity } from '../api/activityAPI';
-import { createQueue } from '../api/queueAPI';
+import { createQueue, createManualQueue } from '../api/queueAPI';
 
 import { AiFillStar } from 'react-icons/ai';
 import { GrCircleInformation } from 'react-icons/gr';
@@ -46,6 +46,9 @@ function CustomerScan() {
     const [modalInfo, setModalInfo] = useState(false);
     const [errMessage, setErrMessage] = useState("");
 
+    const [bookOptions, setBookOptions] = useState("auto");
+    const [round, setRound] = useState(0);
+
     function handlerAdd() {
         if (form.size < authReducer.members) {
             if (100 < data.star * (form.size + 1)) {
@@ -62,8 +65,18 @@ function CustomerScan() {
         }
     }
 
+    function selectRound(data) {
+        setBookOptions("manual");
+        setRound(data);
+        setModalInfo(false);
+    }
+
     function handlerSubmit() {
-        createQueue({ ...form, star: form.size * data.star }).then((queueId) => navigate(`/customer-myactivity/${queueId}`));
+        if (bookOptions === "auto") {
+            createQueue({ ...form, star: form.size * data.star }).then((queueId) => navigate(`/customer-myactivity/${queueId}`));
+        } else {
+            createManualQueue({ ...form, star: form.size * data.star, round: round }).then((queueId) => navigate(`/customer-myactivity/${queueId}`));
+        }
     }
 
     return (
@@ -72,7 +85,7 @@ function CustomerScan() {
             <Navbar />
             <BlockMobile>
                 <ModalBookQueue state={modalBook} setState={setModalBook} click={handlerSubmit} form={form} data={data} />
-                <ModalInfoQueue state={modalInfo} setState={setModalInfo} data={data.allRounds}/>
+                <ModalInfoQueue state={modalInfo} setState={setModalInfo} click={selectRound} form={form} data={data.allRounds} />
 
                 <CardWithHead title={"จองคิวกิจกรรม"} bgColor={"#F8F8F8"}>
                     <div className="flex flex-col items-center relative">
@@ -94,13 +107,24 @@ function CustomerScan() {
                             </div>
                         </div>
                         <p className="text-sm">ใช้ดาวทั้งหมด {data.star * form.size} ดวง</p>
-                        <div className="flex w-[220px] justify-between mt-8 mb-4">
+
+                        <div className="w-full pt-4">
+                            <p>รูปแบบการจองคิว</p>
+                            <input type="checkbox" className="h-4 w-4 mr-4" checked={bookOptions === "auto"}
+                                onChange={() => { setBookOptions("auto"); setRound(0) }} />
+                            <span>อัตโนมัติ</span>
+                            <input type="checkbox" className="h-4 w-4 mr-4" checked={bookOptions === "manual"}
+                                onChange={() => { setBookOptions("manual"); setModalInfo(true) }} />
+                            <span>จัดการ {round && round}</span>
+                        </div>
+
+                        <div className="flex w-[220px] justify-between mt-6 mb-4">
                             <Button bgColor="bg-decline" width="w-[100px]" click={() => navigate('/customer-home')}>ยกเลิก</Button>
                             <Button bgColor="bg-accept" width="w-[100px]" click={() => setModalBook(true)}>ตกลง</Button>
                         </div>
                         <p className="text-sm text-decline">{errMessage}</p>
 
-                        <GrCircleInformation className="absolute top-1 right-2 text-2xl" onClick={() => setModalInfo(true)}/>
+                        <GrCircleInformation className="absolute top-1 right-2 text-2xl" onClick={() => setModalInfo(true)} />
                     </div>
                 </CardWithHead>
             </BlockMobile>

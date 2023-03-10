@@ -146,7 +146,18 @@ function ModalRemoveQueue({ state, setState, click }) {
     );
 }
 
-function ModalInfoQueue({ state, setState, click, data }) {
+function ModalInfoQueue({ state, setState, click, form, data }) {
+
+    function checkSize(space) {
+        if (form.size > space) {
+            return "ที่ว่างไม่เพียงพอ";
+        }
+    }
+    function handlerClick(space, index) {
+        if (form.size < space) {
+            click(index + 1);
+        }
+    }
     return (
         <div>
             <Wrapper state={state} bgColor="bg-black/50"
@@ -161,8 +172,11 @@ function ModalInfoQueue({ state, setState, click, data }) {
                 <p className="flex justify-between">รอบ<span>ที่ว่าง</span></p>
 
                 {
-                    data.map((data, index) =>
-                        <p className="flex justify-between">{index + 1}<span>{data.space}</span></p>
+                    data.map((data, index) => {
+                        if (data.status === "wait") {
+                            return <p className="flex justify-between" onClick={() => handlerClick(data.space,index)}>{index + 1}{checkSize(data.space)}<span>{data.space}</span></p>;
+                        }
+                    }
                     )
                 }
 
