@@ -79,4 +79,19 @@ async function deleteUser(data) {
     }
 }
 
-export { signin, getAllAccount, getOneAccount, register, updateUser, deleteUser };
+async function getHistory(data) {
+    try {
+        const response = await axios.get(`/auth/user/activity/${data}`, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.data.activity.activity;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+
+export { signin, getAllAccount, getOneAccount, register, updateUser, deleteUser, getHistory };

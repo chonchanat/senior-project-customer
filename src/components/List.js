@@ -16,7 +16,6 @@ function StarRating({ rating }) {
 }
 
 function ListAllAcitivty({ data, click = () => { return 0 }, control, role }) {
-
     const diffRound = data.round - data.roundNow;
 
     function handlerStatus() {

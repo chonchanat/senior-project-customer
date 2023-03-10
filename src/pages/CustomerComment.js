@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { BlockMobile } from "../components/Block";
@@ -6,10 +6,22 @@ import { Navbar } from "../components/Navbar";
 import { ListComment } from "../components/List";
 import Comment from '../components/Comment';
 
+import { getHistory } from "../api/userAPI";
+
 function CustomerComment() {
 
     const authReducer = useSelector(state => state.authReducer);
+    const [history, setHistory] = useState([]);
     const [selectData, setSelectData] = useState(null);
+
+
+    useEffect(() => {
+        async function getHistoryActivity() {
+            const response = await getHistory(authReducer.username);
+            setHistory(response);
+        }
+        getHistoryActivity();
+    }, [])
 
     return (
         <div>
@@ -20,8 +32,8 @@ function CustomerComment() {
                     <div className="overflow-hidden overflow-y-auto">
                         <p className="my-2">ประวัติการเข้าร่วมกิจกรรม</p>
                         {
-                            authReducer.activity ?
-                                authReducer.activity.map((data) => {
+                            history.length ?
+                                history.map((data) => {
                                     return (
                                         <ListComment data={data} setSelectData={setSelectData} />
                                     );

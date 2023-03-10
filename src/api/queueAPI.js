@@ -15,7 +15,6 @@ async function createQueue(data) {
 }
 
 async function unBookQueue(data) {
-    console.log(data)
     try {
         await axios.post(`/queue/cancel`, data,
             {
@@ -51,7 +50,8 @@ async function getIncomingQueue(data) {
                 'Content-Type': 'application/json',
             }
         })
-        return response.data.queue;
+        if (response.data.queue.activityCode) return response.data.queue;
+        else return null;
     } catch (error) {
         console.log(error);
     }
