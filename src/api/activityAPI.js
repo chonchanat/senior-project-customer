@@ -8,8 +8,8 @@ async function getAllActivity() {
                 'Content-Type': 'application/json',
             }
         })
-        if (response.data.activity) {
-            return response.data.activity;
+        if (response.data.data) {
+            return response.data.data;
         } else {
             return [];
         }

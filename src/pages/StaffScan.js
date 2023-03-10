@@ -62,6 +62,7 @@ function StaffScan() {
             activityCode: data.code,
             queueId: bookData,
         });
+        setBookData([]);
     }
     function handlerRemove() {
         setModalRemove(false);

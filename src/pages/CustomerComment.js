@@ -14,14 +14,15 @@ function CustomerComment() {
     const [history, setHistory] = useState([]);
     const [selectData, setSelectData] = useState(null);
 
-
     useEffect(() => {
         async function getHistoryActivity() {
             const response = await getHistory(authReducer.username);
             setHistory(response);
         }
         getHistoryActivity();
-    }, [])
+    }, [authReducer.username])
+
+    const reverserHistory = [...history].reverse();
 
     return (
         <div>
@@ -33,7 +34,7 @@ function CustomerComment() {
                         <p className="my-2">ประวัติการเข้าร่วมกิจกรรม</p>
                         {
                             history.length ?
-                                history.map((data) => {
+                                reverserHistory.map((data) => {
                                     return (
                                         <ListComment data={data} setSelectData={setSelectData} />
                                     );
