@@ -27,7 +27,7 @@ function CustomerMap() {
 
     const [activityData, setActivityData] = useState([]);
 
-    const fixedPosition = [12.8235, 99.9388];
+    const fixedPosition = [12.8235, 99.9392];
 
     return (
         <div>
@@ -35,7 +35,7 @@ function CustomerMap() {
             <BlockMobile>
                 <CardWithHead title="แผนที่" bgColor="#F8F8F8">
                     <div className="w-full bg-red-300 z-30">
-                        <MapContainer center={fixedPosition} zoom={17} scrollWheelZoom={true} style={{ height: "600px" }}>
+                        <MapContainer center={fixedPosition} zoom={16} scrollWheelZoom={true} style={{ height: "600px" }}>
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -43,12 +43,12 @@ function CustomerMap() {
                             {activityData.map((data) => {
                                 let myIconDiv = L.divIcon({
                                     className: "icon-map",
-                                    html: `<img src=${data.picture} />`,
+                                    html: `<img src=${data.activity.picture} />`,
                                 })
                                 return (
-                                    <Marker position={data.position} icon={myIconDiv}>
+                                    <Marker position={data.activity.position} icon={myIconDiv}>
                                         <Popup offset={[16, 0]}>
-                                            <p className="text-center font-bold">{data.name[0]}</p>
+                                            <p className="text-center font-bold">{data.activity.name[0]}</p>
                                         </Popup>
                                     </Marker>
                                 );
