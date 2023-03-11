@@ -27,7 +27,7 @@ function Signin() {
             }
         }
         signinWithToken();
-    }, [accesToken])
+    }, [accesToken, dispatch])
 
     // redirect to home if have authReducer (user data)
     useEffect(() => {
@@ -35,7 +35,7 @@ function Signin() {
             if(authReducer) navigate("/customer-home");
         }
         redirectWithAuth();
-    }, [authReducer])
+    }, [authReducer, navigate])
 
     const [user, setUser] = useState({
         phone: "0887828326",
