@@ -73,6 +73,7 @@ function CustomerScan() {
         for (let i = 0; i < data.allRounds.length; i++) {
             if (data.allRounds[i].space >= form.size) {
                 setRound(i + 1);
+                break;
             }
         }
     }
@@ -97,7 +98,7 @@ function CustomerScan() {
             <Navbar />
             <BlockMobile>
                 <ModalBookQueue state={modalBook} setState={setModalBook} click={handlerSubmit} form={form} data={data} />
-                <ModalInfoQueue state={modalInfo} setState={setModalInfo} click={selectRound} form={form} data={data.allRounds} round={round}/>
+                <ModalInfoQueue state={modalInfo} setState={setModalInfo} click={selectRound} form={form} data={data.allRounds} round={round} />
 
                 <CardWithHead title={"จองคิวกิจกรรม"} bgColor={"#F8F8F8"}>
                     <div className="flex flex-col items-center relative">
@@ -120,7 +121,7 @@ function CustomerScan() {
                         </div>
                         <p className="text-sm">ใช้ดาวทั้งหมด {data.star * form.size} ดวง</p>
 
-                        <div className="w-full pt-4">
+                        <div className="w-full pt-4 pl-6">
                             <p className="mb-2  text-sm">รูปแบบการจองคิว</p>
                             <div className="flex items-center">
                                 <input type="checkbox" className="h-4 w-4 mr-2" checked={bookOptions === "auto"}
@@ -128,7 +129,7 @@ function CustomerScan() {
                                 <span className="mr-6 text-xs">อัตโนมัติ</span>
 
                                 <input type="checkbox" className="h-4 w-4 mr-2" checked={bookOptions === "manual"}
-                                    onChange={() => { setBookOptions("manual"); setModalInfo(true); handlerManual(); }} />
+                                    onChange={() => { setBookOptions("manual"); setModalInfo(true); if(round === 0) handlerManual(); }} />
                                 <span className="mr-6 text-xs">จัดการเอง {round !== 0 && <span>(รอบ {round})</span>}</span>
                             </div>
                         </div>
