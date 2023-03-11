@@ -19,7 +19,6 @@ function SideMenu({ toggle }) {
 
     function handlerLogout() {
         Cookies.remove("accessToken");
-        Cookies.remove("userCookie");
         dispatch(setAuth(null));
         navigate('/customer-signin');
     }

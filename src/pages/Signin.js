@@ -38,7 +38,7 @@ function Signin() {
     }, [authReducer])
 
     const [user, setUser] = useState({
-        phone: "t.chonchanat@hotmail.com",
+        phone: "0887828326",
         password: "uokl3hfv",
     });
 
