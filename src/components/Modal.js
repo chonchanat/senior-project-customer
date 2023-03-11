@@ -151,7 +151,7 @@ function ModalRemoveQueue({ state, setState, click }) {
     );
 }
 
-function ModalInfoQueue({ state, setState, click, form, data }) {
+function ModalInfoQueue({ state, setState, click, form, data, round }) {
 
     function checkSize(space) {
         if (form.size > space) {
@@ -159,7 +159,7 @@ function ModalInfoQueue({ state, setState, click, form, data }) {
         }
     }
     function handlerClick(space, index) {
-            if (form.size <= space) {
+        if (form.size <= space) {
             click(index + 1);
         }
     }
@@ -174,17 +174,28 @@ function ModalInfoQueue({ state, setState, click, form, data }) {
                 style={{ transition: "all 0.1s ease-out" }}>
 
                 <IoMdClose className="ml-auto text-xl" onClick={() => setState(false)} />
-                <p className="">รายการที่ว่างของแต่ละรอบ ในขณะนี้</p>
-                <p className="flex justify-between">รอบ<span>ที่ว่าง</span></p>
+                <p>รายการที่ว่างของแต่ละรอบ ในขณะนี้</p>
+                <div className="grid grid-cols-10 text-sm my-2">
+                    <div />
+                    <p className="col-span-8">รอบ</p>
+                    <p>ที่ว่าง</p>
+                </div>
 
-                {
-                    data.map((data, index) => {
+                <div className="h-[180px] overflow-y-scroll">
+                    {data.map((data, index) => {
                         if (data.status === "wait") {
-                            return <p className="flex justify-between mb-2" onClick={() => handlerClick(data.space,index)}>{index + 1}{checkSize(data.space)}<span>{data.space}</span></p>;
+                            return <div>
+                                <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, index)}>
+                                    {index === round - 1 ? <div className="w-3 h-3 rounded-full bg-fha" /> : <div />}
+                                    <p>{index + 1}</p>
+                                    <p className="col-span-7 text-xs text-decline">{checkSize(data.space)}</p>
+                                    <p>{data.space}</p>
+                                </div>
+                                <Divider />
+                            </div>
                         }
-                    }
-                    )
-                }
+                    })}
+                </div>
 
             </div>
         </div>
