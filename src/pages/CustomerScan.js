@@ -53,15 +53,27 @@ function CustomerScan() {
         if (form.size < authReducer.members) {
             if (100 < data.star * (form.size + 1)) {
                 setErrMessage("จำนวนดาวไม่เพียงพอ");
-                return;
+            } else {
+                setForm({ ...form, size: form.size + 1, star: data.star * (form.size + 1) });
+                setBookOptions("auto");
+                setRound(0)
             }
-            setForm({ ...form, size: form.size + 1, star: data.star * (form.size + 1) });
         }
     }
     function handlerSub() {
         if (form.size > 1) {
             setErrMessage("");
             setForm({ ...form, size: form.size - 1, star: data.star * (form.size - 1) });
+            setBookOptions("auto");
+            setRound(0)
+        }
+    }
+
+    function handlerManual() {
+        for (let i = 0; i < data.allRounds.length; i++) {
+            if (data.allRounds[i].space >= form.size) {
+                setRound(i + 1);
+            }
         }
     }
 
@@ -109,18 +121,22 @@ function CustomerScan() {
                         <p className="text-sm">ใช้ดาวทั้งหมด {data.star * form.size} ดวง</p>
 
                         <div className="w-full pt-4">
-                            <p>รูปแบบการจองคิว</p>
-                            <input type="checkbox" className="h-4 w-4 mr-4" checked={bookOptions === "auto"}
-                                onChange={() => { setBookOptions("auto"); setRound(0) }} />
-                            <span>อัตโนมัติ</span>
-                            <input type="checkbox" className="h-4 w-4 mr-4" checked={bookOptions === "manual"}
-                                onChange={() => { setBookOptions("manual"); setModalInfo(true) }} />
-                            <span>จัดการ {round && round}</span>
+                            <p className="mb-2  text-sm">รูปแบบการจองคิว</p>
+                            <div className="flex items-center">
+                                <input type="checkbox" className="h-4 w-4 mr-2" checked={bookOptions === "auto"}
+                                    onChange={() => { setBookOptions("auto"); setRound(0) }} />
+                                <span className="mr-6 text-xs">อัตโนมัติ</span>
+
+                                <input type="checkbox" className="h-4 w-4 mr-2" checked={bookOptions === "manual"}
+                                    onChange={() => { setBookOptions("manual"); setModalInfo(true); handlerManual(); }} />
+                                <span className="mr-6 text-xs">จัดการเอง {round !== 0 && <span>(รอบ {round})</span>}</span>
+                            </div>
                         </div>
 
                         <div className="flex w-[220px] justify-between mt-6 mb-4">
                             <Button bgColor="bg-decline" width="w-[100px]" click={() => navigate('/customer-home')}>ยกเลิก</Button>
-                            <Button bgColor="bg-accept" width="w-[100px]" click={() => setModalBook(true)}>ตกลง</Button>
+                            {data.status === "open" && <Button bgColor="bg-accept" width="w-[100px]" click={() => setModalBook(true)}>ตกลง</Button>}
+                            {data.status !== "open" && <Button bgColor="bg-slate-300" width="w-[100px]">ตกลง</Button>}
                         </div>
                         <p className="text-sm text-decline">{errMessage}</p>
 

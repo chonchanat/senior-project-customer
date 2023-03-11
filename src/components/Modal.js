@@ -71,6 +71,11 @@ function ModalOptions({ state, setState, click, options }) {
                 <IoMdClose className="ml-auto text-xl" onClick={() => setState(false)} />
                 <p className="text-base mb-2">ตัวเลือกการค้นหา</p>
                 <input className="h-4 w-4 mr-4"
+                    type="checkbox" checked={options.status === "all"} value="all"
+                    onChange={(e) => click({ ...options, status: e.target.value })} />
+                <label >ทั้งหมด</label><br />
+
+                <input className="h-4 w-4 mr-4"
                     type="checkbox" checked={options.status === "open"} value="open"
                     onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label >เปิดให้บริการ</label><br />
@@ -158,6 +163,7 @@ function ModalInfoQueue({ state, setState, click, form, data }) {
             click(index + 1);
         }
     }
+
     return (
         <div>
             <Wrapper state={state} bgColor="bg-black/50"
@@ -174,7 +180,7 @@ function ModalInfoQueue({ state, setState, click, form, data }) {
                 {
                     data.map((data, index) => {
                         if (data.status === "wait") {
-                            return <p className="flex justify-between" onClick={() => handlerClick(data.space,index)}>{index + 1}{checkSize(data.space)}<span>{data.space}</span></p>;
+                            return <p className="flex justify-between mb-2" onClick={() => handlerClick(data.space,index)}>{index + 1}{checkSize(data.space)}<span>{data.space}</span></p>;
                         }
                     }
                     )

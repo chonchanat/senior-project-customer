@@ -68,7 +68,8 @@ function CustomerActivity() {
                                 : data.activity.name[0].toLowerCase().includes(search);
                         })
                         .filter((data) => {
-                            return data.activity.status === options.status;
+                            if (options.status == "all") return data.activity;
+                            else return data.activity.status === options.status;
                         })
                         .sort(compare)
                         .map((data) => {
