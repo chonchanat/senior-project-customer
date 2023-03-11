@@ -8,7 +8,7 @@ async function signin(username, password) {
     // if (user.data.user.role === "customer") {
     //     throw new Error("Not found user");
     // }
-    return user;
+    return user.data;
 }
 
 async function getAllAccount() {
@@ -34,6 +34,7 @@ async function getOneAccount(data) {
                 'Content-Type': 'application/json',
             }
         })
+
         return response.data.user;
     } catch (error) {
         console.log(error);

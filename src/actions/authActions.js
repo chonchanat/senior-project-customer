@@ -1,6 +1,6 @@
 import { startFetch, endFetch, errorFetch } from './statusActions';
 
-import { signin } from '../api/userAPI';
+import { signin, getOneAccount, getAllAccount } from '../api/userAPI';
 
 import Cookies from 'js-cookie';
 
@@ -19,9 +19,7 @@ function fetchAuthAsync(phone, password) {
 
             const user = await signin(phone, password);
             if (user) {
-                dispatch(setAuth(user.data));
-                Cookies.set('accesstoken', user.data.accesstoken);
-                Cookies.set('userCookie', JSON.stringify(user.data));
+                Cookies.set('accessToken', user.accesstoken);
                 dispatch(errorFetch(''));
                 dispatch(endFetch());
             }
@@ -34,4 +32,25 @@ function fetchAuthAsync(phone, password) {
     }
 }
 
-export { setAuth, fetchAuthAsync };
+function fetchUserData(username) {
+    return async function (dispatch) {
+        try {
+            dispatch(startFetch());
+            dispatch(errorFetch(''));
+
+            const user = await getOneAccount(username);
+            if (user) {
+                dispatch(setAuth(user));
+                dispatch(errorFetch(''));
+                dispatch(endFetch());
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch(setAuth(null));
+            dispatch(errorFetch(error.message));
+            dispatch(endFetch());
+        }
+    }
+}
+
+export { setAuth, fetchAuthAsync, fetchUserData };

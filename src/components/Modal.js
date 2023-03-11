@@ -154,7 +154,7 @@ function ModalInfoQueue({ state, setState, click, form, data }) {
         }
     }
     function handlerClick(space, index) {
-        if (form.size < space) {
+            if (form.size <= space) {
             click(index + 1);
         }
     }

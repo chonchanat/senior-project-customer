@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchAuthAsync, setAuth } from '../actions/authActions.js';
+import { fetchAuthAsync, setAuth, fetchUserData } from '../actions/authActions.js';
+
+import { getOpenIDConnect } from '../privateRoute/index.js';
 
 import { ButtonSubmit } from '../components/Button';
 
@@ -13,23 +15,31 @@ function Signin() {
     const dispatch = useDispatch();
     const authReducer = useSelector(state => state.authReducer);
     const statusReducer = useSelector(state => state.statusReducer);
+    const accesToken = Cookies.get("accessToken");
 
+    // fetch accesToken
     useEffect(() => {
-        function signinWithAuth() {
-            const userCookie = Cookies.get("userCookie");
-            if (authReducer) {
-                navigate("/customer-home");
+        function signinWithToken() {
+            if (accesToken) {
+                const username = getOpenIDConnect(accesToken).username;
+                //call to fetch userData to save in authReducer
+                dispatch(fetchUserData(username))
             }
-            if (userCookie) {
-                dispatch(setAuth(JSON.parse(userCookie)));
-            }
-        };
-        signinWithAuth();
-    }, [authReducer, navigate, dispatch])
+        }
+        signinWithToken();
+    }, [accesToken])
+
+    // redirect to home if have authReducer (user data)
+    useEffect(() => {
+        function redirectWithAuth() {
+            if(authReducer) navigate("/customer-home");
+        }
+        redirectWithAuth();
+    }, [authReducer])
 
     const [user, setUser] = useState({
-        phone: "",
-        password: "",
+        phone: "t.chonchanat@hotmail.com",
+        password: "uokl3hfv",
     });
 
     function handlerSignin(e) {
@@ -50,6 +60,7 @@ function Signin() {
                         <input type="text" className="w-full py-2 px-4 rounded-md"
                             required
                             placeholder="phone number"
+                            value={user.phone}
                             onChange={(e) => setUser({ ...user, phone: e.target.value })} />
                     </div>
                     <div className="pb-6">
@@ -57,11 +68,12 @@ function Signin() {
                         <input type="password" className="w-full py-2 px-4 rounded-md"
                             required
                             placeholder="password"
+                            value={user.password}
                             onChange={(e) => setUser({ ...user, password: e.target.value })} />
-                            <p className="h-[28px] text-right text-sm text-decline pt-2">{statusReducer.error}</p>
+                        <p className="h-[28px] text-right text-sm text-decline pt-2">{statusReducer.error}</p>
                     </div>
 
-                    <ButtonSubmit width="w-full" bgColor="bg-accept" font="font-bold" title="Login"/>
+                    <ButtonSubmit width="w-full" bgColor="bg-accept" font="font-bold" title="Login" />
                     <p className="text-right text-sm text-white pt-2 hover:underline">Forget Password?</p>
                 </form>
             </div>

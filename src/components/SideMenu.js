@@ -18,7 +18,7 @@ function SideMenu({ toggle }) {
     const authReducer = useSelector(state => state.authReducer);
 
     function handlerLogout() {
-        Cookies.remove("accesstoken");
+        Cookies.remove("accessToken");
         Cookies.remove("userCookie");
         dispatch(setAuth(null));
         navigate('/customer-signin');
