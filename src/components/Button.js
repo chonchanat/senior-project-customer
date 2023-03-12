@@ -2,7 +2,7 @@ function Button({ children, bgColor, textColor = "text-white", width = "w-fit", 
     return (
         <div className={`${bgColor} ${width} ${font} ${textColor} flex justify-center items-center py-2 px-4 rounded-md shadow-md hover:cursor-pointer`}
             onClick={click}>
-            <p className="text-sm">{children}</p>
+            <p className="text-sm flex">{children}</p>
         </div>
     );
 }

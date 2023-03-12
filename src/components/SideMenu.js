@@ -30,7 +30,7 @@ function SideMenu({ toggle }) {
 
             <div className="relative text-white py-4">
                 <p className="pb-2 font-bold">ยินดีต้อนรับ</p>
-                <p className="font-bold">คุณ {authReducer.username}</p>
+                <p className="font-bold">คุณ {authReducer.role === "customer" ? authReducer.username : authReducer.firstname + " " + authReducer.lastname}</p>
                 {
                     authReducer.role === "customer" ?
                         <p className="flex items-center">ดาวที่เหลือ : {authReducer.star} <AiFillStar className="text-yellow ml-1" /></p>

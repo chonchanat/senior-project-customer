@@ -102,7 +102,7 @@ function StaffScan() {
                     <div>
                         <CardActivity data={data} />
 
-                        <Button width="w-full h-12 mt-4 font-bold" bgColor="bg-[#DFD1C6]" click={() => setOpen(true)}>แสกน qr-code<AiFillCamera size="20px" className="ml-2" /></Button>
+                        <Button width="w-full h-12 mt-4 font-bold" bgColor="bg-[#DFD1C6]" click={() => setOpen(true)}>แสกน QR-Code<AiFillCamera className="ml-2 text-xl"/></Button>
                         <div className="flex my-4">
                             <Button width="w-full h-12" bgColor="bg-accept" click={() => setModalStart("start")}>เริ่มกิจกรรม</Button>
                             <div className="w-8" />

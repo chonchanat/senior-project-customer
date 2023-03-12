@@ -74,7 +74,7 @@ function CustomerActivity() {
                         .sort(compare)
                         .map((data) => {
                             return (
-                                <div>
+                                <div key={data.activity.code}>
                                     <ListAllAcitivty data={data.activity} waitRound={data.waitRound} click={handlerClick} control={control} role={authReducer.role} />
                                     <Divider />
                                 </div>
@@ -82,7 +82,6 @@ function CustomerActivity() {
                         })
                     :
                     <p className="my-8 text-slate-400 text-center">ยังไม่มีรายกายกิจกรรมในขณะนี้</p>
-
                 }
             </BlockMobile>
             <BackToTop />
