@@ -52,13 +52,8 @@ function CustomerScan() {
 
     function handlerAdd() {
         if (form.size < authReducer.members) {
-            if (100 < data.star * (form.size + 1)) {
+            if (authReducer.star < data.star * (form.size + 1)) {
                 setErrMessage("จำนวนดาวไม่เพียงพอ");
-                // } else {
-                //     setForm({ ...form, size: form.size + 1, star: data.star * (form.size + 1) });
-                //     setBookOptions("auto");
-                //     setRound(0)
-                // }
             } else if (form.size + 1 <= spaceLimit) {
                 setForm({ ...form, size: form.size + 1, star: data.star * (form.size + 1) });
             } else {
