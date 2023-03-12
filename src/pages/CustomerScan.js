@@ -48,15 +48,24 @@ function CustomerScan() {
 
     const [bookOptions, setBookOptions] = useState("auto");
     const [round, setRound] = useState(0);
+    const [spaceLimit, setSpaceLimit] = useState(0);
 
     function handlerAdd() {
         if (form.size < authReducer.members) {
             if (100 < data.star * (form.size + 1)) {
                 setErrMessage("จำนวนดาวไม่เพียงพอ");
+                // } else {
+                //     setForm({ ...form, size: form.size + 1, star: data.star * (form.size + 1) });
+                //     setBookOptions("auto");
+                //     setRound(0)
+                // }
+            } else if (form.size + 1 <= spaceLimit) {
+                setForm({ ...form, size: form.size + 1, star: data.star * (form.size + 1) });
             } else {
                 setForm({ ...form, size: form.size + 1, star: data.star * (form.size + 1) });
                 setBookOptions("auto");
-                setRound(0)
+                setRound(0);
+                setSpaceLimit(0);
             }
         }
     }
@@ -64,23 +73,22 @@ function CustomerScan() {
         if (form.size > 1) {
             setErrMessage("");
             setForm({ ...form, size: form.size - 1, star: data.star * (form.size - 1) });
-            setBookOptions("auto");
-            setRound(0)
         }
     }
-
     function handlerManual() {
         for (let i = 0; i < data.allRounds.length; i++) {
             if (data.allRounds[i].space >= form.size) {
                 setRound(i + 1);
+                setSpaceLimit(data.allRounds[i].space);
                 break;
             }
         }
     }
 
-    function selectRound(data) {
+    function selectRound(data, space) {
         setBookOptions("manual");
         setRound(data);
+        setSpaceLimit(space);
         setModalInfo(false);
     }
 
@@ -125,11 +133,11 @@ function CustomerScan() {
                             <p className="mb-2  text-sm">รูปแบบการจองคิว</p>
                             <div className="flex items-center">
                                 <input type="checkbox" className="h-4 w-4 mr-2" checked={bookOptions === "auto"}
-                                    onChange={() => { setBookOptions("auto"); setRound(0) }} />
+                                    onChange={() => { setBookOptions("auto"); setRound(0); setSpaceLimit(0) }} />
                                 <span className="mr-6 text-xs">อัตโนมัติ</span>
 
                                 <input type="checkbox" className="h-4 w-4 mr-2" checked={bookOptions === "manual"}
-                                    onChange={() => { setBookOptions("manual"); setModalInfo(true); if(round === 0) handlerManual(); }} />
+                                    onChange={() => { setBookOptions("manual"); setModalInfo(true); if (round === 0) handlerManual(); }} />
                                 <span className="mr-6 text-xs">จัดการเอง {round !== 0 && <span>(รอบ {round})</span>}</span>
                             </div>
                         </div>

@@ -160,7 +160,7 @@ function ModalInfoQueue({ state, setState, click, form, data, round }) {
     }
     function handlerClick(space, index) {
         if (form.size <= space) {
-            click(index + 1);
+            click(index + 1, space);
         }
     }
 
@@ -183,18 +183,18 @@ function ModalInfoQueue({ state, setState, click, form, data, round }) {
 
                 <div className="h-[180px] overflow-y-scroll">
                     {data.map((data, index) => {
-                        if (data.status === "wait") {
-                            return <div key={index}>
-                                <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, index)}>
-                                    {index === round - 1 ? <div className="w-3 h-3 rounded-full bg-fha" /> : <div />}
-                                    <p>{index + 1}</p>
-                                    <p className="col-span-7 text-xs text-decline">{checkSize(data.space)}</p>
-                                    <p>{data.space}</p>
+                            if (data.status === "wait") {
+                                return <div key={index}>
+                                    <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, index)}>
+                                        {index === round - 1 ? <div className="w-3 h-3 rounded-full bg-fha" /> : <div />}
+                                        <p>{index + 1}</p>
+                                        <p className="col-span-7 text-xs text-decline">{checkSize(data.space)}</p>
+                                        <p>{data.space}</p>
+                                    </div>
+                                    <Divider />
                                 </div>
-                                <Divider />
-                            </div>
-                        }
-                    })}
+                            }
+                        })}
                 </div>
 
             </div>
