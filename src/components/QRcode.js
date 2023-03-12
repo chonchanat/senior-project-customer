@@ -4,6 +4,7 @@ function QRcode({ data }) {
     const qrDataObj = {
         activityCode: data.activityCode,
         queueId: data._id,
+        username: data.username,
         size: data.size,
         diffRound: data.diffRound,
         disable: data.disable,

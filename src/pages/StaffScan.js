@@ -22,9 +22,8 @@ function StaffScan() {
     const { code } = useParams();
 
     const [data, setData] = useState(null);
-    const [bookData, setBookData] = useState([]);
     const [members, setMembers] = useState(0);
-    const [membersArr, setMembersArr] = useState([]);
+    const [bookData, setBookData] = useState([]);
     const [error, setError] = useState("พร้อมสแกน");
 
     const [open, setOpen] = useState(false);
@@ -43,24 +42,33 @@ function StaffScan() {
     const [modalStart, setModalStart] = useState(false);
     const [modalRemove, setModalRemove] = useState(false);
 
-    function handlerScanner(data) {
-        const obj = JSON.parse(data);
-        setError("");
+    function handlerScanner(dataScan) {
+        const obj = JSON.parse(dataScan);
         setOpen(false);
 
         if (obj.disable) {
             setError("QR Code หมดอายุแล้ว");
             return;
         };
-        console.log()
         if (obj.activityCode !== code) {
             setError("QR Code รหัสกิจกรรมไม่ถูกต้อง");
             return;
         }
-        if (!bookData.includes(obj.queueId)) {
-            setBookData([...bookData, obj.queueId]);
+        if (obj.size + members > data.size) {
+            setError("QR Code นี้มีผู้เข้าร่วมกิจกรรมมากกว่าที่ว่าง");
+            return;
+        }
+
+        let found = false;
+        for (const q of bookData) {
+            if (q.queueId === obj.queueId) {
+                setError("QR Code นี้ถูกสแกนแล้ว")
+                found = true;
+            }
+        }
+        if (!found) {
+            setBookData([...bookData, obj])
             setMembers(members + obj.size);
-            setMembersArr([...membersArr, obj.size]);
             setError("พร้อมสแกน");
         }
     }
@@ -68,17 +76,18 @@ function StaffScan() {
     function handlerStart() {
         setModalStart(false);
         setMembers(0);
-        setMembersArr([]);
-        setBookData([]);
+        const bookDataList = [];
+        for (const i of bookData) {
+            bookDataList.push(i.queueId);
+        }
         startQueue({
             activityCode: data.code,
-            queueId: bookData,
+            queueId: bookDataList,
         });
     }
     function handlerRemove() {
         setModalRemove(false);
         setMembers(0);
-        setMembersArr([]);
         setBookData([]);
     }
 
@@ -101,14 +110,14 @@ function StaffScan() {
                         </div>
 
                         <p>ขนาดความจุผู้เข้าร่วม : {members} / {data.size}</p>
-                        <p>สถานะ : {error}</p>
+                        <p>แจ้งเตือน : {error}</p>
                         <p>ตารางแสดงผู้เข้าร่วมรอบนี้</p>
                         <div className="bg-light-gray p-4 rounded-md mt-4">
                             {bookData.map((item, index) =>
                                 <div className="flex" key={index}>
                                     <p className="w-16">{index + 1}</p>
-                                    <p className="w-full">{item}</p>
-                                    <p className="w-16 text-end">{membersArr[index]}คน</p>
+                                    <p className="w-full">{item.username}</p>
+                                    <p className="w-16 text-end">{item.size}คน</p>
                                 </div>
                             )}
                             {bookData.length === 0 && <p className="text-sm">ขณะนี้ยังไม่มีรายการเข้าเล่น</p>}
