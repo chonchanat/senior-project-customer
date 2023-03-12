@@ -1,6 +1,6 @@
 import { startFetch, endFetch, errorFetch } from './statusActions';
 
-import { signin, getOneAccount, getAllAccount } from '../api/userAPI';
+import { signin, getOneAccount } from '../api/userAPI';
 
 import Cookies from 'js-cookie';
 

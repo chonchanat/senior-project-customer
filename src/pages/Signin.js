@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchAuthAsync, setAuth, fetchUserData } from '../actions/authActions.js';
+import { fetchAuthAsync, fetchUserData } from '../actions/authActions.js';
 
 import { getOpenIDConnect } from '../privateRoute/index.js';
 

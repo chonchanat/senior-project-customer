@@ -23,6 +23,18 @@ function CustomerMyActivity() {
 
     const [queueData, setQueueData] = useState([]);
 
+    function compare(a, b) {
+        const timeA = a.diffRound * a.duration;
+        const timeB = b.diffRound * b.duration;
+        if (timeA < timeB) {
+            return -1;
+        }
+        if (timeA > timeB) {
+            return 1;
+        }
+        return 0;
+    }
+
     function handlerClick(data) {
         navigate(`/customer-myactivity/${data._id}`)
     }
@@ -37,14 +49,16 @@ function CustomerMyActivity() {
                 </div>
                 <div className="overflow-hidden overflow-y-auto">
                     {queueData ?
-                        queueData.map((data) => {
-                            return (
-                                <div>
-                                    <ListQueue data={data} click={handlerClick} />
-                                    <Divider />
-                                </div>
-                            );
-                        })
+                        queueData
+                            .sort(compare)
+                            .map((data) => {
+                                return (
+                                    <div>
+                                        <ListQueue data={data} click={handlerClick} />
+                                        <Divider />
+                                    </div>
+                                );
+                            })
                         :
                         <p className="my-8 text-slate-400 text-center">คุณยังไม่มีรายการจองในขณะนี้</p>
                     }
