@@ -24,9 +24,10 @@ function StaffScan() {
     const [data, setData] = useState(null);
     const [bookData, setBookData] = useState([]);
     const [members, setMembers] = useState(0);
+    const [membersArr, setMembersArr] = useState([]);
+    const [error, setError] = useState("พร้อมสแกน");
 
     const [open, setOpen] = useState(false);
-
     useEffect(() => {
         if (authReducer.role === "customer") navigate('/customer-home');
     }, [authReducer, navigate])
@@ -44,35 +45,47 @@ function StaffScan() {
 
     function handlerScanner(data) {
         const obj = JSON.parse(data);
+        setError("");
         setOpen(false);
 
         if (obj.disable) {
-            console.log('QR code อันนี้หมดอายุแล้ว')
+            setError("QR Code หมดอายุแล้ว");
             return;
         };
+        console.log()
+        if (obj.activityCode !== code) {
+            setError("QR Code รหัสกิจกรรมไม่ถูกต้อง");
+            return;
+        }
         if (!bookData.includes(obj.queueId)) {
             setBookData([...bookData, obj.queueId]);
             setMembers(members + obj.size);
+            setMembersArr([...membersArr, obj.size]);
+            setError("พร้อมสแกน");
         }
     }
 
     function handlerStart() {
         setModalStart(false);
+        setMembers(0);
+        setMembersArr([]);
+        setBookData([]);
         startQueue({
             activityCode: data.code,
             queueId: bookData,
         });
-        setBookData([]);
     }
     function handlerRemove() {
         setModalRemove(false);
+        setMembers(0);
+        setMembersArr([]);
         setBookData([]);
     }
 
     return (
         <div>
             <Navbar />
-            <ModalStartQueue state={modalStart} setState={setModalStart} click={handlerStart} />
+            <ModalStartQueue state={modalStart} setState={setModalStart} click={handlerStart} queue={bookData.length} members={members} />
             <ModalRemoveQueue state={modalRemove} setState={setModalRemove} click={handlerRemove} />
             <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner} />
             <BlockMobile>
@@ -88,13 +101,14 @@ function StaffScan() {
                         </div>
 
                         <p>ขนาดความจุผู้เข้าร่วม : {members} / {data.size}</p>
+                        <p>สถานะ : {error}</p>
                         <p>ตารางแสดงผู้เข้าร่วมรอบนี้</p>
                         <div className="bg-light-gray p-4 rounded-md mt-4">
                             {bookData.map((item, index) =>
                                 <div className="flex" key={index}>
                                     <p className="w-16">{index + 1}</p>
                                     <p className="w-full">{item}</p>
-                                    <p className="w-16 text-end">คน</p>
+                                    <p className="w-16 text-end">{membersArr[index]}คน</p>
                                 </div>
                             )}
                             {bookData.length === 0 && <p className="text-sm">ขณะนี้ยังไม่มีรายการเข้าเล่น</p>}

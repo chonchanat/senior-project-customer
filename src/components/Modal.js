@@ -99,7 +99,7 @@ function ModalOptions({ state, setState, click, options }) {
     );
 }
 
-function ModalStartQueue({ state, setState, click, data }) {
+function ModalStartQueue({ state, setState, click, queue, members }) {
     return (
         <div>
             <Wrapper state={state} bgColor="bg-black/50"
@@ -114,8 +114,8 @@ function ModalStartQueue({ state, setState, click, data }) {
                     <BsPlay className="text-white text-5xl bg-accept p-2 rounded-full mx-4" />
                     <div className="text-sm">
                         <p className="text-base mb-2">คุณต้องการเริ่มกิจกรรม</p>
-                        <p>จำนวนคิว</p>
-                        <p>จำนวนผู้เข้าร่วม</p>
+                        <p>จำนวนคิว {queue}</p>
+                        <p>จำนวนผู้เข้าร่วม {members}</p>
                     </div>
                 </div>
                 <Divider />
@@ -184,7 +184,7 @@ function ModalInfoQueue({ state, setState, click, form, data, round }) {
                 <div className="h-[180px] overflow-y-scroll">
                     {data.map((data, index) => {
                         if (data.status === "wait") {
-                            return <div>
+                            return <div key={index}>
                                 <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, index)}>
                                     {index === round - 1 ? <div className="w-3 h-3 rounded-full bg-fha" /> : <div />}
                                     <p>{index + 1}</p>
