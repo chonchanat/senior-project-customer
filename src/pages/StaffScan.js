@@ -76,6 +76,7 @@ function StaffScan() {
     function handlerStart() {
         setModalStart(false);
         setMembers(0);
+        setBookData([]);
         const bookDataList = [];
         for (const i of bookData) {
             bookDataList.push(i.queueId);
@@ -99,10 +100,10 @@ function StaffScan() {
             <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner} />
             <BlockMobile>
                 {data ?
-                    <div>
+                    <div className="text-sm">
                         <CardActivity data={data} />
 
-                        <Button width="w-full h-12 mt-4 font-bold" bgColor="bg-[#DFD1C6]" click={() => setOpen(true)}>แสกน QR-Code<AiFillCamera className="ml-2 text-xl"/></Button>
+                        <Button width="w-full h-12 mt-4 font-bold" bgColor="bg-[#DFD1C6]" click={() => setOpen(true)}>แสกน QR-Code<AiFillCamera className="ml-2 text-xl" /></Button>
                         <div className="flex my-4">
                             <Button width="w-full h-12" bgColor="bg-accept" click={() => setModalStart("start")}>เริ่มกิจกรรม</Button>
                             <div className="w-8" />
@@ -114,10 +115,11 @@ function StaffScan() {
                         <p>ตารางแสดงผู้เข้าร่วมรอบนี้</p>
                         <div className="bg-light-gray p-4 rounded-md mt-4">
                             {bookData.map((item, index) =>
-                                <div className="flex" key={index}>
-                                    <p className="w-16">{index + 1}</p>
-                                    <p className="w-full">{item.username}</p>
-                                    <p className="w-16 text-end">{item.size}คน</p>
+                                <div className="grid grid-cols-10" key={index}>
+                                    <p className="">{index + 1}</p>
+                                    <div className="flex items-center">{item.diffRound ? <div className="w-3 h-3 rounded-full bg-orange-400" /> : <div />}</div>
+                                    <p className="col-span-6">{item.username}</p>
+                                    <p className="col-span-2 text-end">{item.size} คน</p>
                                 </div>
                             )}
                             {bookData.length === 0 && <p className="text-sm">ขณะนี้ยังไม่มีรายการเข้าเล่น</p>}
