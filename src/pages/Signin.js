@@ -51,8 +51,8 @@ function Signin() {
         <div className="h-screen bg-fha flex justify-center">
             <div className="w-80 px-6 pt-16">
                 <div className="pb-16">
-                    <p className="text-center text-white text-3xl font-bold">Ku Que</p>
-                    <p className="text-center text-white text-sm">SENIOR PROJECT</p>
+                    <p className="text-center text-white text-3xl font-bold">QueDee</p>
+                    <p className="text-center text-white text-sm">Web Based Application</p>
                 </div>
                 <form onSubmit={handlerSignin}>
                     <div className="pb-6">

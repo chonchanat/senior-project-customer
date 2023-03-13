@@ -39,7 +39,7 @@ function CustomerActivity() {
     function handlerClick(activityData) {
         if (authReducer.role !== "customer") {
             setControl(activityData.code);
-            Cookies.set('controlActivityCookie', activityData.code)
+            Cookies.set('controlActivityCookie', activityData.code, {sameSite: "None", secure: true})
         }
     }
     function compare(a, b) {
