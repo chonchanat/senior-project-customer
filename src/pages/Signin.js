@@ -38,8 +38,8 @@ function Signin() {
     }, [authReducer, navigate])
 
     const [user, setUser] = useState({
-        phone: "0887828326",
-        password: "uokl3hfv",
+        phone: "",
+        password: "",
     });
 
     function handlerSignin(e) {
@@ -74,7 +74,6 @@ function Signin() {
                     </div>
 
                     <ButtonSubmit width="w-full" bgColor="bg-accept" font="font-bold" title="Login" />
-                    <p className="text-right text-sm text-white pt-2 hover:underline">Forget Password?</p>
                 </form>
             </div>
         </div>

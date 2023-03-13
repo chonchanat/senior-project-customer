@@ -36,7 +36,7 @@ function CustomerHome() {
         async function getIncomingQueueData() {
             const response = await getIncomingQueue(authReducer.username);
             setIncomingQueue(response)
-        }        
+        }
 
         if (authReducer.role === "customer") {
             getIncomingQueueData();
@@ -52,8 +52,14 @@ function CustomerHome() {
         navigate(link);
     }
     function handlerScanner(data) {
-        const code = data.split("/").pop();
-        navigate(`/customer-scan/${code}`);
+        const regexCheck = /^[A-Z]\d{4}$/;
+        const web = "https://quedeeproj.web.app/customer-scan/";
+        if (data.includes(web)) {
+            const code = data.split("/").pop();
+            if (regexCheck.test(code)) {
+                navigate(`/customer-scan/${code}`);
+            } else window.location.reload(true);
+        }
     }
 
     return (
@@ -92,7 +98,7 @@ function CustomerCardHead({ data, click }) {
     return (
         <CardWithHead title="คิวที่กำลังจะถึง">
             {data ?
-                <ListQueue data={data} click={click}/>
+                <ListQueue data={data} click={click} />
                 :
                 <div className="h-16 flex items-center justify-center">
                     <p className="text-sm">ขณะนี้ คุณยังไม่ได้จองกิจกรรมที่ต้องการเล่น</p>

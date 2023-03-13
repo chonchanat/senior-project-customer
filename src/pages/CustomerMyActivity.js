@@ -50,7 +50,7 @@ function CustomerMyActivity() {
                             .sort(compare)
                             .map((data) => {
                                 return (
-                                    <div>
+                                    <div key={data.activityCode}>
                                         <ListQueue data={data} click={handlerClick} />
                                         <Divider />
                                     </div>
