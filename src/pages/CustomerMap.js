@@ -35,7 +35,7 @@ function CustomerMap() {
             <BlockMobile>
                 <CardWithHead title="แผนที่" bgColor="#F8F8F8">
                     <div className="w-full bg-red-300 z-30">
-                        <MapContainer center={fixedPosition} zoom={16} scrollWheelZoom={true} style={{ height: "560px" }}>
+                        <MapContainer center={fixedPosition} zoom={16} scrollWheelZoom={true} style={{ height: "560px", zIndex: 1 }}>
                             <TileLayer
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
