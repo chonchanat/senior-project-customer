@@ -36,12 +36,12 @@ function Comment({ data, setSelectData }) {
             return;
         }
 
-        setNoti({ message: "กำลังโอัปโหลดข้อมูล", error: false });
+        setNoti({ message: "", error: false });
         reviewActivity({
             code: data.code,
             comment: form,
         })
-            .then(() => { setNoti({ message: "", error: false }); window.location.reload(true) })
+            .then(() => window.location.reload(true))
             .catch(() => setNoti({ message: "อัปโหลดข้อมูลไม่สำเร็จ", error: true }))
     }
     return (

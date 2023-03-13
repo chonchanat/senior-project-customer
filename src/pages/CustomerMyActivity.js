@@ -43,10 +43,7 @@ function CustomerMyActivity() {
         <div>
             <Navbar />
             <BlockMobile>
-                <div className="flex justify-between items-end my-2">
-                    <p className="">รายการคิวทั้งหมดของคุณ</p>
-                    <p className="text-sm">กิจกรรมที่จอง <label></label>/5</p>
-                </div>
+                <p className="my-2">รายการคิวทั้งหมดของคุณ</p>
                 <div className="overflow-hidden overflow-y-auto">
                     {queueData ?
                         queueData

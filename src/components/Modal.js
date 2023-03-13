@@ -70,27 +70,27 @@ function ModalOptions({ state, setState, click, options }) {
 
                 <IoMdClose className="ml-auto text-xl" onClick={() => setState(false)} />
                 <p className="text-base mb-2">ตัวเลือกการค้นหา</p>
-                <input className="h-4 w-4 mr-4"
+                <input className="h-5 w-5 mr-4 mb-2"
                     type="checkbox" checked={options.status === "all"} value="all"
                     onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label >ทั้งหมด</label><br />
 
-                <input className="h-4 w-4 mr-4"
+                <input className="h-5 w-5 mr-4 mb-2"
                     type="checkbox" checked={options.status === "open"} value="open"
                     onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label >เปิดให้บริการ</label><br />
 
-                <input className="h-4 w-4 mr-4"
+                <input className="h-5 w-5 mr-4 mb-2"
                     type="checkbox" checked={options.status === "temporarily closed"} value="temporarily closed"
                     onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label>ปิดให้บริการชั่วคราว</label><br />
 
-                <input className="h-4 w-4 mr-4 mb-4"
+                <input className="h-5 w-5 mr-4 mb-4"
                     type="checkbox" checked={options.status === "closed"} value="closed"
                     onChange={(e) => click({ ...options, status: e.target.value })} />
                 <label>ปิดให้บริการ</label><br />
                 <Divider />
-                <input className="h-4 w-4 mr-4 mt-2"
+                <input className="h-5 w-5 mr-4 mt-2"
                     type="checkbox" checked={options.sortMin}
                     onChange={(e) => click({ ...options, sortMin: !options.sortMin })} />
                 <label>เรียงจากเวลารอน้อยที่สุด</label>
@@ -151,11 +151,15 @@ function ModalRemoveQueue({ state, setState, click }) {
     );
 }
 
-function ModalInfoQueue({ state, setState, click, form, data, round }) {
-
-    function checkSize(space) {
+function ModalInfoQueue({ state, setState, click, form, data, round, firstIndex }) {
+    function checkSize(space, index) {
         if (form.size > space) {
-            return "ที่ว่างไม่เพียงพอ";
+            return <p className="col-span-6 text-sm text-decline">ที่ว่างไม่เพียงพอ</p>;
+        }
+        if (data.duration * (index - firstIndex) === 0) {
+            return <p className="col-span-6 text-sm text-accept">พร้อมในรอบต่อไป</p>;
+        } else {
+            return <p className="col-span-6 text-sm">{data.duration * (index - firstIndex)} นาที</p>
         }
     }
     function handlerClick(space, index) {
@@ -177,24 +181,24 @@ function ModalInfoQueue({ state, setState, click, form, data, round }) {
                 <p>รายการที่ว่างของแต่ละรอบ ในขณะนี้</p>
                 <div className="grid grid-cols-10 text-sm my-2">
                     <div />
-                    <p className="col-span-8">รอบ</p>
-                    <p>ที่ว่าง</p>
+                    <p className="col-span-7">รอบ</p>
+                    <p className="col-span-2 text-center">ที่ว่าง</p>
                 </div>
 
                 <div className="h-[180px] overflow-y-scroll">
-                    {data.map((data, index) => {
-                            if (data.status === "wait") {
-                                return <div key={index}>
-                                    <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, index)}>
-                                        {index === round - 1 ? <div className="w-3 h-3 rounded-full bg-fha" /> : <div />}
-                                        <p>{index + 1}</p>
-                                        <p className="col-span-7 text-xs text-decline">{checkSize(data.space)}</p>
-                                        <p>{data.space}</p>
-                                    </div>
-                                    <Divider />
+                    {data.allRounds.map((data, index) => {
+                        if (data.status === "wait") {
+                            return <div key={index}>
+                                <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, index)}>
+                                    {index === round - 1 ? <div className="w-3 h-3 rounded-full bg-fha" /> : <div />}
+                                    <p className="col-span-2">{index - firstIndex + 1}</p>
+                                    {checkSize(data.space, index)}
+                                    <p>{data.space}</p>
                                 </div>
-                            }
-                        })}
+                                <Divider />
+                            </div>
+                        }
+                    })}
                 </div>
 
             </div>

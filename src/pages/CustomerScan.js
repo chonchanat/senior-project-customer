@@ -21,6 +21,7 @@ function CustomerScan() {
     const authReducer = useSelector(state => state.authReducer);
 
     const [data, setData] = useState(null);
+    const [firstIndex, setFirstIndex] = useState(0);
     const [form, setForm] = useState({
         username: authReducer.username,
         activityCode: code,
@@ -37,6 +38,12 @@ function CustomerScan() {
             else {
                 setData(response);
                 setForm({ ...form, star: response.star });
+                for (const q in response.allRounds) {
+                    if (response.allRounds[q].status === "wait") {
+                        setFirstIndex(parseInt(q));
+                        break;
+                    }
+                }
             }
         }
         getActivity();
@@ -72,14 +79,13 @@ function CustomerScan() {
     }
     function handlerManual() {
         for (let i = 0; i < data.allRounds.length; i++) {
-            if (data.allRounds[i].space >= form.size) {
+            if (data.allRounds[i].space >= form.size && data.allRounds[i].status === "wait") {
                 setRound(i + 1);
                 setSpaceLimit(data.allRounds[i].space);
                 break;
             }
         }
     }
-
     function selectRound(data, space) {
         setBookOptions("manual");
         setRound(data);
@@ -101,7 +107,7 @@ function CustomerScan() {
             <Navbar />
             <BlockMobile>
                 <ModalBookQueue state={modalBook} setState={setModalBook} click={handlerSubmit} form={form} data={data} />
-                <ModalInfoQueue state={modalInfo} setState={setModalInfo} click={selectRound} form={form} data={data.allRounds} round={round} />
+                <ModalInfoQueue state={modalInfo} setState={setModalInfo} click={selectRound} form={form} data={data} round={round} firstIndex={firstIndex} />
 
                 <CardWithHead title={"จองคิวกิจกรรม"} bgColor={"#F8F8F8"}>
                     <div className="flex flex-col items-center relative">
@@ -127,13 +133,13 @@ function CustomerScan() {
                         <div className="w-full pt-4 pl-6">
                             <p className="mb-2  text-sm">รูปแบบการจองคิว</p>
                             <div className="flex items-center">
-                                <input type="checkbox" className="h-4 w-4 mr-2" checked={bookOptions === "auto"}
+                                <input type="checkbox" className="h-5 w-5 mr-2" checked={bookOptions === "auto"}
                                     onChange={() => { setBookOptions("auto"); setRound(0); setSpaceLimit(0) }} />
                                 <span className="mr-6 text-xs">อัตโนมัติ</span>
 
-                                <input type="checkbox" className="h-4 w-4 mr-2" checked={bookOptions === "manual"}
+                                <input type="checkbox" className="h-5 w-5 mr-2" checked={bookOptions === "manual"}
                                     onChange={() => { setBookOptions("manual"); setModalInfo(true); if (round === 0) handlerManual(); }} />
-                                <span className="mr-6 text-xs">จัดการเอง {round !== 0 && <span>(รอบ {round})</span>}</span>
+                                <span className="mr-6 text-xs">จัดการเอง {round !== 0 && <span>(รอบ {round - firstIndex})</span>}</span>
                             </div>
                         </div>
 
