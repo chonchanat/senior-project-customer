@@ -120,7 +120,8 @@ function ModalStartQueue({ state, setState, click, queue, members }) {
                 </div>
                 <Divider />
                 <div className="flex justify-end pt-4">
-                    <Button bgColor="bg-accept" width="w-[100px]" click={click}>เริ่ม</Button>
+                    {queue !== 0 && <Button bgColor="bg-accept" width="w-[100px]" click={click}>เริ่ม</Button>}
+                    {queue === 0 && <Button bgColor="bg-slate-300" width="w-[100px]">เริ่ม</Button>}
                 </div>
             </div>
         </div>
@@ -152,6 +153,9 @@ function ModalRemoveQueue({ state, setState, click }) {
 }
 
 function ModalInfoQueue({ state, setState, click, form, data, round, firstIndex }) {
+    const lastIndex = data.allRounds.length - 1;
+    const waitSlot = data.allRounds[lastIndex].status === "done" ? true : false;
+
     function checkSize(space, index) {
         if (form.size > space) {
             return <p className="col-span-6 text-sm text-decline">ที่ว่างไม่เพียงพอ</p>;
@@ -186,19 +190,31 @@ function ModalInfoQueue({ state, setState, click, form, data, round, firstIndex 
                 </div>
 
                 <div className="h-[180px] overflow-y-scroll">
-                    {data.allRounds.map((data, index) => {
-                        if (data.status === "wait") {
-                            return <div key={index}>
-                                <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, index)}>
-                                    {index === round - 1 ? <div className="w-3 h-3 rounded-full bg-fha" /> : <div />}
-                                    <p className="col-span-2">{index - firstIndex + 1}</p>
-                                    {checkSize(data.space, index)}
-                                    <p>{data.space}</p>
-                                </div>
-                                <Divider />
+                    {waitSlot ?
+                        <div>
+                            <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, 0)}>
+                                <div className="w-3 h-3 rounded-full bg-fha" />
+                                <p className="col-span-2">1</p>
+                                <p className="col-span-6 text-sm text-accept">พร้อมในรอบต่อไป</p>
+                                <p>{data.size}</p>
                             </div>
-                        }
-                    })}
+                            <Divider />
+                        </div>
+                        :
+                        data.allRounds.map((data, index) => {
+                            if (data.status === "wait") {
+                                return <div key={index}>
+                                    <div className="grid grid-cols-10 flex items-center text-sm my-2" onClick={() => handlerClick(data.space, index)}>
+                                        {index === round - 1 ? <div className="w-3 h-3 rounded-full bg-fha" /> : <div />}
+                                        <p className="col-span-2">{index - firstIndex + 1}</p>
+                                        {checkSize(data.space, index)}
+                                        <p>{data.space}</p>
+                                    </div>
+                                    <Divider />
+                                </div>
+                            }
+                        })
+                    }
                 </div>
 
             </div>
