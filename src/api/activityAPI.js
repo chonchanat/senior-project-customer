@@ -71,16 +71,12 @@ function putActivity(data) {
 }
 
 async function reviewActivity(data) {
-    try {
-        await axios.post(`/activity/comment`, data, {
-            headers: {
-                'Authorization': `Bearer ${getToken()}`,
-                'Content-Type': 'application/json',
-            }
-        })
-    } catch (error) {
-        console.log(error);
-    }
+    return await axios.post(`/activity/comment`, data, {
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json',
+        }
+    })
 }
 
 export { getAllActivity, getOneActivity, postActivity, deleteActivity, putActivity, reviewActivity };

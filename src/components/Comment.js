@@ -29,11 +29,20 @@ function Comment({ data, setSelectData }) {
         rating: 0,
         text: "",
     });
+    const [noti, setNoti] = useState({ message: "", error: false });
     function handlerSubmit() {
+        if (form.rating === 0) {
+            setNoti({ message: "กรุณาให้คะแนนกิจกรรม", error: true });
+            return;
+        }
+
+        setNoti({ message: "กำลังโอัปโหลดข้อมูล", error: false });
         reviewActivity({
             code: data.code,
             comment: form,
-        });
+        })
+            .then(() => { setNoti({ message: "", error: false }); window.location.reload(true) })
+            .catch(() => setNoti({ message: "อัปโหลดข้อมูลไม่สำเร็จ", error: true }))
     }
     return (
         <div>
@@ -41,10 +50,11 @@ function Comment({ data, setSelectData }) {
             <p className="text-sm text-slate-500 my-2">ให้คะแนน</p>
             <RatingStar form={form} setForm={setForm} />
             <p className="text-sm text-slate-500 my-2">ความคิดเห็น</p>
-            <textarea className="rounded-lg border border-inputBorder bg-light-blue w-full h-32 p-4" onChange={(e) => setForm({...form, text: e.target.value})}/>
+            <textarea className="rounded-lg border border-inputBorder bg-light-blue w-full h-32 p-4" onChange={(e) => setForm({ ...form, text: e.target.value })} />
+            {noti.message && <p className={`text-sm text-center mt-2 ${noti.error ? "text-decline" : "text-accept"}`}>{noti.message}</p>}
             <div className="flex justify-between mt-6">
                 <ButtonTransparent width="w-20" font="font-bold" click={() => setSelectData(null)}>Cancel</ButtonTransparent>
-                <Button bgColor="bg-accept" width="w-20" font="font-bold" click={handlerSubmit}>Post</Button>
+                <Button bgColor="bg-accept" width="w-20" font="font-bold" click={handlerSubmit}>Send</Button>
             </div>
         </div>
     );
