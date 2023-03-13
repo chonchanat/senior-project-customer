@@ -3,7 +3,7 @@ import Html5QrcodePlugin from "./Html5QrcodePlugin";
 
 import { IoClose } from 'react-icons/io5';
 
-function Scanner({ open, setOpen, handlerScanner = () => { return 0; } }) {
+function Scanner({ open, setOpen, handlerScanner = () => { return 0; }, noti }) {
     return (
         <>
             <Wrapper state={open} bgColor="bg-black/50" />
@@ -16,7 +16,8 @@ function Scanner({ open, setOpen, handlerScanner = () => { return 0; } }) {
                         <p className="font-bold">Scan QR-code</p>
                         <IoClose className="text-2xl" onClick={() => setOpen(false)} />
                     </div>
-                    <Html5QrcodePlugin handlerScanner={handlerScanner} open={open} />
+                    <p className="my-2 text-decline">{noti && noti.message}</p>
+                    <Html5QrcodePlugin handlerScanner={handlerScanner} open={open} noti={noti} />
                 </div>
             </div>
         </>

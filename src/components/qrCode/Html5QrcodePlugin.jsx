@@ -1,18 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-function Html5QrcodePlugin({ handlerScanner, open }) {
+function Html5QrcodePlugin({ handlerScanner, open, noti={error:false} }) {
 
     const [loading, setLoading] = useState(true);
 
     const html5Qrcode = useRef();
 
+    useEffect(() => {
+        if (noti.error) {
+            setTimeout(() => {
+                startScanner();
+            }, 500);
+        }
+    }, [noti])
+
     const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-        handlerScanner(decodedText);
+        handlerScanner(decodedText)
         clearScanner();
-        // setTimeout(() => {
-        //     startScanner();
-        // }, 1000)
     };
 
     const qrCodeErrorCallback = () => { };

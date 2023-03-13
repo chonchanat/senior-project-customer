@@ -25,6 +25,7 @@ function CustomerHome() {
     const [open, setOpen] = useState(false);
     const [controlActivity, setControlActivity] = useState(null);
     const [incomingQueue, setIncomingQueue] = useState(null);
+    const [noti, setNoti] = useState({ message: "", error: false });
 
     useEffect(() => {
         async function getControlActivity() {
@@ -58,14 +59,16 @@ function CustomerHome() {
             const code = data.split("/").pop();
             if (regexCheck.test(code)) {
                 navigate(`/customer-scan/${code}`);
-            } else window.location.reload(true);
+            } else setNoti({ message: "QR Code ไม่ถูกต้อง", error: true });
+        } else {
+            setNoti({ message: "QR Code ไม่ถูกต้อง", error: true });
         }
     }
 
     return (
         <div>
             <Navbar />
-            <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner} />
+            <Scanner open={open} setOpen={setOpen} handlerScanner={handlerScanner} noti={noti} />
             <BlockMobile>
 
                 {authReducer.role !== "customer" ?
