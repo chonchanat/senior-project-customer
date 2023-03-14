@@ -15,7 +15,7 @@ function StarRating({ rating }) {
     );
 }
 
-function ListAllAcitivty({ data, waitRound,click = () => { return 0 }, control, role }) {
+function ListAllAcitivty({ data, waitRound, click = () => { return 0 }, control, role }) {
 
     function handlerStatus() {
         if (data.status === "open") return "bg-accept";
@@ -84,10 +84,16 @@ function ListQueue({ data, click = () => { return 0 } }) {
 
 function ListComment({ data, setSelectData }) {
     function comment() {
-        if (data.status === "done") setSelectData(data);
+        if (data.status === "done" && !data.commentStatus) setSelectData(data);
+    }
+    function showText() {
+        if (data.status === "done") {
+            if (data.commentStatus) return "ให้คะแนนแล้ว";
+            else return "กดเพื่อให้คะแนน";
+        }
     }
     return (
-        <div className="py-2 flex h-fit hover:bg-hover" key={data.id} onClick={comment}>
+        <div className="py-2 flex h-fit hover:bg-hover" onClick={comment}>
             <div className="h-auto w-[30%] overflow-hidden flex items-center">
                 <img src={data.image} className="h-[80px] w-[120px] rounded-md" alt="iamge of activity" />
             </div>
@@ -99,7 +105,7 @@ function ListComment({ data, setSelectData }) {
                         {data.status === "done" ? "เข้าร่วมแล้ว" : data.status === "cancel" ? "ยกเลิกการจอง" : data.status === "notJoined" && "ไม่ได้เข้าร่วม"}
                     </span>
                 </p>
-                {data.status === "done" && <p className="text-xs flex-1 flex justify-end items-end">กดเพื่อให้คะแนน</p>}
+                <p className="text-xs flex-1 flex justify-end items-end">{showText()}</p>
             </div>
         </div>
     );

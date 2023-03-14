@@ -31,6 +31,8 @@ function CustomerScan() {
     });
     useEffect(() => {
         async function getActivity() {
+            if (authReducer.role !== "customer") navigate("/customer-home");
+            
             const response = await getOneActivity(code);
             if (!response) {
                 navigate('/customer-home');

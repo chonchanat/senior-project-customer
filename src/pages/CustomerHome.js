@@ -87,7 +87,7 @@ function CustomerHome() {
                 {authReducer.role === "customer" &&
                     <CardComment click={() => handlerCard("/customer-comment")}>
                         <BiCommentDetail className="text-white text-lg" />
-                        <p className="text-white text-sm font-bold ml-2">ประวัติกิจกรรม</p>
+                        <p className="text-white text-sm ml-2">ประวัติกิจกรรม</p>
                     </CardComment>
                 }
 

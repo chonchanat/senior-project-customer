@@ -22,12 +22,12 @@ function RatingStar({ form, setForm }) {
 }
 
 function Comment({ data, setSelectData }) {
-
     const authReducer = useSelector(state => state.authReducer);
     const [form, setForm] = useState({
         username: authReducer.username,
         rating: 0,
         text: "",
+        queueId: data.queueId,
     });
     const [noti, setNoti] = useState({ message: "", error: false });
     function handlerSubmit() {
@@ -39,7 +39,7 @@ function Comment({ data, setSelectData }) {
         setNoti({ message: "", error: false });
         reviewActivity({
             code: data.code,
-            comment: form,
+            comment: { ...form, createdAt: new Date() },
         })
             .then(() => window.location.reload(true))
             .catch(() => setNoti({ message: "อัปโหลดข้อมูลไม่สำเร็จ", error: true }))

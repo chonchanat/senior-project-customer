@@ -33,6 +33,8 @@ function StaffScan() {
 
     useEffect(() => {
         async function getActivity() {
+            if (authReducer.role === "customer") navigate("/customer-home");
+
             const response = await getOneActivity(code);
             setData(response);
         }

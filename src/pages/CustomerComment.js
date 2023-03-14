@@ -33,9 +33,9 @@ function CustomerComment() {
                         <p className="my-2">ประวัติการเข้าร่วมกิจกรรม</p>
                         {
                             history.length ?
-                                history.map((data) => {
+                                history.map((data, index) => {
                                     return (
-                                        <ListComment data={data} setSelectData={setSelectData} />
+                                        <ListComment data={data} setSelectData={setSelectData} key={data.queueId} />
                                     );
                                 })
                                 :
