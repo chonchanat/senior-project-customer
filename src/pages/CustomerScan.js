@@ -12,7 +12,6 @@ import { getOneActivity } from '../api/activityAPI';
 import { createQueue, createManualQueue } from '../api/queueAPI';
 
 import { AiFillStar } from 'react-icons/ai';
-import { GrCircleInformation } from 'react-icons/gr';
 
 function CustomerScan() {
 
@@ -32,7 +31,7 @@ function CustomerScan() {
     useEffect(() => {
         async function getActivity() {
             if (authReducer.role !== "customer") navigate("/customer-home");
-            
+
             const response = await getOneActivity(code);
             if (!response) {
                 navigate('/customer-home');
@@ -96,7 +95,7 @@ function CustomerScan() {
     }
 
     function handlerSubmit() {
-        if (bookOptions === "auto") {
+        if (round === 0 || bookOptions === "auto") {
             createQueue({ ...form, star: form.size * data.star }).then((queueId) => navigate(`/customer-myactivity/${queueId}`));
         } else {
             createManualQueue({ ...form, star: form.size * data.star, round: round }).then((queueId) => navigate(`/customer-myactivity/${queueId}`));
@@ -114,11 +113,11 @@ function CustomerScan() {
                 <CardWithHead title={"จองคิวกิจกรรม"} bgColor={"#F8F8F8"}>
                     <div className="flex flex-col items-center relative">
                         <p className="text-xl font-bold">{data.name[0]}</p>
-                        <p className="flex items-center text-sm">{data.star} <AiFillStar className="text-yellow mx-1" /> / คน</p>
+                        <p className="flex items-center text-xs">{data.star} <AiFillStar className="text-yellow mx-1" /> / คน</p>
                         <p className="text-sm">ความจุกิจกรรม {data.size} คน</p>
 
                         <img src={data.picture} className="mt-4 h-[120px] w-[180px] rounded-md" alt="img of activity" />
-                        <p className="mt-6 text-sm">จำนวนผู้เข้าร่วม (สูงสุด {authReducer.members} คน)</p>
+                        <p className="mt-6 text-sm">(จำนวนลูกค้า {authReducer.members} คน)</p>
                         <div className="flex my-2 bg-gray-200 rounded-lg h-[40px] items-center">
                             <div className="mx-[16px] w-[28px] h-[28px] text-center border-[1px] border-gray-300 rounded-full" onClick={handlerSub}>
                                 -
@@ -152,7 +151,7 @@ function CustomerScan() {
                         </div>
                         <p className="text-sm text-decline">{errMessage}</p>
 
-                        <GrCircleInformation className="absolute top-1 right-2 text-2xl" onClick={() => setModalInfo(true)} />
+                        {/* <GrCircleInformation className="absolute top-1 right-2 text-2xl" onClick={() => setModalInfo(true)} /> */}
                     </div>
                 </CardWithHead>
             </BlockMobile>
